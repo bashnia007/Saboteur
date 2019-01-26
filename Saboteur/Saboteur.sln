@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saboteur", "Saboteur.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "..\Server\Server.csproj", "{F4BC70B9-FF2B-4DAD-9F48-BC67C0E0BD0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{0F2BD787-DDE0-4B2A-9A57-AD03E2A6CD1A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{F4BC70B9-FF2B-4DAD-9F48-BC67C0E0BD0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4BC70B9-FF2B-4DAD-9F48-BC67C0E0BD0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4BC70B9-FF2B-4DAD-9F48-BC67C0E0BD0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F2BD787-DDE0-4B2A-9A57-AD03E2A6CD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F2BD787-DDE0-4B2A-9A57-AD03E2A6CD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F2BD787-DDE0-4B2A-9A57-AD03E2A6CD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F2BD787-DDE0-4B2A-9A57-AD03E2A6CD1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
