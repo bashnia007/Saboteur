@@ -43,15 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ActionCard.cs" />
-    <Compile Include="Classes\GoldCard.cs" />
-    <Compile Include="Classes\Card.cs" />
+    <Compile Include="CardsClasses\ActionCard.cs" />
+    <Compile Include="CardsClasses\GoldCard.cs" />
+    <Compile Include="CardsClasses\Card.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\RoleType.cs" />
     <Compile Include="Enumerations\RouteType.cs" />
     <Compile Include="Enumerations\GoldType.cs" />
-    <Compile Include="Classes\RouteCard.cs" />
-    <Compile Include="Classes\RoleCard.cs" />
+    <Compile Include="CardsClasses\RouteCard.cs" />
+    <Compile Include="CardsClasses\RoleCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
