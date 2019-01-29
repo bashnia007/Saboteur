@@ -2,7 +2,7 @@
 
 namespace CommonLibrary.CardsClasses
 {
-	public class ActionCard : Card
+	public class ActionCard : HandCard
 	{
 		public ActionType Action { get; set; }
 	}

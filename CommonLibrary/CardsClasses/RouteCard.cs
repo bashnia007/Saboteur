@@ -2,7 +2,7 @@
 
 namespace CommonLibrary.CardsClasses
 {
-	public class RouteCard: Card
+	public class RouteCard: HandCard
 	{
 		public RouteType Type { get; set; }
 	}
