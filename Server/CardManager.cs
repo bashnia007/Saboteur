@@ -1,19 +1,25 @@
 ﻿using System;
+using CommonLibrary.CardsClasses;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommonLibrary;
 
 namespace Server
 {
 	class CardManager
 	{
-		public Queue<Card> SuffleCards(List<Card> InitialSet)
+		public Queue<Card> ShuffleCards(List<Card> initialSet)
 		{
-			int setLength = InitialSet.Count;
-
-			return null;
+			Queue<Card> ShuffledCards = new Queue<Card>();
+			int initialSetLength = initialSet.Count;
+			Random rnd = new Random();
+			while (initialSetLength > 0)
+			{
+				int number = rnd.Next(initialSetLength);
+				var cardByNumber = initialSet[number];
+				ShuffledCards.Enqueue(cardByNumber);
+				initialSet.RemoveAt(number);
+				initialSetLength = initialSet.Count;
+			}
+			return ShuffledCards;
 		}
 	}
 }
