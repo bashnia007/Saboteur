@@ -53,6 +53,7 @@
     <Compile Include="CardsClasses\RouteCard.cs" />
     <Compile Include="CardsClasses\RoleCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tcp\TcpConfig.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
