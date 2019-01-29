@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommonLibrary
+﻿namespace CommonLibrary.Enumerations
 {
-	enum ActionType
+	public enum ActionType
 	{
 		BreakLamp, 
 		BreakPick,
@@ -17,5 +11,5 @@ namespace CommonLibrary
 		SpyGoldCard,
 		DestroyConnecton, 
 		Prison
-	}
+	}	
 }
