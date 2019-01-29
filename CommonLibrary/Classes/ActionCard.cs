@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CommonLibrary
 {
-    public class Class1
-    {
-    }
+	class ActionCard: Card
+	{
+		ActionType action { get; set; }
+	}
 }
