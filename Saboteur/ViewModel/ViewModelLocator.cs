@@ -12,9 +12,9 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Saboteur.ViewModel
 {
@@ -49,7 +49,7 @@ namespace Saboteur.ViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return CommonServiceLocator.ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
         
