@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Sabateur Game" 
+        WindowStartupLocation="CenterScreen"
         Height="450" 
-        Width="800" 
+        MinHeight="300"
+        Width="800"
+        MinWidth="400"
         Background="DarkOliveGreen">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -34,13 +37,15 @@
 
         <TextBox Grid.Column="1"
                  Grid.Row="2"
-                 Width="200"
-                 Height="50" 
+                 Width="250"
+                 Height="50"
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Center"
                  Background="AliceBlue"
                  TextAlignment="Center"
                  VerticalContentAlignment="Center"
+                 MaxLength="15"
+                 MinLines="1" 
                  TextOptions.TextHintingMode="Animated"
                  CharacterCasing="Upper"
                  FontSize="19">
