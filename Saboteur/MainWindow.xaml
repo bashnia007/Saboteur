@@ -5,20 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Saboteur"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="250"/>
             <RowDefinition />
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="250"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <local:PlayerHand Grid.Row="0"
-                          Grid.Column="0"/>
+                          Grid.Column="0"
+                          DataContext="{Binding EnemyHand}"
+                          RenderTransformOrigin="0.5, 0.5">
+            <local:PlayerHand.RenderTransform>
+                <RotateTransform  Angle="180"></RotateTransform>
+            </local:PlayerHand.RenderTransform>
+        </local:PlayerHand>
         <local:PlayerHand Grid.Row="2"
-                          Grid.Column="0"/>
+                          Grid.Column="0"
+                          DataContext="{Binding MyHand}"/>
     </Grid>
 </Window>

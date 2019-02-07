@@ -12,16 +12,37 @@
             <Rectangle Width="100" Height="100" Fill="LightSlateGray" Stroke="Black" StrokeThickness="1" Margin="5" />
         </DataTemplate>
     </UserControl.Resources>
-    <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-             Background="Red" 
-             HorizontalAlignment="Left"
-             VerticalAlignment="Top" 
-             ItemsSource="{Binding Cards}">
-        <ListBox.ItemsPanel>
-            <ItemsPanelTemplate>
-                <WrapPanel Background="AntiqueWhite" Margin="5" />
-            </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
-    </ListBox>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Rectangle Width="100"
+                       Height="100" 
+                       Fill="LightSlateGray"
+                       Margin="20, 0"/>
+            <Rectangle Width="100" Height="100" 
+                       Fill="LightSlateGray"
+                       Margin="20, 0"/>
+            <Rectangle Width="100" Height="100" 
+                       Fill="LightSlateGray"
+                       Margin="20, 0"/>
+        </StackPanel>
+        <ListBox Grid.Row="1"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                 Background="Red" 
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Top" 
+                 ItemsSource="{Binding Cards}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Background="AntiqueWhite" Margin="5" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </Grid>
 </UserControl>

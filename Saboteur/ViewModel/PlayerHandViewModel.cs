@@ -17,6 +17,11 @@ namespace Saboteur.ViewModel
         {
             Cards = new ObservableCollection<HandCard>();
             Cards.Add(new HandCard());
+            Cards.Add(new HandCard());
+            Cards.Add(new HandCard());
+            Cards.Add(new HandCard());
+            Cards.Add(new HandCard());
+            Cards.Add(new HandCard());
         }
     }
 }
