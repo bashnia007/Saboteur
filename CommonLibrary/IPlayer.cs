@@ -3,11 +3,11 @@ using CommonLibrary.CardsClasses;
 
 namespace CommonLibrary
 {
-	interface IPlayer
+	public abstract class IPlayer
 	{
-		int Id { get; set; }
-		string Name { get; set; }
-		RoleCard Role { get; set; }
-		List<Card> Hand { get; set; }
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public RoleCard Role { get; set; }
+		public List<Card> Hand { get; set; }
 	}
 }
