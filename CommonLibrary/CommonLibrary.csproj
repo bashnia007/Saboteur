@@ -47,6 +47,7 @@
     <Compile Include="CardsClasses\HandCard.cs" />
     <Compile Include="CardsClasses\GoldCard.cs" />
     <Compile Include="CardsClasses\Card.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\CardType.cs" />
