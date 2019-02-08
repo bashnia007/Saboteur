@@ -3,11 +3,11 @@ using CommonLibrary.CardsClasses;
 
 namespace CommonLibrary
 {
-	class Table
+	public class Table
 	{
 		List<IPlayer> players = new List<IPlayer>();
 		List<Card> openedCards = new List<Card>();
 		List<GoldCard> goldCards = new List<GoldCard>();
-		Queue<HandCard> unusedCards = new Queue<HandCard>(); 
+		Queue<HandCard> unusedCards = new Queue<HandCard>();
 	}
 }
