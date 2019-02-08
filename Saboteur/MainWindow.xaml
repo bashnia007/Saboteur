@@ -4,13 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Saboteur"
+        xmlns:cardsClasses="clr-namespace:CommonLibrary.CardsClasses;assembly=CommonLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Rectangle Width="55" Height="80" Fill="Blue" Stroke="Red" StrokeThickness="1" Margin="1" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}"
+                          ItemTemplate="{DynamicResource DataTemplate_Level2}"
+                          HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="75"/>
             <RowDefinition />
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -21,9 +40,15 @@
                           DataContext="{Binding EnemyHand}"
                           RenderTransformOrigin="0.5, 0.5">
             <local:PlayerHand.RenderTransform>
-                <RotateTransform  Angle="180"></RotateTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="180"></RotateTransform>
+                </TransformGroup>
             </local:PlayerHand.RenderTransform>
         </local:PlayerHand>
+        <ItemsControl Grid.Row="1"
+                      Grid.Column="0"
+                      ItemTemplate="{DynamicResource DataTemplate_Level1}"
+                      ItemsSource="{Binding Map}"></ItemsControl>
         <local:PlayerHand Grid.Row="2"
                           Grid.Column="0"
                           DataContext="{Binding MyHand}"/>
