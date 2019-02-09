@@ -22,16 +22,32 @@
             <Rectangle Width="50"
                        Height="50" 
                        Fill="LightSlateGray"
-                       Margin="20, 0"/>
+                       Margin="20, 0">
+                <Rectangle.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding MakeActionCommand}" CommandParameter="Lamp"/>
+                </Rectangle.InputBindings>
+            </Rectangle>
             <Rectangle Width="50" Height="50" 
                        Fill="LightSlateGray"
-                       Margin="20, 0"/>
+                       Margin="20, 0">
+                <Rectangle.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding MakeActionCommand}" CommandParameter="Pick"/>
+                </Rectangle.InputBindings>
+            </Rectangle>
             <Rectangle Width="50" Height="50" 
                        Fill="LightSlateGray"
-                       Margin="20, 0"/>
+                       Margin="20, 0">
+                <Rectangle.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding MakeActionCommand}" CommandParameter="Trolley"/>
+                </Rectangle.InputBindings>
+            </Rectangle>
             <Rectangle Width="50" Height="50" 
                        Fill="LightSlateGray"
-                       Margin="20, 0"/>
+                       Margin="20, 0">
+                <Rectangle.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding MakeActionCommand}" CommandParameter="Prison"/>
+                </Rectangle.InputBindings>
+            </Rectangle>
         </StackPanel>
         <ListBox Grid.Row="1"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
@@ -39,7 +55,8 @@
                  Background="Red" 
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top" 
-                 ItemsSource="{Binding Cards}">
+                 ItemsSource="{Binding Cards}"
+                 SelectedItem="{Binding SelectedCard}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Background="Green" />

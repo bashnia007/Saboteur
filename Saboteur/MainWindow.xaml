@@ -4,12 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Saboteur"
-        xmlns:cardsClasses="clr-namespace:CommonLibrary.CardsClasses;assembly=CommonLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="800">
     <Window.Resources>
         <DataTemplate x:Key="DataTemplate_Level2">
-            <Rectangle Width="55" Height="80" Fill="Blue" Stroke="Red" StrokeThickness="1" Margin="1" />
+            <Rectangle Width="55" Height="80" Fill="Blue" Stroke="Red" StrokeThickness="1" Margin="1">
+                <Rectangle.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.BuildTunnelCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
+                </Rectangle.InputBindings>
+            </Rectangle>
         </DataTemplate>
 
         <DataTemplate x:Key="DataTemplate_Level1">
