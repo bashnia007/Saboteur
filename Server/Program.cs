@@ -14,7 +14,7 @@ namespace Server
         static Thread listenThread; // потока для прослушивания
         static void Main(string[] args)
         {
-            try
+			/*try
             {
                 server = new ServerObject();
                 listenThread = new Thread(server.Listen);
@@ -25,6 +25,10 @@ namespace Server
                 server.Disconnect();
                 Console.WriteLine(ex.Message);
             }
+			*/
+
+			Launcher launcher = new Launcher();
+			launcher.ProvideHandCardsForPlayers();
         }
     }
 }

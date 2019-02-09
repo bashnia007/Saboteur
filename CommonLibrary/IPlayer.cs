@@ -8,6 +8,6 @@ namespace CommonLibrary
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public RoleCard Role { get; set; }
-		public List<Card> Hand { get; set; }
+		public List<HandCard> Hand { get; set; }
 	}
 }
