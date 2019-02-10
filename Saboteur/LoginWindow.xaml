@@ -49,7 +49,11 @@
                  TextOptions.TextHintingMode="Animated"
                  CharacterCasing="Upper"
                  FontSize="19"
-                 Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
+                 ToolTip="You need to enter at least one symbol">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding Path=JoinCommand}" Key="Enter" />
+            </TextBox.InputBindings>
         </TextBox>
 
         <Button Grid.Column="1" 
