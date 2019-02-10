@@ -12,28 +12,26 @@ namespace Saboteur.ViewModel
         public PlayerHandViewModel MyHand { get; set; }
         public PlayerHandViewModel EnemyHand { get; set; }
         public ObservableCollection<ObservableCollection<RouteCard>> Map { get; set; }
-
-        public string Text { get; set; }
+        //public Card SelectedCard { get; set; }
 
         public MainViewModel()
         {
             Window = new MainWindow();
-            Text = "dddd";
             Window.DataContext = this;
-            MyHand = new PlayerHandViewModel();
-            EnemyHand = new PlayerHandViewModel();
+            MyHand = new PlayerHandViewModel(true);
+            EnemyHand = new PlayerHandViewModel(false);
 
             var list = new List<RouteCard>
             {
-                new RouteCard(),
-                new RouteCard(),
-                new RouteCard(),
-                new RouteCard(),
-                new RouteCard(),
-                new RouteCard(),
-                new RouteCard(),
-                new RouteCard(),
-                new RouteCard(),
+                new RouteCard(1),
+                new RouteCard(2),
+                new RouteCard(3),
+                new RouteCard(4),
+                new RouteCard(5),
+                new RouteCard(6),
+                new RouteCard(7),
+                new RouteCard(8),
+                new RouteCard(9),
             };
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
             Map.Add(new ObservableCollection<RouteCard>(list));

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommonLibrary.CardsClasses;
 using Saboteur.MVVM;
@@ -15,15 +10,19 @@ namespace Saboteur.ViewModel
         public ObservableCollection<HandCard> Cards { get; set; }
         public Card SelectedCard { get; set; }
 
-        public PlayerHandViewModel()
+        private bool _isMyHand;
+
+        public PlayerHandViewModel(bool isMyHand)
         {
             Cards = new ObservableCollection<HandCard>();
-            Cards.Add(new HandCard());
-            Cards.Add(new HandCard());
-            Cards.Add(new HandCard());
-            Cards.Add(new HandCard());
-            Cards.Add(new HandCard());
-            Cards.Add(new HandCard());
+            Cards.Add(new HandCard(1));
+            Cards.Add(new HandCard(2));
+            Cards.Add(new HandCard(3));
+            Cards.Add(new HandCard(4));
+            Cards.Add(new HandCard(5));
+            Cards.Add(new HandCard(6));
+
+            _isMyHand = isMyHand;
         }
 
         #region Commands
