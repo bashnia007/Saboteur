@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CommonLibrary;
 using CommonLibrary.CardsClasses;
+using Saboteur.Models;
 using Saboteur.MVVM;
 
 namespace Saboteur.ViewModel
@@ -12,14 +14,21 @@ namespace Saboteur.ViewModel
         public PlayerHandViewModel MyHand { get; set; }
         public PlayerHandViewModel EnemyHand { get; set; }
         public ObservableCollection<ObservableCollection<RouteCard>> Map { get; set; }
-        //public Card SelectedCard { get; set; }
+        public Card SelectedCard { get; set; }
+        public List<Player> Players { get; set; } 
+        public Player CurrentPlayer { get; set; }
 
         public MainViewModel()
         {
+            CurrentPlayer = new Player(){Name = "Me"};
+            Players = new List<Player>();
+            Players.Add(CurrentPlayer);
+            Players.Add(new Player(){Name = "Enemy"});
+
             Window = new MainWindow();
             Window.DataContext = this;
-            MyHand = new PlayerHandViewModel(true);
-            EnemyHand = new PlayerHandViewModel(false);
+            MyHand = new PlayerHandViewModel(true, CurrentPlayer);
+            EnemyHand = new PlayerHandViewModel(false, Players[1]);
 
             var list = new List<RouteCard>
             {
@@ -61,6 +70,27 @@ namespace Saboteur.ViewModel
         private bool CanExecuteBuildTunnelCommand(object obj)
         {
             return true;
+        }
+
+        #endregion
+
+        #region MakeActionCommand
+
+        private RelayCommand _makeActionCommand;
+
+        public ICommand MakeActionCommand => _makeActionCommand ??
+                                             (_makeActionCommand = new RelayCommand(ExecuteMakeActionCommand,
+                                                 CanExecuteMakeActionCommand));
+
+        public void ExecuteMakeActionCommand(object obj)
+        {
+            var action = (ActionModel)obj;
+            var command = action.Equipment;
+        }
+
+        public bool CanExecuteMakeActionCommand(object obj)
+        {
+            return SelectedCard != null;
         }
 
         #endregion

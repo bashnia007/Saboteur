@@ -9,7 +9,8 @@
 		FixPick,
 		FixTrolly,
 		SpyGoldCard,
-		DestroyConnecton, 
-		Prison
+		DestroyConnection, 
+	    ToPrison,
+        OutPrison
 	}	
 }
