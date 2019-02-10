@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Saboteur.LogChat"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Saboteur"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="400">
+    
+    <Grid ShowGridLines="True" Background="DarkGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="700"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <RichTextBox Grid.Column="0"
+                     Grid.Row="0"
+                     Width="390"
+                     Height="680"
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Center"
+                     Background="AliceBlue"
+                     HorizontalContentAlignment="Left"
+                     VerticalContentAlignment="Top">
+        </RichTextBox>
+
+        <TextBox Grid.Column="0"
+                     Grid.Row="1"
+                     Width="390"
+                     Height="130"
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Center"
+                     Background="AliceBlue"
+                     TextAlignment="Right"
+                     VerticalContentAlignment="Center"
+                     MaxLength="500"
+                     MinLines="1" 
+                     TextOptions.TextHintingMode="Animated"
+                     FontSize="14">
+        </TextBox>
+
+        <!-- We need to figure out the way to use the following code in TextBox!!!
+        
+        Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding Path=JoinCommand}" Key="Enter" />
+            </TextBox.InputBindings
+        -->
+
+        <Button Grid.Column="0" 
+                    Grid.Row="2" 
+                    Content="SEND" 
+                    Width="110" 
+                    Height="30" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right"
+                    Background="Gray">
+        </Button>
+
+        <!-- We need to figure out the way to use the following code in Button!!!
+        
+        Command="{Binding JoinCommand}">
+        -->
+
+    </Grid>
+
+</UserControl>
