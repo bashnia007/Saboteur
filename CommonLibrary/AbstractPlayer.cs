@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using CommonLibrary.CardsClasses;
+﻿using CommonLibrary.CardsClasses;
+using System.Collections.Generic;
 
 namespace CommonLibrary
 {
-	public abstract class IPlayer
+	public abstract class AbstractPlayer
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

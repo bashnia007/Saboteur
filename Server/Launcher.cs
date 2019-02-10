@@ -8,7 +8,7 @@ namespace Server
 	public class Launcher
 	{
 		CardManager cardManager;
-		public List<IPlayer> Players { get; set; }
+		public List<AbstractPlayer> Players { get; set; }
 		public List<Card> RoleCards { get; set; }
 		public List<Card> HandCards { get; set; }
 
@@ -16,7 +16,7 @@ namespace Server
 		{
 			cardManager = new CardManager();
 
-			Players = new List<IPlayer>();
+			Players = new List<AbstractPlayer>();
 			Players.Add(new Player());
 			Players.Add(new Player());
 
