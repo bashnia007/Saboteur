@@ -14,8 +14,8 @@ namespace Server
         static Thread listenThread; // потока для прослушивания
         static void Main(string[] args)
         {
-            try
-            {
+			try
+			{
                 server = new ServerObject();
                 listenThread = new Thread(server.Listen);
                 listenThread.Start(); //старт потока
