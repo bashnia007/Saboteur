@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="400">
     
-    <Grid ShowGridLines="True" Background="DarkGray">
+    <Grid ShowGridLines="False" Background="DarkGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="700"></RowDefinition>
             <RowDefinition Height="150"></RowDefinition>
@@ -58,6 +58,7 @@
                     Height="30" 
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Right"
+                    Margin="275 10 5 10"
                     Background="Gray">
         </Button>
 
