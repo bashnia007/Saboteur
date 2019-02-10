@@ -1,6 +1,9 @@
-﻿namespace CommonLibrary.Enumerations
+﻿using System;
+
+namespace CommonLibrary.Enumerations
 {
-	public enum ActionType
+    [Serializable]
+    public enum ActionType
 	{
 		BreakLamp, 
 		BreakPick,

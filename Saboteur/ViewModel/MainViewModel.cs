@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommonLibrary;
 using CommonLibrary.CardsClasses;
+using CommonLibrary.Enumerations;
+using CommonLibrary.Message;
 using Saboteur.Models;
 using Saboteur.MVVM;
 
@@ -18,12 +20,14 @@ namespace Saboteur.ViewModel
         public List<Player> Players { get; set; } 
         public Player CurrentPlayer { get; set; }
 
+        private Client _client;
+
         public MainViewModel()
         {
-            CurrentPlayer = new Player(){Name = "Me"};
+            CurrentPlayer = new Player(){Name = "Me", Id = 1};
             Players = new List<Player>();
             Players.Add(CurrentPlayer);
-            Players.Add(new Player(){Name = "Enemy"});
+            Players.Add(new Player(){Name = "Enemy", Id = 2});
 
             Window = new MainWindow();
             Window.DataContext = this;
@@ -50,6 +54,9 @@ namespace Saboteur.ViewModel
             Map.Add(new ObservableCollection<RouteCard>(list));
             Map.Add(new ObservableCollection<RouteCard>(list));
             Map.Add(new ObservableCollection<RouteCard>(list));
+
+            _client = new Client();
+            _client.EstablishConnection();
         }
 
         #region Commands
@@ -86,6 +93,12 @@ namespace Saboteur.ViewModel
         {
             var action = (ActionModel)obj;
             var command = action.Equipment;
+            _client.SendMessage(new ActionMessage
+            {
+                ActionType = ActionType.BreakLamp,
+                SenderId = CurrentPlayer.Id,
+                RecepientId = CurrentPlayer.Id
+            });
         }
 
         public bool CanExecuteMakeActionCommand(object obj)
