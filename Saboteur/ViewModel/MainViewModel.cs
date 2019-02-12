@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using CommonLibrary;
+﻿using CommonLibrary;
 using CommonLibrary.CardsClasses;
 using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
 using Saboteur.Models;
 using Saboteur.MVVM;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Saboteur.ViewModel
 {
@@ -61,7 +61,7 @@ namespace Saboteur.ViewModel
 
         #region Commands
 
-        #region BuildTunnelCommand
+        #region BuildTunnelCommand - команда, вызываемая про постройке карты тунеля
 
         private RelayCommand _buildTunnelCommand;
 
@@ -81,7 +81,7 @@ namespace Saboteur.ViewModel
 
         #endregion
 
-        #region MakeActionCommand
+        #region MakeActionCommand - команда, вызываемая при выборе игрока сыграть карту действия
 
         private RelayCommand _makeActionCommand;
 
@@ -91,8 +91,9 @@ namespace Saboteur.ViewModel
 
         public void ExecuteMakeActionCommand(object obj)
         {
+            // получаем и сохраняем выбранное действие
             var action = (ActionModel)obj;
-            var command = action.Equipment;
+            // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
             _client.SendMessage(new ActionMessage
             {
                 ActionType = ActionType.BreakLamp,
@@ -106,6 +107,30 @@ namespace Saboteur.ViewModel
             return SelectedCard != null;
         }
 
+        #endregion
+
+        #region SendMessage - команда, вызываемая при отправке текстового сообщения
+
+        private RelayCommand _sendMessage;
+
+        public ICommand SendMessage =>
+            _sendMessage ?? (_sendMessage = new RelayCommand(ExecuteSendMessage, CanExecuteSendMessage));
+
+        private void ExecuteSendMessage(object obj)
+        {
+            // отправка сообщения, содержащего ID игрока-отправителя и текст сообщения
+            _client.SendMessage(new TextMessage()
+            {
+                SenderId = CurrentPlayer.Id,
+                Text = "Ololo"
+            });
+        }
+
+        private bool CanExecuteSendMessage(object arg)
+        {
+            return true;
+        }
+        
         #endregion
 
         #endregion

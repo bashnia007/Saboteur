@@ -30,13 +30,14 @@ namespace Server
             try
             {
                 Stream = client.GetStream();
-                string message = GetMessage();
+                var message = GetMessage();
                 Console.WriteLine(message);
                 // в бесконечном цикле получаем сообщения от клиента
                 while (true)
                 {
                     message = GetMessage();
-                    Console.WriteLine(message);
+                    //Console.WriteLine(message);
+                    server.BroadcastMessage(message, this.Id);
                 }
             }
             catch (Exception e)
@@ -50,12 +51,12 @@ namespace Server
             }
         }
         
-        private string GetMessage()
+        private Message GetMessage()
         {
             IFormatter formatter = new BinaryFormatter();
-            Message p = (Message)formatter.Deserialize(Stream);
+            Message message = (Message)formatter.Deserialize(Stream);
 
-            return String.Empty;
+            return message;
         }
 
         // закрытие подключения

@@ -49,7 +49,9 @@
     <Compile Include="CardsClasses\Card.cs" />
     <Compile Include="Enumerations\Equipment.cs" />
     <Compile Include="Message\ActionMessage.cs" />
+    <Compile Include="Message\BuildMessage.cs" />
     <Compile Include="Message\Message.cs" />
+    <Compile Include="Message\TextMessage.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Enumerations\ActionType.cs" />

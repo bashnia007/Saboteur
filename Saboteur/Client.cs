@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using CommonLibrary.Message;
+﻿using CommonLibrary.Message;
 using CommonLibrary.Tcp;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 
 namespace Saboteur
 {
@@ -25,49 +20,47 @@ namespace Saboteur
             ReceivedMessages = new Queue<Message>();
         }
 
+        /// <summary>
+        /// Установка соединения с сервером и запуска отдельного потока для прослушивания новых сообщений от сервера
+        /// </summary>
         public void EstablishConnection()
         {
             _client = new TcpClient(TcpConfig.Ip, TcpConfig.Port);
             _stream = _client.GetStream();
 
-            //Thread listenThread = new Thread(Listen);
-            //listenThread.Start();
+            Thread listenThread = new Thread(Listen);
+            listenThread.Start();
         }
 
+        /// <summary>
+        /// Метод, отправляющий сообщение на сервер
+        /// </summary>
+        /// <param name="message"></param>
         public void SendMessage(Message message)
         {
+            // тут происходит сериализация сообщения в массив байтов, и отправка его в поток, который слушает сервер
             BinaryFormatter formatter = new BinaryFormatter();
-            /*using (MemoryStream ms = new MemoryStream())
-            {
-                formatter.Serialize(ms, message);
-                var array = ms.ToArray();
-                _stream.Write(array, 0, array.Length);
-            }*/
             formatter.Serialize(_stream, message);
         }
 
-        public void Listen()
+        private void Listen()
         {
-            var data = new byte[1024 * 1000]; // буфер для получаемых данных
-            Queue<byte[]> receivedBytes = new Queue<byte[]>();
-            BinaryFormatter formatter = new BinaryFormatter();
+            // в бесконечном цикле
             while (true)
             {
-                int bytes = 0;
-                do
-                {
-                    bytes = _stream.Read(data, 0, data.Length);
-                    receivedBytes.Enqueue(data);
-                }
-                while (_stream.DataAvailable);
-
-
-                using (MemoryStream ms = new MemoryStream(data))
-                {
-                    Message receivedMessage = (Message)formatter.Deserialize(ms);
-                    ReceivedMessages.Enqueue(receivedMessage);
-                }
+                // получаем сообщения от сервера и сохраняем их в очереди
+                var message = GetMessage();
+                ReceivedMessages.Enqueue(message);
             }
+        }
+
+        private Message GetMessage()
+        {
+            // десериализация сообщения - преобразования массива байтов, полученных от сервера, в объект типа Message
+            IFormatter formatter = new BinaryFormatter();
+            Message message = (Message)formatter.Deserialize(_stream);
+
+            return message;
         }
     }
 }
