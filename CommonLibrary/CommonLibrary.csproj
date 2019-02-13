@@ -60,6 +60,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tcp\TcpConfig.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\actions\lamp_break.png" />
+    <Content Include="Images\actions\lamp_fix.png" />
+    <Content Include="Images\actions\lamp_pick_fix.png" />
+    <Content Include="Images\actions\pick_break.png" />
+    <Content Include="Images\actions\pick_fix.png" />
+    <Content Include="Images\actions\trolley_break.png" />
+    <Content Include="Images\actions\trolley_fix.png" />
+    <Content Include="Images\actions\trolley_lamp_fix.png" />
+    <Content Include="Images\actions\trolley_pick_fix.png" />
+    <Content Include="Images\routes\1 line and dead end.png" />
+    <Content Include="Images\routes\3 lines-2.png" />
+    <Content Include="Images\routes\3 lines.png" />
+    <Content Include="Images\routes\3-lines and dead end-2.png" />
+    <Content Include="Images\routes\3-lines and dead end.png" />
+    <Content Include="Images\routes\cross.png" />
+    <Content Include="Images\routes\left angle.png" />
+    <Content Include="Images\routes\long line.png" />
+    <Content Include="Images\routes\right angle.png" />
+    <Content Include="Images\routes\short line.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
