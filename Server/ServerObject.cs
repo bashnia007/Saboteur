@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CommonLibrary.Message;
 using CommonLibrary.Tcp;
 
 namespace Server
@@ -53,14 +55,16 @@ namespace Server
         }
 
         // трансляция сообщения подключенным клиентам
-        protected internal void BroadcastMessage(string message, string id)
+        protected internal void BroadcastMessage(Message message, string id)
         {
-            byte[] data = Encoding.Unicode.GetBytes(message);
+            BinaryFormatter formatter = new BinaryFormatter();
+            //byte[] data = Encoding.Unicode.GetBytes(message);
             for (int i = 0; i < _clients.Count; i++)
             {
                 if (_clients[i].Id != id) // если id клиента не равно id отправляющего
                 {
-                    _clients[i].Stream.Write(data, 0, data.Length); //передача данных
+                    formatter.Serialize(_clients[i].Stream, message);
+                    //_clients[i].Stream.Write(data, 0, data.Length); //передача данных
                 }
             }
         }

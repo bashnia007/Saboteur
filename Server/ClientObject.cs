@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using CommonLibrary.Message;
 
 namespace Server
 {
@@ -27,13 +30,14 @@ namespace Server
             try
             {
                 Stream = client.GetStream();
-                string message = GetMessage();
+                var message = GetMessage();
                 Console.WriteLine(message);
                 // в бесконечном цикле получаем сообщения от клиента
                 while (true)
                 {
                     message = GetMessage();
-                    Console.WriteLine(message);
+                    //Console.WriteLine(message);
+                    server.BroadcastMessage(message, this.Id);
                 }
             }
             catch (Exception e)
@@ -47,19 +51,12 @@ namespace Server
             }
         }
         
-        private string GetMessage()
+        private Message GetMessage()
         {
-            byte[] data = new byte[64];
-            StringBuilder builder = new StringBuilder();
-            int bytes = 0;
-            do
-            {
-                bytes = Stream.Read(data, 0, data.Length);
-                builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
-            }
-            while (Stream.DataAvailable);
+            IFormatter formatter = new BinaryFormatter();
+            Message message = (Message)formatter.Deserialize(Stream);
 
-            return builder.ToString();
+            return message;
         }
 
         // закрытие подключения

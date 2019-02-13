@@ -18,19 +18,19 @@ namespace Saboteur.ViewModel
     {
         #region Fields
 
-        private readonly TcpClient _client;
+        private readonly Client _client;
         private NetworkStream _stream;
 
         #endregion
 
         #region Constructors
-
+        /*
         public PlayerActionsViewModel()
         {
-            _client = new TcpClient();
+            _client = new Client();
             _client.Connect(TcpConfig.Ip, TcpConfig.Port);
             _stream = _client.GetStream();
-        }
+        }*/
 
         #endregion
 
