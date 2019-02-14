@@ -61,6 +61,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActionModel.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="PlayerActions.xaml.cs">
@@ -70,6 +71,7 @@
       <DependentUpon>PlayerHand.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlayerActionsViewModel.cs" />
