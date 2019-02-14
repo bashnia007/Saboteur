@@ -6,13 +6,14 @@ using Saboteur.MVVM;
 
 namespace Saboteur.ViewModel
 {
-    public class MainViewModel : ViewModelBase
-    {
-        public readonly MainWindow Window;
-        public PlayerHandViewModel MyHand { get; set; }
-        public PlayerHandViewModel EnemyHand { get; set; }
-        public ObservableCollection<ObservableCollection<RouteCard>> Map { get; set; }
-        //public Card SelectedCard { get; set; }
+	public class MainViewModel : ViewModelBase
+	{
+		public readonly MainWindow Window;
+		public PlayerHandViewModel MyHand { get; set; }
+		public PlayerHandViewModel EnemyHand { get; set; }
+		public ObservableCollection<ObservableCollection<RouteCard>> Map { get; set; }
+		//public Card SelectedCard { get; set; }
+		public string TextInTextBox { get; set; }
 
         public MainViewModel()
         {
@@ -63,9 +64,27 @@ namespace Saboteur.ViewModel
             return true;
         }
 
-        #endregion
+		#endregion
 
-        #endregion
+		#region
+		private RelayCommand _sendCommand;
 
-    }
+		public ICommand SendCommand => _sendCommand ?? (_sendCommand =
+												  new RelayCommand(ExecuteSendCommand,
+													  CanExecuteSendCommand));
+
+		private void ExecuteSendCommand(object obj)
+		{
+
+		}
+
+		private bool CanExecuteSendCommand(object obj)
+		{
+			return (!string.IsNullOrEmpty(TextInTextBox));
+		}
+		#endregion
+
+		#endregion
+
+	}
 }

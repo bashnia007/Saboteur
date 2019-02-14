@@ -4,13 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Saboteur"
-             mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="400">
+             mc:Ignorable="d">
     
     <Grid ShowGridLines="False" Background="DarkGray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="700"></RowDefinition>
-            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -19,10 +18,9 @@
 
         <RichTextBox Grid.Column="0"
                      Grid.Row="0"
-                     Width="390"
-                     Height="680"
-                     VerticalAlignment="Center" 
-                     HorizontalAlignment="Center"
+                     VerticalAlignment="Stretch" 
+                     HorizontalAlignment="Stretch"
+                     Margin="10, 10, 10, 5"
                      Background="AliceBlue"
                      HorizontalContentAlignment="Left"
                      VerticalContentAlignment="Top">
@@ -30,17 +28,19 @@
 
         <TextBox Grid.Column="0"
                      Grid.Row="1"
-                     Width="390"
-                     Height="130"
-                     VerticalAlignment="Center" 
-                     HorizontalAlignment="Center"
+                     VerticalAlignment="Stretch" 
+                     HorizontalAlignment="Stretch"
+                     Margin="10, 5, 10, 0"
                      Background="AliceBlue"
-                     TextAlignment="Right"
+                     TextAlignment="Left"
                      VerticalContentAlignment="Center"
+                     Padding="5"
+                     TextWrapping="Wrap"
                      MaxLength="500"
                      MinLines="1" 
                      TextOptions.TextHintingMode="Animated"
-                     FontSize="14">
+                     FontSize="14"
+                     Text="{Binding TextInTextBox, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <!-- We need to figure out the way to use the following code in TextBox!!!
@@ -54,19 +54,15 @@
         <Button Grid.Column="0" 
                     Grid.Row="2" 
                     Content="SEND" 
+                    ContentStringFormat="Bold"
                     Width="110" 
                     Height="30" 
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Right"
                     Margin="275 10 5 10"
-                    Background="Gray">
+                    Background="Gray"
+                    Command="{Binding SendCommand}">
         </Button>
-
-        <!-- We need to figure out the way to use the following code in Button!!!
-        
-        Command="{Binding JoinCommand}">
-        -->
-
     </Grid>
 
 </UserControl>

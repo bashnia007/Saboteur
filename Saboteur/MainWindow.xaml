@@ -36,7 +36,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
         <local:PlayerHand Grid.Row="0"
                           Grid.Column="0"
@@ -55,5 +55,9 @@
         <local:PlayerHand Grid.Row="2"
                           Grid.Column="0"
                           DataContext="{Binding MyHand}"/>
+        <local:LogChat Grid.Row="0"
+                       Grid.RowSpan="3"
+                       Grid.Column="2">
+        </local:LogChat>
     </Grid>
 </Window>
