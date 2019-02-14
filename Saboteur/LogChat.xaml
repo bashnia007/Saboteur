@@ -40,7 +40,7 @@
                      MinLines="1" 
                      TextOptions.TextHintingMode="Animated"
                      FontSize="14"
-                     Text="{Binding TextInTextBox, UpdateSourceTrigger=PropertyChanged}">
+                     Text="{Binding TextInTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
         </TextBox>
 
         <!-- We need to figure out the way to use the following code in TextBox!!!

@@ -91,7 +91,12 @@ namespace Saboteur.ViewModel
 
 		private void ExecuteSendCommand(object obj)
 		{
-
+			_client.SendMessage(new TextMessage()
+			{
+				SenderId = CurrentPlayer.Id,
+				Text = TextInTextBox
+			});
+			TextInTextBox = "";
 		}
 
 		private bool CanExecuteSendCommand(object obj)
@@ -126,30 +131,6 @@ namespace Saboteur.ViewModel
             return SelectedCard != null;
         }
 
-        #endregion
-
-        #region SendMessage - команда, вызываемая при отправке текстового сообщения
-
-        private RelayCommand _sendMessage;
-
-        public ICommand SendMessage =>
-            _sendMessage ?? (_sendMessage = new RelayCommand(ExecuteSendMessage, CanExecuteSendMessage));
-
-        private void ExecuteSendMessage(object obj)
-        {
-            // отправка сообщения, содержащего ID игрока-отправителя и текст сообщения
-            _client.SendMessage(new TextMessage()
-            {
-                SenderId = CurrentPlayer.Id,
-                Text = "Ololo"
-            });
-        }
-
-        private bool CanExecuteSendMessage(object arg)
-        {
-            return true;
-        }
-        
         #endregion
 
         #endregion
