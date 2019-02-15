@@ -48,6 +48,11 @@
     <Compile Include="CardsClasses\GoldCard.cs" />
     <Compile Include="CardsClasses\Card.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Table.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\CardType.cs" />
@@ -90,6 +95,12 @@
     <Content Include="Images\routes\Three_lines_long_with_deadend.png" />
     <Content Include="Images\routes\Three_lines_short.png" />
     <Content Include="Images\routes\Three_lines_short_with_deadend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
