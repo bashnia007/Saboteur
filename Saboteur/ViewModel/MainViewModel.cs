@@ -82,7 +82,7 @@ namespace Saboteur.ViewModel
 
 		#endregion
 
-		#region
+		#region SendCommand 
 		private RelayCommand _sendCommand;
 
 		public ICommand SendCommand => _sendCommand ?? (_sendCommand =
@@ -97,6 +97,7 @@ namespace Saboteur.ViewModel
 				Text = TextInTextBox
 			});
 			TextInTextBox = "";
+			OnPropertyChanged(nameof(TextInTextBox));
 		}
 
 		private bool CanExecuteSendCommand(object obj)
