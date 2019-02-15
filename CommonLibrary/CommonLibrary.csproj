@@ -75,6 +75,13 @@
     <Content Include="Images\actions\trolley_fix.png" />
     <Content Include="Images\actions\trolley_lamp_fix.png" />
     <Content Include="Images\actions\trolley_pick_fix.png" />
+    <Content Include="Images\gold\Four_deadends.png" />
+    <Content Include="Images\gold\Long_line_with_two_deadends.png" />
+    <Content Include="Images\gold\Short_line_with_two_deadends.png" />
+    <Content Include="Images\gold\Three_deadends_long.png" />
+    <Content Include="Images\gold\Three_deadends_short.png" />
+    <Content Include="Images\gold\Two_deadends_left.png" />
+    <Content Include="Images\gold\Two_deadends_right.png" />
     <Content Include="Images\routes\Bridge.png" />
     <Content Include="Images\routes\Cross.png" />
     <Content Include="Images\routes\Left_angle.png" />
@@ -102,5 +109,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

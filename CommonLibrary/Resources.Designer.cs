@@ -83,6 +83,16 @@ namespace CommonLibrary {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Four_deadends {
+            get {
+                object obj = ResourceManager.GetObject("Four_deadends", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lamp_break {
             get {
                 object obj = ResourceManager.GetObject("lamp_break", resourceCulture);
@@ -156,6 +166,16 @@ namespace CommonLibrary {
         internal static System.Drawing.Bitmap Long_line {
             get {
                 object obj = ResourceManager.GetObject("Long_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Long_line_with_two_deadends {
+            get {
+                object obj = ResourceManager.GetObject("Long_line_with_two_deadends", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -253,6 +273,16 @@ namespace CommonLibrary {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Short_line_with_two_deadends {
+            get {
+                object obj = ResourceManager.GetObject("Short_line_with_two_deadends", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Start_blue {
             get {
                 object obj = ResourceManager.GetObject("Start_blue", resourceCulture);
@@ -266,6 +296,26 @@ namespace CommonLibrary {
         internal static System.Drawing.Bitmap Start_green {
             get {
                 object obj = ResourceManager.GetObject("Start_green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Three_deadends_long {
+            get {
+                object obj = ResourceManager.GetObject("Three_deadends_long", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Three_deadends_short {
+            get {
+                object obj = ResourceManager.GetObject("Three_deadends_short", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -346,6 +396,26 @@ namespace CommonLibrary {
         internal static System.Drawing.Bitmap trolley_pick_fix {
             get {
                 object obj = ResourceManager.GetObject("trolley_pick_fix", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Two_deadends_left {
+            get {
+                object obj = ResourceManager.GetObject("Two_deadends_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Two_deadends_right {
+            get {
+                object obj = ResourceManager.GetObject("Two_deadends_right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
