@@ -45,6 +45,7 @@ namespace Server
                     ClientObject clientObject = new ClientObject(tcpClient, this);
                     Thread clientThread = new Thread(clientObject.Process);
                     clientThread.Start();
+                    Console.WriteLine("Client connected");
                 }
             }
             catch (Exception ex)
@@ -61,7 +62,7 @@ namespace Server
             //byte[] data = Encoding.Unicode.GetBytes(message);
             for (int i = 0; i < _clients.Count; i++)
             {
-                if (_clients[i].Id != id) // если id клиента не равно id отправляющего
+                //if (_clients[i].Id != id) // если id клиента не равно id отправляющего
                 {
                     formatter.Serialize(_clients[i].Stream, message);
                     //_clients[i].Stream.Write(data, 0, data.Length); //передача данных
