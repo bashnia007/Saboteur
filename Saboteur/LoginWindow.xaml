@@ -52,7 +52,8 @@
                  Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
                  ToolTip="You need to enter at least one symbol">
             <TextBox.InputBindings>
-                <KeyBinding Command="{Binding Path=JoinCommand}" Key="Enter" />
+                <KeyBinding Command="{Binding Path=JoinCommand}" 
+                            Key="Enter" />
             </TextBox.InputBindings>
         </TextBox>
 

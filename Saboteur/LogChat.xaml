@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Saboteur.LogChat"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Saboteur"
+             mc:Ignorable="d">
+    
+    <Grid ShowGridLines="False" Background="DarkGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <RichTextBox Grid.Column="0"
+                     Grid.Row="0"
+                     VerticalAlignment="Stretch" 
+                     HorizontalAlignment="Stretch"
+                     Margin="10, 10, 10, 5"
+                     Background="AliceBlue"
+                     HorizontalContentAlignment="Left"
+                     VerticalContentAlignment="Top">
+        </RichTextBox>
+
+        <TextBox Grid.Column="0"
+                     Grid.Row="1"
+                     VerticalAlignment="Stretch" 
+                     HorizontalAlignment="Stretch"
+                     Margin="10, 5, 10, 0"
+                     Background="AliceBlue"
+                     TextAlignment="Left"
+                     VerticalContentAlignment="Center"
+                     Padding="5"
+                     TextWrapping="Wrap"
+                     MaxLength="500"
+                     MinLines="1" 
+                     TextOptions.TextHintingMode="Animated"
+                     FontSize="14"
+                     Text="{Binding TextInTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding Path=SendCommand}" Key="Enter" />
+            </TextBox.InputBindings>
+        </TextBox>
+
+        <Button Grid.Column="0" 
+                    Grid.Row="2" 
+                    Content="SEND" 
+                    ContentStringFormat="Bold"
+                    Width="110" 
+                    Height="30" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right"
+                    Margin="275 10 5 10"
+                    Background="Gray"
+                    Command="{Binding SendCommand}">
+        </Button>
+    </Grid>
+
+</UserControl>

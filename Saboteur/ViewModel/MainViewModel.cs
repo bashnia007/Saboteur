@@ -19,8 +19,9 @@ namespace Saboteur.ViewModel
         public Card SelectedCard { get; set; }
         public List<Player> Players { get; set; } 
         public Player CurrentPlayer { get; set; }
+		public string TextInTextBox { get; set; }
 
-        private Client _client;
+		private Client _client;
 
         public MainViewModel()
         {
@@ -79,7 +80,31 @@ namespace Saboteur.ViewModel
             return true;
         }
 
-        #endregion
+		#endregion
+
+		#region SendCommand 
+		private RelayCommand _sendCommand;
+
+		public ICommand SendCommand => _sendCommand ?? (_sendCommand =
+												  new RelayCommand(ExecuteSendCommand,
+													  CanExecuteSendCommand));
+
+		private void ExecuteSendCommand(object obj)
+		{
+			_client.SendMessage(new TextMessage()
+			{
+				SenderId = CurrentPlayer.Id,
+				Text = TextInTextBox
+			});
+			TextInTextBox = "";
+			OnPropertyChanged(nameof(TextInTextBox));
+		}
+
+		private bool CanExecuteSendCommand(object obj)
+		{
+			return (!string.IsNullOrEmpty(TextInTextBox));
+		}
+		#endregion
 
         #region MakeActionCommand - команда, вызываемая при выборе игрока сыграть карту действия
 
@@ -109,31 +134,7 @@ namespace Saboteur.ViewModel
 
         #endregion
 
-        #region SendMessage - команда, вызываемая при отправке текстового сообщения
-
-        private RelayCommand _sendMessage;
-
-        public ICommand SendMessage =>
-            _sendMessage ?? (_sendMessage = new RelayCommand(ExecuteSendMessage, CanExecuteSendMessage));
-
-        private void ExecuteSendMessage(object obj)
-        {
-            // отправка сообщения, содержащего ID игрока-отправителя и текст сообщения
-            _client.SendMessage(new TextMessage()
-            {
-                SenderId = CurrentPlayer.Id,
-                Text = "Ololo"
-            });
-        }
-
-        private bool CanExecuteSendMessage(object arg)
-        {
-            return true;
-        }
-        
         #endregion
 
-        #endregion
-
-    }
+	}
 }
