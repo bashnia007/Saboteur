@@ -6,6 +6,7 @@ using Saboteur.Models;
 using Saboteur.MVVM;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Saboteur.ViewModel
@@ -20,6 +21,7 @@ namespace Saboteur.ViewModel
         public List<Player> Players { get; set; } 
         public Player CurrentPlayer { get; set; }
 		public string TextInTextBox { get; set; }
+        public Visibility ReadyButtonVisibility { get; set; }
 
 		private Client _client;
 
@@ -58,6 +60,8 @@ namespace Saboteur.ViewModel
 
             _client = new Client();
             _client.EstablishConnection();
+
+            ReadyButtonVisibility = Visibility.Visible;
         }
 
         #region Commands
@@ -134,7 +138,32 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region ReadyCommand
+
+        private RelayCommand _readyCommand;
+
+        public ICommand ReadyCommand => _readyCommand ??
+                                        (_readyCommand = new RelayCommand(ExecuteReadyCommand, CanExecuteReadyCommand));
+
+        private void ExecuteReadyCommand(object obj)
+        {
+            _client.SendMessage(new GameMessage
+            {
+                SenderId = CurrentPlayer.Id,
+                MessageType = GameMessageType.ReadyToPlay
+            });
+            ReadyButtonVisibility = Visibility.Hidden;
+            OnPropertyChanged(nameof(ReadyButtonVisibility));
+        }
+
+        private bool CanExecuteReadyCommand(object arg)
+        {
+            return true;
+        }
+
         #endregion
 
-	}
+        #endregion
+
+    }
 }

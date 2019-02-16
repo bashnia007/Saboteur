@@ -48,8 +48,10 @@
     <Compile Include="CardsClasses\GoldCard.cs" />
     <Compile Include="CardsClasses\Card.cs" />
     <Compile Include="Enumerations\Equipment.cs" />
+    <Compile Include="Enumerations\GameMessageType.cs" />
     <Compile Include="Message\ActionMessage.cs" />
     <Compile Include="Message\BuildMessage.cs" />
+    <Compile Include="Message\GameMessage.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Message\TextMessage.cs" />
     <Compile Include="Player.cs" />
