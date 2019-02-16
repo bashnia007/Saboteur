@@ -35,6 +35,7 @@ namespace Server
                 {
                     var message = GetMessage();
                     Console.WriteLine(message);
+                    MessageManager.HandleMessage(message);
                     server.BroadcastMessage(message, this.Id);
                 }
             }

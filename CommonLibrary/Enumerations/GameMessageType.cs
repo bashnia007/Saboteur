@@ -2,7 +2,10 @@
 {
     public enum GameMessageType
     {
+        TextMessage,
         ReadyToPlay,
-        GameStarted
+        GameStarted,
+        ActionMessage,
+        BuildMessage
     }
 }

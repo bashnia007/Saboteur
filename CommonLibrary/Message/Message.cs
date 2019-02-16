@@ -1,4 +1,5 @@
 ﻿using System;
+using CommonLibrary.Enumerations;
 
 namespace CommonLibrary.Message
 {
@@ -6,5 +7,6 @@ namespace CommonLibrary.Message
     public abstract class Message
     {
         public int SenderId { get; set; }
+        public GameMessageType MessageType { get; set; }
     }
 }
