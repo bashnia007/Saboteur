@@ -30,13 +30,10 @@ namespace Server
             try
             {
                 Stream = client.GetStream();
-                //var message = GetMessage();
-                //Console.WriteLine(message);
                 // в бесконечном цикле получаем сообщения от клиента
                 while (true)
                 {
                     var message = GetMessage();
-                    //Console.WriteLine(message);
                     Console.WriteLine(message);
                     server.BroadcastMessage(message, this.Id);
                 }
