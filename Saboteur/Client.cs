@@ -13,6 +13,8 @@ namespace Saboteur
     {
         private TcpClient _client;
         private NetworkStream _stream;
+		public delegate void ReceiveMessageDelegate(Message message);
+		public event ReceiveMessageDelegate OnReceiveMessageEvent; 
 
         public Queue<Message> ReceivedMessages;
 
@@ -51,9 +53,9 @@ namespace Saboteur
             {
                 // получаем сообщения от сервера и сохраняем их в очереди
                 var message = GetMessage();
-				MessageBox.Show(((TextMessage)message).Text);
 				ReceivedMessages.Enqueue(message);
-            }
+				OnReceiveMessageEvent?.Invoke(message);
+			}
         }
 
         private Message GetMessage()

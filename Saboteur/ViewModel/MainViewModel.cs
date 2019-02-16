@@ -20,6 +20,7 @@ namespace Saboteur.ViewModel
         public List<Player> Players { get; set; } 
         public Player CurrentPlayer { get; set; }
 		public string TextInTextBox { get; set; }
+		public string TextInChatBox { get; set; }
 
 		private Client _client;
 
@@ -58,13 +59,20 @@ namespace Saboteur.ViewModel
 
             _client = new Client();
             _client.EstablishConnection();
+			_client.OnReceiveMessageEvent += ReceivedMessageFromClient;
         }
 
-        #region Commands
+		private void ReceivedMessageFromClient(Message message)
+		{
+			TextInChatBox += ((TextMessage) message).Text;
+			OnPropertyChanged(nameof(TextInChatBox));
+		}
 
-        #region BuildTunnelCommand - команда, вызываемая про постройке карты тунеля
+		#region Commands
 
-        private RelayCommand _buildTunnelCommand;
+		#region BuildTunnelCommand - команда, вызываемая про постройке карты тунеля
+
+		private RelayCommand _buildTunnelCommand;
 
         public ICommand BuildTunnelCommand => _buildTunnelCommand ?? (_buildTunnelCommand =
                                                   new RelayCommand(ExecuteBuildTunnelCommand,
