@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using System.Windows;
 
 namespace Saboteur
 {
@@ -50,7 +51,8 @@ namespace Saboteur
             {
                 // получаем сообщения от сервера и сохраняем их в очереди
                 var message = GetMessage();
-                ReceivedMessages.Enqueue(message);
+				MessageBox.Show(((TextMessage)message).Text);
+				ReceivedMessages.Enqueue(message);
             }
         }
 

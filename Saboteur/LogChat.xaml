@@ -23,7 +23,8 @@
                      Margin="10, 10, 10, 5"
                      Background="AliceBlue"
                      HorizontalContentAlignment="Left"
-                     VerticalContentAlignment="Top">
+                     VerticalContentAlignment="Top"
+                     IsReadOnly="True">
         </RichTextBox>
 
         <TextBox Grid.Column="0"
