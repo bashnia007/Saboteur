@@ -29,13 +29,14 @@ namespace Server
         {
             try
             {
+                var messageManager = new MessageManager();
                 Stream = client.GetStream();
                 // в бесконечном цикле получаем сообщения от клиента
                 while (true)
                 {
                     var message = GetMessage();
                     Console.WriteLine(message);
-                    MessageManager.HandleMessage(message);
+                    messageManager.HandleMessage(message);
                     server.BroadcastMessage(message, this.Id);
                 }
             }

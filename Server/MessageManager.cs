@@ -3,9 +3,9 @@ using CommonLibrary.Message;
 
 namespace Server
 {
-    public static class MessageManager
+    public class MessageManager
     {
-        public static void HandleMessage(Message message)
+        public void HandleMessage(Message message)
         {
             var type = message.MessageType;
             switch (type)
