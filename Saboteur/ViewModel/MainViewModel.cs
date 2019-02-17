@@ -4,6 +4,7 @@ using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
 using Saboteur.Models;
 using Saboteur.MVVM;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -102,7 +103,7 @@ namespace Saboteur.ViewModel
 			_client.SendMessage(new TextMessage()
 			{
 				SenderId = CurrentPlayer.Id,
-				Text = TextInTextBox
+				Text = TextInTextBox + Environment.NewLine
 			});
 			TextInTextBox = "";
 			OnPropertyChanged(nameof(TextInTextBox));
