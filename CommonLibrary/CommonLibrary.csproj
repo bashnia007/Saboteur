@@ -55,6 +55,7 @@
     <Compile Include="Message\InitializeMessage.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Message\TextMessage.cs" />
+    <Compile Include="Message\UpdateTableMessage.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

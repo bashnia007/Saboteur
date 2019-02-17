@@ -190,6 +190,9 @@ namespace Saboteur.ViewModel
                 case GameMessageType.TextMessage:
                     HandleTextMessage((TextMessage)message);
                     break;
+                case GameMessageType.UpdateTableMessage:
+                    HandleUpdateTableMessage((UpdateTableMessage)message);
+                    break;
             }
         }
 
@@ -202,6 +205,11 @@ namespace Saboteur.ViewModel
         {
             TextInChatBox += ((TextMessage)message).Text;
             OnPropertyChanged(nameof(TextInChatBox));
+        }
+
+        private void HandleUpdateTableMessage(UpdateTableMessage message)
+        {
+
         }
 
         #endregion

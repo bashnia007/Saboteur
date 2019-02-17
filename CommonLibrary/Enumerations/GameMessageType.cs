@@ -10,6 +10,7 @@ namespace CommonLibrary.Enumerations
         GameStarted,
         ActionMessage,
         BuildMessage,
-        InitializeMessage
+        InitializeMessage,
+        UpdateTableMessage
     }
 }

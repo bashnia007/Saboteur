@@ -74,8 +74,19 @@ namespace Server
 
         protected internal void LaunchGame()
         {
-            if(!_clients.All(c => c.IsReady)) return;
+            if(!_clients.All(c => c.IsReady) && _clients.Count != 2) return;
             Console.WriteLine("All players are ready, let's start!");
+            var launcher = new Launcher(_clients.Select(c => c.Id).ToList());
+            launcher.ProvideRolesForPlayers();
+            launcher.ProvideHandCardsForPlayers();
+            foreach (var client in _clients)
+            {
+                var player = launcher.Players.First(pl => pl.Id == client.Id);
+                var gameMessage = new UpdateTableMessage();
+                gameMessage.RoleCard = player.Role;
+                gameMessage.Hand = player.Hand;
+                SendMessage(gameMessage, client.Id);
+            }
         }
 
         // отключение всех клиентов

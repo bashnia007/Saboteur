@@ -1,7 +1,9 @@
-﻿using CommonLibrary.Enumerations;
+﻿using System;
+using CommonLibrary.Enumerations;
 
 namespace CommonLibrary.CardsClasses
 {
+    [Serializable]
 	public class RoleCard: Card
 	{
 		public RoleType Role { get; set; }
