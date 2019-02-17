@@ -15,13 +15,14 @@ namespace Server
         public string Id { get; }
         public NetworkStream Stream { get; set; }
         private TcpClient client;
-        private ServerObject server; // объект сервера
+        public ServerObject Server; // объект сервера
+        public bool IsReady { get; set; }
 
         public ClientObject(TcpClient tcpClient, ServerObject serverObject)
         {
             Id = Guid.NewGuid().ToString();
             client = tcpClient;
-            server = serverObject;
+            Server = serverObject;
             serverObject.AddConnection(this);
         }
 
@@ -29,15 +30,15 @@ namespace Server
         {
             try
             {
-                var messageManager = new MessageManager();
+                var messageManager = new MessageManager(this);
                 Stream = client.GetStream();
                 // в бесконечном цикле получаем сообщения от клиента
                 while (true)
                 {
                     var message = GetMessage();
                     Console.WriteLine(message);
-                    messageManager.HandleMessage(message);
-                    server.BroadcastMessage(message, this.Id);
+                    var responseMessage = messageManager.HandleMessage(message);
+                    Server.SendMessage(responseMessage, this.Id);
                 }
             }
             catch (Exception e)
@@ -46,7 +47,7 @@ namespace Server
             }
             finally
             {
-                server.RemoveConnection(this.Id);
+                Server.RemoveConnection(this.Id);
                 Close();
             }
         }

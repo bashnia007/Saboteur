@@ -7,7 +7,7 @@ namespace CommonLibrary.Message
     public class ActionMessage : Message
     {
         // ID игрока, на которого распространяется действие
-        public int RecepientId { get; set; }
+        public string RecepientId { get; set; }
         // Выбранное игроком действие
         public ActionType ActionType { get; set; }
     }

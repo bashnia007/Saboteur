@@ -1,9 +1,9 @@
-﻿using CommonLibrary.Enumerations;
+﻿using System;
 
 namespace CommonLibrary.Message
 {
+    [Serializable]
     public class GameMessage : Message
     {
-        public GameMessageType MessageType { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace Saboteur.ViewModel
 
         private void ExecuteJoinCommand(object obj)
         {
-            var mainViewModel = new MainViewModel();
+            var mainViewModel = new MainViewModel(Login);
             mainViewModel.Window.Show();
             _loginWindow.Close();
         }

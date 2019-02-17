@@ -73,7 +73,7 @@
                 HorizontalAlignment="Center"
                 Background="Olive"
                 Command="{Binding ReadyCommand}"
-                Visibility="{Binding ReadyButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Button>
+                Visibility="{Binding ReadyButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
         <local:LogChat Grid.Row="0"
                        Grid.RowSpan="3"
                        Grid.Column="2">

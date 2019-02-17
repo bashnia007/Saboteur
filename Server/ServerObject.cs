@@ -36,7 +36,7 @@ namespace Server
             {
                 _tcpListener = new TcpListener(IPAddress.Parse(TcpConfig.Ip), TcpConfig.Port);
                 _tcpListener.Start();
-                Console.WriteLine("Сервер запущен. Ожидание подключений...");
+                Console.WriteLine("Server started. Waiting for connections...");
 
                 while (true)
                 {
@@ -56,19 +56,28 @@ namespace Server
         }
 
         // трансляция сообщения подключенным клиентам
-        protected internal void BroadcastMessage(Message message, string id)
+        protected internal void SendMessage(Message message, string id)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            //byte[] data = Encoding.Unicode.GetBytes(message);
-            for (int i = 0; i < _clients.Count; i++)
+            if (message.IsBroadcast)
             {
-                //if (_clients[i].Id != id) // если id клиента не равно id отправляющего
+                foreach (var client in _clients)
                 {
-                    formatter.Serialize(_clients[i].Stream, message);
-                    //_clients[i].Stream.Write(data, 0, data.Length); //передача данных
+                    formatter.Serialize(client.Stream, message);
                 }
             }
+            else
+            {
+                formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+            }
         }
+
+        protected internal void LaunchGame()
+        {
+            if(!_clients.All(c => c.IsReady)) return;
+            Console.WriteLine("All players are ready, let's start!");
+        }
+
         // отключение всех клиентов
         protected internal void Disconnect()
         {
