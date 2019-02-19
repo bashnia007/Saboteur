@@ -1,5 +1,5 @@
-﻿using System;
-using CommonLibrary.Enumerations;
+﻿using CommonLibrary.Enumerations;
+using System;
 
 namespace CommonLibrary.CardsClasses
 {

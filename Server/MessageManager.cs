@@ -1,6 +1,6 @@
-﻿using System;
-using CommonLibrary.Enumerations;
+﻿using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
+using System;
 
 namespace Server
 {

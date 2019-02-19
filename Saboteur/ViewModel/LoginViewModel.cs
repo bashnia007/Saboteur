@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using Saboteur.MVVM;
+using System.Windows;
 using System.Windows.Input;
-using Saboteur.MVVM;
 
 namespace Saboteur.ViewModel
 {

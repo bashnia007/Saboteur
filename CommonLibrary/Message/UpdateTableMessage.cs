@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using CommonLibrary.CardsClasses;
+﻿using CommonLibrary.CardsClasses;
 using CommonLibrary.Enumerations;
+using System;
+using System.Collections.Generic;
 
 namespace CommonLibrary.Message
 {
@@ -12,7 +12,6 @@ namespace CommonLibrary.Message
         {
             MessageType = GameMessageType.UpdateTableMessage;
             Hand = new List<HandCard>();
-
         }
         public List<HandCard> Hand { get; set; }
         public RoleCard RoleCard { get; set; }

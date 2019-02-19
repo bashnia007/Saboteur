@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using CommonLibrary;
+﻿using CommonLibrary;
 using CommonLibrary.CardsClasses;
 using CommonLibrary.Enumerations;
 using Saboteur.Models;
 using Saboteur.MVVM;
+using System.Collections.ObjectModel;
 
 namespace Saboteur.ViewModel
 {

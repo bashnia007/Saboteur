@@ -29,6 +29,7 @@ namespace Saboteur.ViewModel
 
         public MainViewModel(string login)
         {
+            Login = login;
             CurrentPlayer = new Player
             {
                 Name = Login
@@ -41,9 +42,7 @@ namespace Saboteur.ViewModel
             Window.DataContext = this;
             MyHand = new PlayerHandViewModel(true, CurrentPlayer);
             EnemyHand = new PlayerHandViewModel(false, Players[1]);
-
-            Login = login;
-
+            
             var list = new List<RouteCard>
             {
                 new RouteCard(1),
