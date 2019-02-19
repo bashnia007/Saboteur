@@ -110,7 +110,8 @@ namespace Saboteur.ViewModel
 			_client.SendMessage(new TextMessage()
 			{
 				SenderId = CurrentPlayer.Id,
-				Text = TextInTextBox + Environment.NewLine
+				Login = Login,
+				Text = Login + ": " + TextInTextBox + Environment.NewLine
 			});
 			TextInTextBox = "";
 			OnPropertyChanged(nameof(TextInTextBox));

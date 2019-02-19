@@ -25,6 +25,9 @@
                  HorizontalContentAlignment="Left"
                  VerticalContentAlignment="Top"
                  IsReadOnly="True"
+                 Padding="5"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
                  Text="{Binding TextInChatBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
         </TextBox>
 
