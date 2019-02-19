@@ -1,14 +1,12 @@
-﻿using System;
+﻿using CommonLibrary.Message;
+using CommonLibrary.Tcp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using CommonLibrary.Message;
-using CommonLibrary.Tcp;
 
 namespace Server
 {
@@ -36,7 +34,7 @@ namespace Server
             {
                 _tcpListener = new TcpListener(IPAddress.Parse(TcpConfig.Ip), TcpConfig.Port);
                 _tcpListener.Start();
-                Console.WriteLine("Сервер запущен. Ожидание подключений...");
+                Console.WriteLine("Server started. Waiting for connections...");
 
                 while (true)
                 {
@@ -56,19 +54,39 @@ namespace Server
         }
 
         // трансляция сообщения подключенным клиентам
-        protected internal void BroadcastMessage(Message message, string id)
+        protected internal void SendMessage(Message message, string id)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            //byte[] data = Encoding.Unicode.GetBytes(message);
-            for (int i = 0; i < _clients.Count; i++)
+            if (message.IsBroadcast)
             {
-                //if (_clients[i].Id != id) // если id клиента не равно id отправляющего
+                foreach (var client in _clients)
                 {
-                    formatter.Serialize(_clients[i].Stream, message);
-                    //_clients[i].Stream.Write(data, 0, data.Length); //передача данных
+                    formatter.Serialize(client.Stream, message);
                 }
             }
+            else
+            {
+                formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+            }
         }
+
+        protected internal void LaunchGame()
+        {
+            if(!_clients.All(c => c.IsReady) && _clients.Count != 2) return;
+            Console.WriteLine("All players are ready, let's start!");
+            var launcher = new Launcher(_clients.Select(c => c.Id).ToList());
+            launcher.ProvideRolesForPlayers();
+            launcher.ProvideHandCardsForPlayers();
+            foreach (var client in _clients)
+            {
+                var player = launcher.Players.First(pl => pl.Id == client.Id);
+                var gameMessage = new UpdateTableMessage();
+                gameMessage.RoleCard = player.Role;
+                gameMessage.Hand = player.Hand;
+                SendMessage(gameMessage, client.Id);
+            }
+        }
+
         // отключение всех клиентов
         protected internal void Disconnect()
         {

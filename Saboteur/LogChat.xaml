@@ -16,15 +16,17 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <RichTextBox Grid.Column="0"
+        <TextBox Grid.Column="0"
                      Grid.Row="0"
                      VerticalAlignment="Stretch" 
                      HorizontalAlignment="Stretch"
                      Margin="10, 10, 10, 5"
                      Background="AliceBlue"
                      HorizontalContentAlignment="Left"
-                     VerticalContentAlignment="Top">
-        </RichTextBox>
+                     VerticalContentAlignment="Top"
+                     IsReadOnly="True"
+                 Text="{Binding TextInChatBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+        </TextBox>
 
         <TextBox Grid.Column="0"
                      Grid.Row="1"

@@ -1,5 +1,5 @@
-﻿using System;
-using CommonLibrary.CardsClasses;
+﻿using CommonLibrary.CardsClasses;
+using System;
 using System.Collections.Generic;
 
 namespace Server

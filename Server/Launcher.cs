@@ -12,15 +12,21 @@ namespace Server
 		public List<Card> RoleCards { get; set; }
 		public List<Card> HandCards { get; set; }
 
-		public Launcher()
+		public Launcher(List<string> playerIds)
 		{
 			cardManager = new CardManager();
 
-			Players = new List<AbstractPlayer>();
-			Players.Add(new Player());
-			Players.Add(new Player());
+		    Players = new List<AbstractPlayer>();
+		    foreach (var player in playerIds)
+		    {
+		        Players.Add(new Player
+		        {
+                    Id = player
+		        });
+            }
 
-			RoleCards = new List<Card>();
+
+            RoleCards = new List<Card>();
 			RoleCards.Add(new RoleCard(RoleType.Blue));
 			RoleCards.Add(new RoleCard(RoleType.Green));
 

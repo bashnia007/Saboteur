@@ -1,11 +1,13 @@
 ﻿using CommonLibrary.CardsClasses;
+using System;
 using System.Collections.Generic;
 
 namespace CommonLibrary
 {
-	public abstract class AbstractPlayer
+    [Serializable]
+    public abstract class AbstractPlayer
 	{
-		public int Id { get; set; }
+		public string Id { get; set; }
 		public string Name { get; set; }
 		public RoleCard Role { get; set; }
 		public List<HandCard> Hand { get; set; }

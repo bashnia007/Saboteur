@@ -6,6 +6,7 @@ using Saboteur.Models;
 using Saboteur.MVVM;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Saboteur.ViewModel
@@ -20,21 +21,28 @@ namespace Saboteur.ViewModel
         public List<Player> Players { get; set; } 
         public Player CurrentPlayer { get; set; }
 		public string TextInTextBox { get; set; }
+        public Visibility ReadyButtonVisibility { get; set; }
+		public string TextInChatBox { get; set; }
+        public string Login { get; set; }
 
-		private Client _client;
+		private readonly Client _client;
 
-        public MainViewModel()
+        public MainViewModel(string login)
         {
-            CurrentPlayer = new Player(){Name = "Me", Id = 1};
+            Login = login;
+            CurrentPlayer = new Player
+            {
+                Name = Login
+            };
             Players = new List<Player>();
             Players.Add(CurrentPlayer);
-            Players.Add(new Player(){Name = "Enemy", Id = 2});
+            Players.Add(new Player());
 
             Window = new MainWindow();
             Window.DataContext = this;
             MyHand = new PlayerHandViewModel(true, CurrentPlayer);
             EnemyHand = new PlayerHandViewModel(false, Players[1]);
-
+            
             var list = new List<RouteCard>
             {
                 new RouteCard(1),
@@ -58,13 +66,20 @@ namespace Saboteur.ViewModel
 
             _client = new Client();
             _client.EstablishConnection();
+            _client.SendMessage(new InitializeMessage
+            {
+                Login = login,
+            });
+			_client.OnReceiveMessageEvent += ReceivedMessageFromClient;
+
+            ReadyButtonVisibility = Visibility.Visible;
         }
 
-        #region Commands
+		#region Commands
 
-        #region BuildTunnelCommand - команда, вызываемая про постройке карты тунеля
+		#region BuildTunnelCommand - команда, вызываемая про постройке карты тунеля
 
-        private RelayCommand _buildTunnelCommand;
+		private RelayCommand _buildTunnelCommand;
 
         public ICommand BuildTunnelCommand => _buildTunnelCommand ?? (_buildTunnelCommand =
                                                   new RelayCommand(ExecuteBuildTunnelCommand,
@@ -134,7 +149,69 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region ReadyCommand
+
+        private RelayCommand _readyCommand;
+
+        public ICommand ReadyCommand => _readyCommand ?? (_readyCommand =
+                                           new RelayCommand(ExecuteReadyCommand,
+                                               CanExecuteReadyCommand));
+
+        private void ExecuteReadyCommand(object obj)
+        {
+            _client.SendMessage(new GameMessage
+            {
+                SenderId = CurrentPlayer.Id,
+                MessageType = GameMessageType.ReadyToPlay
+            });
+            ReadyButtonVisibility = Visibility.Hidden;
+            OnPropertyChanged(nameof(ReadyButtonVisibility));
+        }
+
+        private bool CanExecuteReadyCommand(object arg)
+        {
+            return true;
+        }
+
         #endregion
 
-	}
+        #endregion
+
+        #region Private methods
+
+        private void ReceivedMessageFromClient(Message message)
+        {
+            switch (message.MessageType)
+            {
+                case GameMessageType.InitializeMessage:
+                    HandleInitMessage((InitializeMessage) message);
+                    break;
+                case GameMessageType.TextMessage:
+                    HandleTextMessage((TextMessage)message);
+                    break;
+                case GameMessageType.UpdateTableMessage:
+                    HandleUpdateTableMessage((UpdateTableMessage)message);
+                    break;
+            }
+        }
+
+        private void HandleInitMessage(InitializeMessage message)
+        {
+            CurrentPlayer.Id = message.Id;
+        }
+
+        private void HandleTextMessage(TextMessage message)
+        {
+            TextInChatBox += ((TextMessage)message).Text;
+            OnPropertyChanged(nameof(TextInChatBox));
+        }
+
+        private void HandleUpdateTableMessage(UpdateTableMessage message)
+        {
+
+        }
+
+        #endregion
+
+    }
 }

@@ -1,10 +1,18 @@
-﻿using System;
+﻿using CommonLibrary.Enumerations;
+using System;
 
 namespace CommonLibrary.Message
 {
     [Serializable]
     public abstract class Message
     {
-        public int SenderId { get; set; }
+        public string SenderId { get; set; }
+        public GameMessageType MessageType { get; set; }
+        public bool IsBroadcast { get; set; }
+
+        protected Message()
+        {
+            IsBroadcast = true;
+        }
     }
 }
