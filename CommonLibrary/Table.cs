@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using CommonLibrary.CardsClasses; 
+﻿using CommonLibrary.CardsClasses;
+using System.Collections.Generic;
 
 namespace CommonLibrary
 {

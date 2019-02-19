@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using Saboteur.MVVM;
+using System.Windows;
 using System.Windows.Input;
-using Saboteur.MVVM;
 
 namespace Saboteur.ViewModel
 {
@@ -34,7 +34,7 @@ namespace Saboteur.ViewModel
 
         private void ExecuteJoinCommand(object obj)
         {
-            var mainViewModel = new MainViewModel();
+            var mainViewModel = new MainViewModel(Login);
             mainViewModel.Window.Show();
             _loginWindow.Close();
         }

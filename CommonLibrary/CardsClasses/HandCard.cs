@@ -1,6 +1,9 @@
-﻿namespace CommonLibrary.CardsClasses
+﻿using System;
+
+namespace CommonLibrary.CardsClasses
 {
-	public class HandCard : Card
+    [Serializable]
+    public class HandCard : Card
 	{
 		public HandCard(int id) { Id = id; }
 	}

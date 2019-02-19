@@ -1,8 +1,10 @@
 ﻿using CommonLibrary.Enumerations;
+using System;
 
 namespace CommonLibrary.CardsClasses
 {
-	public class RoleCard: Card
+    [Serializable]
+	public class RoleCard : Card
 	{
 		public RoleType Role { get; set; }
 
