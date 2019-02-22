@@ -7,6 +7,7 @@ using Saboteur.MVVM;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Saboteur.ViewModel
@@ -208,7 +209,7 @@ namespace Saboteur.ViewModel
 
         private void HandleUpdateTableMessage(UpdateTableMessage message)
         {
-
+            MyHand.UpdateCards(message.Hand);
         }
 
         #endregion

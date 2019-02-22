@@ -72,7 +72,7 @@ namespace Server
 
         protected internal void LaunchGame()
         {
-            if(!_clients.All(c => c.IsReady) && _clients.Count != 2) return;
+            if(!_clients.All(c => c.IsReady) || _clients.Count != 2) return;
             Console.WriteLine("All players are ready, let's start!");
             var launcher = new Launcher(_clients.Select(c => c.Id).ToList());
             launcher.ProvideRolesForPlayers();
@@ -81,6 +81,7 @@ namespace Server
             {
                 var player = launcher.Players.First(pl => pl.Id == client.Id);
                 var gameMessage = new UpdateTableMessage();
+                gameMessage.IsBroadcast = false;
                 gameMessage.RoleCard = player.Role;
                 gameMessage.Hand = player.Hand;
                 SendMessage(gameMessage, client.Id);

@@ -1,4 +1,5 @@
-﻿using CommonLibrary;
+﻿using System.Collections.Generic;
+using CommonLibrary;
 using CommonLibrary.CardsClasses;
 using CommonLibrary.Enumerations;
 using Saboteur.Models;
@@ -20,12 +21,12 @@ namespace Saboteur.ViewModel
         public PlayerHandViewModel(bool isMyHand, Player player)
         {
             Cards = new ObservableCollection<HandCard>();
-            Cards.Add(new HandCard(1));
+            /*Cards.Add(new HandCard(1));
             Cards.Add(new HandCard(2));
             Cards.Add(new HandCard(3));
             Cards.Add(new HandCard(4));
             Cards.Add(new HandCard(5));
-            Cards.Add(new HandCard(6));
+            Cards.Add(new HandCard(6));*/
             IsMyHand = isMyHand;
             _player = player;
             Lamp = new ActionModel(player, Equipment.Lamp);
@@ -36,6 +37,16 @@ namespace Saboteur.ViewModel
 
         #region Commands
 
+        #endregion
+
+        #region Public methods
+
+        public void UpdateCards(List<HandCard> cards)
+        {
+            Cards = new ObservableCollection<HandCard>(cards);
+            OnPropertyChanged(nameof(Cards));
+        }
+        
         #endregion
     }
 }

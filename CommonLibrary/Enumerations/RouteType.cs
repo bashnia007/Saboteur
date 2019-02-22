@@ -1,6 +1,9 @@
-﻿namespace CommonLibrary.Enumerations
+﻿using System;
+
+namespace CommonLibrary.Enumerations
 {
-	public enum RouteType
+    [Serializable]
+    public enum RouteType
 	{
 		Cross,
 		LeftTurn,

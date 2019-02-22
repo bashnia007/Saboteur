@@ -1,5 +1,6 @@
 ﻿using CommonLibrary;
 using CommonLibrary.CardsClasses;
+using CommonLibrary.CardSets;
 using CommonLibrary.Enumerations;
 using System.Collections.Generic;
 
@@ -31,11 +32,9 @@ namespace Server
 			RoleCards.Add(new RoleCard(RoleType.Green));
 
 			HandCards = new List<Card>();
-			for (int i = 0; i <= 30; i++)
-			{
-				HandCards.Add(new HandCard(i));
-			}
-		}
+		    CreateCardSet(new One2OneGameSet());
+
+        }
 
 		public void ProvideRolesForPlayers()
 		{
@@ -58,5 +57,25 @@ namespace Server
 				}
 			}
 		}
+
+	    private void CreateCardSet(IGameSet gameSet)
+	    {
+	        int cardId = 0;
+	        foreach (var cardSet in gameSet.CardSets)
+	        {
+	            for (int i = 0; i < cardSet.Count; i++)
+	            {
+	                switch (cardSet.CardType)
+	                {
+                        case CardType.RouteCard:
+                            HandCards.Add(new RouteCard(cardId++, cardSet.CardImage));
+                            break;
+                        case CardType.ActionCard:
+                            HandCards.Add(new ActionCard(cardId++, cardSet.CardImage));
+                            break;
+	                }
+	            }
+	        }
+	    }
 	}
 }

@@ -47,8 +47,12 @@
     <Compile Include="CardsClasses\HandCard.cs" />
     <Compile Include="CardsClasses\GoldCard.cs" />
     <Compile Include="CardsClasses\Card.cs" />
+    <Compile Include="CardSets\CardSet.cs" />
+    <Compile Include="CardSets\IGameSet.cs" />
+    <Compile Include="CardSets\One2OneGameSet.cs" />
     <Compile Include="Enumerations\Equipment.cs" />
     <Compile Include="Enumerations\GameMessageType.cs" />
+    <Compile Include="ImagePaths.cs" />
     <Compile Include="Message\ActionMessage.cs" />
     <Compile Include="Message\BuildMessage.cs" />
     <Compile Include="Message\GameMessage.cs" />
@@ -91,26 +95,66 @@
     <Content Include="Images\gold\Three_deadends_short.png" />
     <Content Include="Images\gold\Two_deadends_left.png" />
     <Content Include="Images\gold\Two_deadends_right.png" />
-    <Content Include="Images\routes\Bridge.png" />
-    <Content Include="Images\routes\Cross.png" />
-    <Content Include="Images\routes\Left_angle.png" />
-    <Content Include="Images\routes\Left_angle_diagonals.png" />
-    <Content Include="Images\routes\Left_angle_with_bottom_deadend.png" />
-    <Content Include="Images\routes\Left_angle_with_right_deadend.png" />
-    <Content Include="Images\routes\Long_line.png" />
-    <Content Include="Images\routes\Long_with_deadend.png" />
-    <Content Include="Images\routes\Right_angle.png" />
-    <Content Include="Images\routes\Right_angle_diagonals.png" />
-    <Content Include="Images\routes\Right_angle_with_bottom_deadend.png" />
-    <Content Include="Images\routes\Right_angle_with_left_deadend.png" />
-    <Content Include="Images\routes\Short_line.png" />
-    <Content Include="Images\routes\Short_line_with_deadend.png" />
-    <Content Include="Images\routes\Start_blue.png" />
-    <Content Include="Images\routes\Start_green.png" />
-    <Content Include="Images\routes\Three_lines_long.png" />
-    <Content Include="Images\routes\Three_lines_long_with_deadend.png" />
-    <Content Include="Images\routes\Three_lines_short.png" />
-    <Content Include="Images\routes\Three_lines_short_with_deadend.png" />
+    <Content Include="Images\routes\Bridge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Cross.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Left_angle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Left_angle_diagonals.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Left_angle_with_bottom_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Left_angle_with_right_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Long_line.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Long_with_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Right_angle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Right_angle_diagonals.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Right_angle_with_bottom_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Right_angle_with_left_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Short_line.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Short_line_with_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Start_blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Start_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Three_lines_long.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Three_lines_long_with_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Three_lines_short.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\routes\Three_lines_short_with_deadend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

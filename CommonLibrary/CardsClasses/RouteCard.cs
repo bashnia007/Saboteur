@@ -1,10 +1,15 @@
 ﻿using CommonLibrary.Enumerations;
+using System;
 
 namespace CommonLibrary.CardsClasses
 {
-	public class RouteCard: HandCard
+    [Serializable]
+    public class RouteCard: HandCard
 	{
-		public RouteType Type { get; set; }
-		public RouteCard(int id) : base(id) { }
+		public RouteType RouteType { get; set; }
+        
+		public RouteCard(int id, string imagePath) : base(id, imagePath) { }
+
+        public RouteCard(int id) : base(id) { }
 	}
 }

@@ -9,7 +9,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type cardsClasses:HandCard}">
-            <Rectangle Width="55" Height="80" Fill="Blue" Stroke="Red" StrokeThickness="1" Margin="1" />
+            <Rectangle Width="55" Height="80" Stroke="Red" StrokeThickness="1" Margin="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding ImagePath}" />
+                </Rectangle.Fill>
+            </Rectangle>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
@@ -64,7 +68,7 @@
                  Background="Red" 
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top" 
-                 ItemsSource="{Binding Cards}"
+                 ItemsSource="{Binding Cards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  SelectedItem="{Binding DataContext.SelectedCard, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
                  IsEnabled="{Binding IsMyHand}">
             <ListBox.ItemsPanel>

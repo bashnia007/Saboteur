@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.Enumerations;
 using System;
+using System.Drawing;
 
 namespace CommonLibrary.CardsClasses
 {
@@ -8,5 +9,6 @@ namespace CommonLibrary.CardsClasses
     {
 	    public int Id { get; set; }
 	    public CardType Type { get; set; }
+        public string ImagePath { get; set; }
     }
 }
