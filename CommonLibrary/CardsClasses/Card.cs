@@ -1,6 +1,5 @@
 ﻿using CommonLibrary.Enumerations;
 using System;
-using System.Drawing;
 
 namespace CommonLibrary.CardsClasses
 {
