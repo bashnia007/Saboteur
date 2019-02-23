@@ -1,20 +1,20 @@
-﻿using System;
+﻿using CommonLibrary.CardsClasses;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Server
 {
 	class Validator
 	{
-		public bool ValidateActionCardUsing()
+		public bool ValidateActionCardUsing(ActionCard actionCard, List<ActionCard> tableActionCards)
 		{
+
 			throw new NotImplementedException();
 		}
 
-		public bool ValidateBuildingTunnelAction()
+		public bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards)
 		{
+
 			throw new NotImplementedException();
 		}
 	}
