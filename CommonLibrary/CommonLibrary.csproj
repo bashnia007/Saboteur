@@ -79,22 +79,66 @@
     <Compile Include="Tcp\TcpConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\actions\lamp_break.png" />
-    <Content Include="Images\actions\lamp_fix.png" />
-    <Content Include="Images\actions\lamp_pick_fix.png" />
-    <Content Include="Images\actions\pick_break.png" />
-    <Content Include="Images\actions\pick_fix.png" />
-    <Content Include="Images\actions\trolley_break.png" />
-    <Content Include="Images\actions\trolley_fix.png" />
-    <Content Include="Images\actions\trolley_lamp_fix.png" />
-    <Content Include="Images\actions\trolley_pick_fix.png" />
-    <Content Include="Images\gold\Four_deadends.png" />
-    <Content Include="Images\gold\Long_line_with_two_deadends.png" />
-    <Content Include="Images\gold\Short_line_with_two_deadends.png" />
-    <Content Include="Images\gold\Three_deadends_long.png" />
-    <Content Include="Images\gold\Three_deadends_short.png" />
-    <Content Include="Images\gold\Two_deadends_left.png" />
-    <Content Include="Images\gold\Two_deadends_right.png" />
+    <Content Include="Images\actions\bang.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\lamp_break.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\lamp_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\lamp_pick_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\pick_break.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\pick_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\trolley_break.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\trolley_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\trolley_lamp_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\actions\trolley_pick_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\dwarfs\blue_dwarf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\dwarfs\green_dwarf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gold\Four_deadends.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gold\Long_line_with_two_deadends.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gold\Short_line_with_two_deadends.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gold\Three_deadends_long.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gold\Three_deadends_short.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gold\Two_deadends_left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gold\Two_deadends_right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\routes\Bridge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
