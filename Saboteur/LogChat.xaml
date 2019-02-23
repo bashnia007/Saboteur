@@ -17,14 +17,17 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Column="0"
-                     Grid.Row="0"
-                     VerticalAlignment="Stretch" 
-                     HorizontalAlignment="Stretch"
-                     Margin="10, 10, 10, 5"
-                     Background="AliceBlue"
-                     HorizontalContentAlignment="Left"
-                     VerticalContentAlignment="Top"
-                     IsReadOnly="True"
+                 Grid.Row="0"
+                 VerticalAlignment="Stretch" 
+                 HorizontalAlignment="Stretch"
+                 Margin="10, 10, 10, 5"
+                 Background="AliceBlue"
+                 HorizontalContentAlignment="Left"
+                 VerticalContentAlignment="Top"
+                 IsReadOnly="True"
+                 Padding="5"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
                  Text="{Binding TextInChatBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
         </TextBox>
 
