@@ -8,5 +8,14 @@ namespace Server
 {
 	class Validator
 	{
+		public bool ValidateActionCardUsing()
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool ValidateBuildingTunnelAction()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
