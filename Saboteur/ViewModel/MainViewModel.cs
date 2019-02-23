@@ -25,8 +25,9 @@ namespace Saboteur.ViewModel
         public Visibility ReadyButtonVisibility { get; set; }
 		public string TextInChatBox { get; set; }
         public string Login { get; set; }
-
-		private readonly Client _client;
+        public string RoleImage { get; set; }
+        
+        private readonly Client _client;
 
         public MainViewModel(string login)
         {
@@ -210,6 +211,11 @@ namespace Saboteur.ViewModel
         private void HandleUpdateTableMessage(UpdateTableMessage message)
         {
             MyHand.UpdateCards(message.Hand);
+            if (message.RoleCard != null)
+            {
+                RoleImage = message.RoleCard.ImagePath;
+                OnPropertyChanged(nameof(RoleImage));
+            }
         }
 
         #endregion
