@@ -78,8 +78,8 @@
                     Margin="5"
                     Command="{Binding ReadyCommand}"
                     Visibility="{Binding ReadyButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-            <Rectangle Width="55"
-                       Height="80">
+            <Rectangle Width="70"
+                       Height="95">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding RoleImage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </Rectangle.Fill>

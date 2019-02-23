@@ -26,6 +26,9 @@ namespace Saboteur.ViewModel
 		public string TextInChatBox { get; set; }
         public string Login { get; set; }
         public string RoleImage { get; set; }
+        public string LampImage { get; set; }
+        public string PickImage { get; set; }
+        public string TrolleyImage { get; set; }
         
         private readonly Client _client;
 
@@ -75,6 +78,10 @@ namespace Saboteur.ViewModel
 			_client.OnReceiveMessageEvent += ReceivedMessageFromClient;
 
             ReadyButtonVisibility = Visibility.Visible;
+
+            LampImage = ImagePaths.LampFix;
+            PickImage = ImagePaths.LampFix;
+            TrolleyImage = ImagePaths.LampFix;
         }
 
 		#region Commands
