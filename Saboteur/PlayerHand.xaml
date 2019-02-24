@@ -25,9 +25,11 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Rectangle Width="50"
-                       Height="50" 
-                       Fill="LightSlateGray"
+                       Height="50"
                        Margin="20, 0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding Lamp.ImagePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Rectangle.Fill>
                 <Rectangle.InputBindings>
                     <MouseBinding Gesture="LeftClick" 
                                   Command="{Binding DataContext.MakeActionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}" 
@@ -35,8 +37,10 @@
                 </Rectangle.InputBindings>
             </Rectangle>
             <Rectangle Width="50" Height="50" 
-                       Fill="LightSlateGray"
                        Margin="20, 0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding Pick.ImagePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Rectangle.Fill>
                 <Rectangle.InputBindings>
                     <MouseBinding Gesture="LeftClick" 
                                   Command="{Binding DataContext.MakeActionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}" 
@@ -44,8 +48,10 @@
                 </Rectangle.InputBindings>
             </Rectangle>
             <Rectangle Width="50" Height="50" 
-                       Fill="LightSlateGray"
                        Margin="20, 0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding Trolley.ImagePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Rectangle.Fill>
                 <Rectangle.InputBindings>
                     <MouseBinding Gesture="LeftClick" 
                                   Command="{Binding DataContext.MakeActionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
@@ -53,8 +59,10 @@
                 </Rectangle.InputBindings>
             </Rectangle>
             <Rectangle Width="50" Height="50" 
-                       Fill="LightSlateGray"
                        Margin="20, 0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Rectangle.Fill>
                 <Rectangle.InputBindings>
                     <MouseBinding Gesture="LeftClick" 
                                   Command="{Binding DataContext.MakeActionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}" 

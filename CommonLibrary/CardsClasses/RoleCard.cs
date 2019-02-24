@@ -8,6 +8,19 @@ namespace CommonLibrary.CardsClasses
 	{
 		public RoleType Role { get; set; }
 
-		public RoleCard(RoleType roleType) { Role = roleType; }
+	    public RoleCard(RoleType roleType)
+	    {
+	        Role = roleType;
+
+	        switch (roleType)
+	        {
+                case RoleType.Blue:
+                    ImagePath = ImagePaths.BlueDwarf;
+                    break;
+                case RoleType.Green:
+                    ImagePath = ImagePaths.GreenDwarf;
+                    break;
+	        }
+	    }
 	}
 }

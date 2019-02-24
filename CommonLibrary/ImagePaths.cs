@@ -41,6 +41,8 @@ namespace CommonLibrary
         public static string TrolleyFix = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\trolley_fix.png";
         public static string TrolleyLampFix = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\trolley_lamp_fix.png";
         public static string TrolleyPickFix = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\trolley_pick_fix.png";
+        public static string Bang = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\bang.png";
+        public static string Map = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\map.png";
 
         #endregion
 
@@ -53,6 +55,13 @@ namespace CommonLibrary
         public static string ThreeDeadEndsShort = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Three_deadends_short.png";
         public static string TwoDeadEndsLeft = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Two_deadends_left.png";
         public static string TwoDeadEndsRight = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Two_deadends_right.png";
+
+        #endregion
+
+        #region Dwarfs
+
+        public static string BlueDwarf = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\dwarfs\\blue_dwarf.png";
+        public static string GreenDwarf = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\dwarfs\\green_dwarf.png";
 
         #endregion
     }

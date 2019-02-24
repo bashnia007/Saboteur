@@ -67,16 +67,25 @@
                    Stroke="Red"
                    StrokeThickness="1" 
                    Margin="1"/>
-        <Button Grid.Row="2"
-                Grid.Column="0"
-                Width="90" 
-                Height="30" 
-                Content="READY!"
-                VerticalAlignment="Center" 
-                HorizontalAlignment="Center"
-                Background="Olive"
-                Command="{Binding ReadyCommand}"
-                Visibility="{Binding ReadyButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+        <StackPanel Grid.Row="2"
+                    Grid.Column="0">
+            <Button Width="90" 
+                    Height="30" 
+                    Content="READY!"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center"
+                    Background="Olive"
+                    Margin="5"
+                    Command="{Binding ReadyCommand}"
+                    Visibility="{Binding ReadyButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <Rectangle Width="70"
+                       Height="95">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding RoleImage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </StackPanel>
+        
         <local:LogChat Grid.Row="0"
                        Grid.RowSpan="3"
                        Grid.Column="2">

@@ -12,6 +12,7 @@ namespace Saboteur.ViewModel
     {
         private Player _player;
         public ObservableCollection<HandCard> Cards { get; set; }
+        public ObservableCollection<ActionModel> Actions { get; set; }
         public bool IsMyHand { get; set; }
         public ActionModel Lamp { get; set; }
         public ActionModel Pick { get; set; }
@@ -21,18 +22,16 @@ namespace Saboteur.ViewModel
         public PlayerHandViewModel(bool isMyHand, Player player)
         {
             Cards = new ObservableCollection<HandCard>();
-            /*Cards.Add(new HandCard(1));
-            Cards.Add(new HandCard(2));
-            Cards.Add(new HandCard(3));
-            Cards.Add(new HandCard(4));
-            Cards.Add(new HandCard(5));
-            Cards.Add(new HandCard(6));*/
+            Actions = new ObservableCollection<ActionModel>();
             IsMyHand = isMyHand;
             _player = player;
-            Lamp = new ActionModel(player, Equipment.Lamp);
-            Pick = new ActionModel(player, Equipment.Pick);
-            Trolley = new ActionModel(player, Equipment.Trolley);
-            Prison = new ActionModel(player, Equipment.Prison);
+            Lamp = new ActionModel(player, Equipment.Lamp, ImagePaths.LampFix);
+            Pick = new ActionModel(player, Equipment.Pick, ImagePaths.PickFix);
+            Trolley = new ActionModel(player, Equipment.Trolley, ImagePaths.TrolleyFix);
+            Actions.Add(Lamp);
+            Actions.Add(Pick);
+            Actions.Add(Trolley);
+            //Prison = new ActionModel(player, Equipment.Prison);
         }
 
         #region Commands

@@ -26,8 +26,12 @@ namespace Saboteur.ViewModel
         public Visibility ReadyButtonVisibility { get; set; }
 		public string TextInChatBox { get; set; }
         public string Login { get; set; }
-
-		private readonly Client _client;
+        public string RoleImage { get; set; }
+        public string LampImage { get; set; }
+        public string PickImage { get; set; }
+        public string TrolleyImage { get; set; }
+        
+        private readonly Client _client;
 
         public MainViewModel(string login)
         {
@@ -75,6 +79,10 @@ namespace Saboteur.ViewModel
 			_client.OnReceiveMessageEvent += ReceivedMessageFromClient;
 
             ReadyButtonVisibility = Visibility.Visible;
+
+            LampImage = ImagePaths.LampFix;
+            PickImage = ImagePaths.LampFix;
+            TrolleyImage = ImagePaths.LampFix;
         }
 
 		#region Commands
@@ -212,6 +220,11 @@ namespace Saboteur.ViewModel
         private void HandleUpdateTableMessage(UpdateTableMessage message)
         {
             MyHand.UpdateCards(message.Hand);
+            if (message.RoleCard != null)
+            {
+                RoleImage = message.RoleCard.ImagePath;
+                OnPropertyChanged(nameof(RoleImage));
+            }
         }
 
         #endregion

@@ -23,6 +23,18 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithBottomDeadEnd, 1),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithRightDeadEnd, 1),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithBottomDeadEnd, 1),
+
+            new CardSet(CardType.ActionCard, ImagePaths.LampBreak, 2),
+            new CardSet(CardType.ActionCard, ImagePaths.PickBreak, 2),
+            new CardSet(CardType.ActionCard, ImagePaths.TrolleyBreak, 2),
+            new CardSet(CardType.ActionCard, ImagePaths.LampFix, 1),
+            new CardSet(CardType.ActionCard, ImagePaths.PickFix, 1),
+            new CardSet(CardType.ActionCard, ImagePaths.TrolleyFix, 1),
+            new CardSet(CardType.ActionCard, ImagePaths.TrolleyLampFix, 1),
+            new CardSet(CardType.ActionCard, ImagePaths.LampPickFix, 1),
+            new CardSet(CardType.ActionCard, ImagePaths.TrolleyPickFix, 1),
+            new CardSet(CardType.ActionCard, ImagePaths.Map, 2),
+            new CardSet(CardType.ActionCard, ImagePaths.Bang, 2)
         };
     }
 }
