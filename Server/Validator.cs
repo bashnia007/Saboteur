@@ -12,7 +12,7 @@ namespace Server
 			throw new NotImplementedException();
 		}
 
-		public bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards)
+		public bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards, bool canPassTunnel)
 		{
 			int x = routeCard.Coordinates.Coordinate_X;
 			int y = routeCard.Coordinates.Coordinate_Y;
@@ -53,13 +53,53 @@ namespace Server
 				}
 				else return d = false;
 			}
-			
+			if (routeCard.TopJoining == false)
+			{
+				if (y == y + 1 && routeCard.BottomJoining == false)
+				{
+					return a = true;
+				}
+				else return a = false;
+			}
+			if (routeCard.BottomJoining == false)
+			{
+				if (y == y - 1 && routeCard.TopJoining == false)
+				{
+					return b = true;
+				}
+				else return b = false;
+			}
+			if (routeCard.RightJoining == false)
+			{
+				if (x == x + 1 && routeCard.LeftJoining == false)
+				{
+					return c = true;
+				}
+				else return c = false;
+			}
+			if (routeCard.LeftJoining == false)
+			{
+				if (x == x - 1 && routeCard.RightJoining == false)
+				{
+					return d = true;
+				}
+				else return d = false;
+			}
+
 			//ValidateCanPassTunnel();
+
+			if (a == true && b == true && c == true && d == true && canPassTunnel == true)
+			{
+				return true;
+			}
+			
 			throw new NotImplementedException();
 		}
 
 		public bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards)
 		{
+			bool canPassTunnel = false;
+			return canPassTunnel = true;
 			throw new NotImplementedException();
 		}
 	}
