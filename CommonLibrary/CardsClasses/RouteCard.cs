@@ -11,5 +11,10 @@ namespace CommonLibrary.CardsClasses
 		public RouteCard(int id, string imagePath) : base(id, imagePath) { }
 
         public RouteCard(int id) : base(id) { }
+
+	    public RouteCard(int x, int y) : base(x, y)
+	    {
+
+	    }
 	}
 }

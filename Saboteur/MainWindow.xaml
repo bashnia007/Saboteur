@@ -13,7 +13,9 @@
                     <ImageBrush ImageSource="{Binding ImagePath}" />
                 </Rectangle.Fill>
                 <Rectangle.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.BuildTunnelCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
+                    <MouseBinding Gesture="LeftClick" 
+                                  Command="{Binding DataContext.BuildTunnelCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+                                  CommandParameter="{Binding }"/>
                 </Rectangle.InputBindings>
             </Rectangle>
         </DataTemplate>
