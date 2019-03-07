@@ -7,10 +7,11 @@ namespace Server
 {
 	class Validator
 	{
+		// Вадилатор возможности хода избранной картой - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
 		public bool ValidateActionCardUsing(ActionCard actionCard, List<ActionCard> tableActionCards)
 		{
 
-			throw new NotImplementedException();
+			return true;
 		}
 
 		public bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards)
@@ -25,47 +26,31 @@ namespace Server
 			RouteCard leftCardFromTable = tableRouteCards.FirstOrDefault(leftCard => leftCard.Coordinates.Coordinate_X == x - 1 && leftCard.Coordinates.Coordinate_Y == y);
 			RouteCard rightCardFromTable = tableRouteCards.FirstOrDefault(rightCard => rightCard.Coordinates.Coordinate_X == x + 1 && rightCard.Coordinates.Coordinate_Y == y);
 
-			//Создаем переменные валидаторы для соединений
-			bool validateTopJoining = false, 
-				validateBottomJoining = false, 
-				validateRightJoining = false, 
-				validateLeftJoining = false;
-
-			//Проверяем каждое соединение
-			if (routeCard.TopJoining == topCardFromTable.BottomJoining)
-			{
-				validateTopJoining = true;
-			}
-			if (routeCard.BottomJoining == bottomCardFromTable.TopJoining)
-			{
-				validateBottomJoining = true;
-			}
-			if (routeCard.RightJoining == rightCardFromTable.LeftJoining)
-			{
-				validateRightJoining = true;
-			}
-			if (routeCard.LeftJoining == leftCardFromTable.RightJoining)
-			{
-				validateLeftJoining = true;
-			}
+			//Создаем переменные валидаторы и проверяем каждое соединение
+			bool validateTopJoining = (routeCard.TopJoining == topCardFromTable.BottomJoining);
+			bool validateBottomJoining = (routeCard.BottomJoining == bottomCardFromTable.TopJoining);
+			bool validateRightJoining = (routeCard.RightJoining == rightCardFromTable.LeftJoining);
+			bool validateLeftJoining = (routeCard.LeftJoining == leftCardFromTable.RightJoining);
 
 			//Вызываем метод, проверяющий возможность прохождения тунеля на данный момент
 			bool canPassTunnel = ValidateCanPassTunnel();
 
 			//Итоговая проверка на возможность построения карточки с руки
 			return (validateTopJoining && validateBottomJoining && validateRightJoining && validateLeftJoining && canPassTunnel);
+			
 		}
 
+		// Кажется, нам это больше не нужно, но при удалении вылетает ошибка. Я в замешательстве.
 		private bool ValidateCanPassTunnel()
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 
 		public bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards)
 		{
-			//Алгоритм поиска в глубину
+			//Алгоритм поиска в глубину - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
 			bool canPassTunnel = false;
-			if ()
+			if (canPassTunnel == false)
 			{
 				canPassTunnel = true;
 			}
