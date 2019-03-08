@@ -33,17 +33,11 @@ namespace Server
 			bool validateLeftJoining = (routeCard.LeftJoining == leftCardFromTable.RightJoining);
 
 			//Вызываем метод, проверяющий возможность прохождения тунеля на данный момент
-			bool canPassTunnel = ValidateCanPassTunnel();
+			bool canPassTunnel = ValidateCanPassTunnel(routeCard, tableRouteCards);
 
 			//Итоговая проверка на возможность построения карточки с руки
 			return (validateTopJoining && validateBottomJoining && validateRightJoining && validateLeftJoining && canPassTunnel);
 			
-		}
-
-		// Кажется, нам это больше не нужно, но при удалении вылетает ошибка. Я в замешательстве.
-		private bool ValidateCanPassTunnel()
-		{
-			return true;
 		}
 
 		public bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards)
