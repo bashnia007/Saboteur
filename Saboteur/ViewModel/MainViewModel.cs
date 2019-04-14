@@ -43,12 +43,10 @@ namespace Saboteur.ViewModel
             };
             Players = new List<Player>();
             Players.Add(CurrentPlayer);
-            Players.Add(new Player());
 
             Window = new MainWindow();
             Window.DataContext = this;
             MyHand = new PlayerHandViewModel(true, CurrentPlayer);
-            EnemyHand = new PlayerHandViewModel(false, Players[1]);
             
             PrepareMap();
 
@@ -58,7 +56,7 @@ namespace Saboteur.ViewModel
             {
                 Login = login,
             });
-			_client.OnReceiveMessageEvent += ReceivedMessageFromClient;
+			_client.OnReceiveMessageEvent += ReceivedMessageFromServer;
 
             ReadyButtonVisibility = Visibility.Visible;
 
@@ -136,15 +134,15 @@ namespace Saboteur.ViewModel
             // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
             _client.SendMessage(new ActionMessage
             {
-                ActionType = ActionType.BreakLamp,
+                ActionType = ((ActionCard)SelectedCard).Action,
                 SenderId = CurrentPlayer.Id,
-                RecepientId = CurrentPlayer.Id
+                RecepientId = action.Player.Id
             });
         }
 
         public bool CanExecuteMakeActionCommand(object obj)
         {
-            return SelectedCard != null;
+            return SelectedCard != null && SelectedCard is ActionCard;
         }
 
         #endregion
@@ -179,7 +177,7 @@ namespace Saboteur.ViewModel
 
         #region Private methods
 
-        private void ReceivedMessageFromClient(Message message)
+        private void ReceivedMessageFromServer(Message message)
         {
             switch (message.MessageType)
             {
@@ -198,10 +196,15 @@ namespace Saboteur.ViewModel
                 case GameMessageType.SetTurnMessage:
                     HandleDirectMessage((SetTurnMessage) message);
                     break;
+				case GameMessageType.PlayersIdMessage:
+					HandlePlayersIdMessage((PlayersIdMessage)message);
+					break;
             }
         }
 
-        private void HandleInitMessage(InitializeMessage message)
+		#region Message Handlers
+
+		private void HandleInitMessage(InitializeMessage message)
         {
             CurrentPlayer.Id = message.Id;
         }
@@ -239,7 +242,18 @@ namespace Saboteur.ViewModel
             _isMyTurn = message.IsMyTurn;
         }
 
-        private void PrepareMap()
+		private void HandlePlayersIdMessage(PlayersIdMessage message)
+		{
+			foreach (string playerId in message.PlayersId)
+			{
+				Players.Add(new Player { Id = playerId });
+			}
+			EnemyHand = new PlayerHandViewModel(false, Players[1]);
+		}
+
+		#endregion
+
+		private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
             for (int rowNumber = 0; rowNumber < 6; rowNumber++)

@@ -55,7 +55,7 @@ namespace Server
         }
 
         // трансляция сообщения подключенным клиентам
-        protected internal void SendMessage(Message message, string id)
+        protected internal void SendMessage(Message message, string id = null)
         {
             BinaryFormatter formatter = new BinaryFormatter();
             if (message.IsBroadcast)
@@ -103,6 +103,14 @@ namespace Server
             
             MessageManager.AbstractPlayers = launcher.Players;
             MessageManager.HandCards = launcher.ShuffledHandCards;
+
+			PlayersIdMessage playersIdMessage = new PlayersIdMessage();
+			playersIdMessage.PlayersId = new List<string>();
+			foreach (var client in _clients)
+			{
+				playersIdMessage.PlayersId.Add(client.Id);
+			}
+			SendMessage(playersIdMessage); 
         }
 
         // отключение всех клиентов
