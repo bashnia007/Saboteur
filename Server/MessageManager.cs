@@ -130,12 +130,12 @@ namespace Server
             return updateMessage;
         }
 
-        private static DirectMessage SetNextPlayer()
+        private static SetTurnMessage SetNextPlayer()
         {
             var nextPlayer = Players.Dequeue();
             Players.Enqueue(nextPlayer);
 
-            var directMessage = new DirectMessage();
+            var directMessage = new SetTurnMessage();
             directMessage.IsBroadcast = false;
             directMessage.RecepientId = nextPlayer.Id;
 

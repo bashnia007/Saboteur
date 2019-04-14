@@ -4,12 +4,12 @@ using System;
 namespace CommonLibrary.Message
 {
     [Serializable]
-    public class DirectMessage : Message
+    public class SetTurnMessage : Message
     {
-        public DirectMessage()
+        public SetTurnMessage()
         {
-            MessageType = GameMessageType.DirectMessage;
-            IsDirect = true;
+            MessageType = GameMessageType.SetTurnMessage;
+            IsTurnMessage = true;
         }
         public bool IsMyTurn => true;
         public string RecepientId { get; set; }

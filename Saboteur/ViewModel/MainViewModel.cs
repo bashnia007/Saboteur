@@ -195,8 +195,8 @@ namespace Saboteur.ViewModel
                 case GameMessageType.BuildMessage:
                     HandleBuildMessage((BuildMessage) message);
                     break;
-                case GameMessageType.DirectMessage:
-                    HandleDirectMessage((DirectMessage) message);
+                case GameMessageType.SetTurnMessage:
+                    HandleDirectMessage((SetTurnMessage) message);
                     break;
             }
         }
@@ -234,7 +234,7 @@ namespace Saboteur.ViewModel
             OnPropertyChanged(nameof(Map));
         }
 
-        private void HandleDirectMessage(DirectMessage message)
+        private void HandleDirectMessage(SetTurnMessage message)
         {
             _isMyTurn = message.IsMyTurn;
         }
@@ -242,12 +242,12 @@ namespace Saboteur.ViewModel
         private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
-            for (int i = 0; i < 6; i++)
+            for (int rowNumber = 0; rowNumber < 6; rowNumber++)
             {
                 var row = new List<RouteCard>();
-                for (int j = 0; j < 9; j++)
+                for (int columnNumber = 0; columnNumber < 9; columnNumber++)
                 {
-                    row.Add(new RouteCard(i, j));
+                    row.Add(new RouteCard(rowNumber, columnNumber));
                 }
                 Map.Add(new ObservableCollection<RouteCard>(row));
             }

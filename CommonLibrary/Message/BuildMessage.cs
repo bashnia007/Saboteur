@@ -1,6 +1,6 @@
-﻿using System;
-using CommonLibrary.CardsClasses;
+﻿using CommonLibrary.CardsClasses;
 using CommonLibrary.Enumerations;
+using System;
 
 namespace CommonLibrary.Message
 {
@@ -16,7 +16,7 @@ namespace CommonLibrary.Message
         public RouteCard RouteCard { get; set; }
         // координаты, где игрок хочет построить карту тунеля
         public Coordinates Coordinates { get; set; }
-
+        // удалось ли построить тунелль
         public bool IsSuccessfulBuild { get; set; }
     }
 }

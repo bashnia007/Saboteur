@@ -1,4 +1,5 @@
-﻿using CommonLibrary.Message;
+﻿using CommonLibrary.Enumerations;
+using CommonLibrary.Message;
 using CommonLibrary.Tcp;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
-using CommonLibrary.Enumerations;
 
 namespace Server
 {
@@ -67,9 +67,9 @@ namespace Server
             }
             else
             {
-                if (message.IsDirect)
+                if (message.IsTurnMessage)
                 {
-                    var directMessage = message as DirectMessage;
+                    var directMessage = message as SetTurnMessage;
                     formatter.Serialize(_clients.First(c => c.Id == directMessage.RecepientId).Stream, message);
                 }
                 else
