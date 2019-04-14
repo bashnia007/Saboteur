@@ -12,6 +12,7 @@ namespace Server
 		public List<AbstractPlayer> Players { get; set; }
 		public List<Card> RoleCards { get; set; }
 		public List<Card> HandCards { get; set; }
+        public Queue<Card> ShuffledHandCards { get; set; }
 
 		public Launcher(List<string> playerIds)
 		{
@@ -45,14 +46,14 @@ namespace Server
 
 		public void ProvideHandCardsForPlayers()
 		{
-			Queue<Card> shuffledHandCards = cardManager.ShuffleCards(HandCards);
+		    ShuffledHandCards = cardManager.ShuffleCards(HandCards);
 			int k = 0;
 
 			while (k != 12)
 			{
 				foreach (Player player in Players)
 				{
-					player.Hand.Add((HandCard)shuffledHandCards.Dequeue());
+					player.Hand.Add((HandCard)ShuffledHandCards.Dequeue());
 					k++;
 				}
 			}

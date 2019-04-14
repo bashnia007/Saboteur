@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace CommonLibrary.Message
 {
     [Serializable]
-    public class UpdateTableMessage : Message
+    public class UpdateTableMessage : GameMessage
     {
         public UpdateTableMessage()
         {

@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using CommonLibrary.Enumerations;
 
 namespace Server
 {
@@ -66,7 +67,15 @@ namespace Server
             }
             else
             {
-                formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+                if (message.IsDirect)
+                {
+                    var directMessage = message as DirectMessage;
+                    formatter.Serialize(_clients.First(c => c.Id == directMessage.RecepientId).Stream, message);
+                }
+                else
+                {
+                    formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+                }
             }
         }
 
@@ -84,8 +93,16 @@ namespace Server
                 gameMessage.IsBroadcast = false;
                 gameMessage.RoleCard = player.Role;
                 gameMessage.Hand = player.Hand;
+                gameMessage.IsMyTurn = player.Role.Role == RoleType.Green;
                 SendMessage(gameMessage, client.Id);
             }
+
+            MessageManager.Players.Enqueue(_clients.First(c => c.Id != launcher.Players.First(pl => pl.Role.Role == RoleType.Green).Id));
+            MessageManager.Players.Enqueue(_clients.First(c => c.Id == launcher.Players.First(pl => pl.Role.Role == RoleType.Green).Id));
+            
+            
+            MessageManager.AbstractPlayers = launcher.Players;
+            MessageManager.HandCards = launcher.ShuffledHandCards;
         }
 
         // отключение всех клиентов

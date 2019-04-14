@@ -56,6 +56,7 @@
     <Compile Include="ImagePaths.cs" />
     <Compile Include="Message\ActionMessage.cs" />
     <Compile Include="Message\BuildMessage.cs" />
+    <Compile Include="Message\DirectMessage.cs" />
     <Compile Include="Message\GameMessage.cs" />
     <Compile Include="Message\InitializeMessage.cs" />
     <Compile Include="Message\Message.cs" />

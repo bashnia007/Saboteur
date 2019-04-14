@@ -91,7 +91,7 @@ namespace Saboteur.ViewModel
 
         private bool CanExecuteBuildTunnelCommand(object obj)
         {
-            return obj is RouteCard && SelectedCard is RouteCard;
+            return _isMyTurn && obj is RouteCard && SelectedCard is RouteCard;
         }
 
 		#endregion
@@ -195,6 +195,9 @@ namespace Saboteur.ViewModel
                 case GameMessageType.BuildMessage:
                     HandleBuildMessage((BuildMessage) message);
                     break;
+                case GameMessageType.DirectMessage:
+                    HandleDirectMessage((DirectMessage) message);
+                    break;
             }
         }
 
@@ -212,6 +215,7 @@ namespace Saboteur.ViewModel
         private void HandleUpdateTableMessage(UpdateTableMessage message)
         {
             MyHand.UpdateCards(message.Hand);
+            _isMyTurn = message.IsMyTurn;
             if (message.RoleCard != null)
             {
                 RoleImage = message.RoleCard.ImagePath;
@@ -228,6 +232,11 @@ namespace Saboteur.ViewModel
                 Map[message.Coordinates.Coordinate_X][message.Coordinates.Coordinate_Y] = message.RouteCard;
             });
             OnPropertyChanged(nameof(Map));
+        }
+
+        private void HandleDirectMessage(DirectMessage message)
+        {
+            _isMyTurn = message.IsMyTurn;
         }
 
         private void PrepareMap()

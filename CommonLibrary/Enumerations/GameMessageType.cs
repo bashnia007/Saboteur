@@ -11,6 +11,7 @@ namespace CommonLibrary.Enumerations
         ActionMessage,
         BuildMessage,
         InitializeMessage,
-        UpdateTableMessage
+        UpdateTableMessage,
+        DirectMessage,
     }
 }

@@ -5,7 +5,7 @@ using CommonLibrary.Enumerations;
 namespace CommonLibrary.Message
 {
     [Serializable]
-    public class BuildMessage : Message
+    public class BuildMessage : GameMessage
     {
         public BuildMessage()
         {
@@ -16,5 +16,7 @@ namespace CommonLibrary.Message
         public RouteCard RouteCard { get; set; }
         // координаты, где игрок хочет построить карту тунеля
         public Coordinates Coordinates { get; set; }
+
+        public bool IsSuccessfulBuild { get; set; }
     }
 }
