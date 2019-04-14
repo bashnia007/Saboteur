@@ -10,6 +10,7 @@ namespace CommonLibrary.Message
 		public string Login { get; set; }
         public GameMessageType MessageType { get; set; }
         public bool IsBroadcast { get; set; }
+        public bool IsTurnMessage { get; set; }
 
         protected Message()
         {

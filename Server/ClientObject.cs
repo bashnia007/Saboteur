@@ -30,15 +30,17 @@ namespace Server
         {
             try
             {
-                var messageManager = new MessageManager(this);
                 Stream = client.GetStream();
                 // в бесконечном цикле получаем сообщения от клиента
                 while (true)
                 {
                     var message = GetMessage();
                     Console.WriteLine(message);
-                    var responseMessage = messageManager.HandleMessage(message);
-                    Server.SendMessage(responseMessage, this.Id);
+                    var responseMessages = MessageManager.HandleMessage(message, this);
+                    foreach (var responseMessage in responseMessages)
+                    {
+                        Server.SendMessage(responseMessage, this.Id);
+                    }
                 }
             }
             catch (Exception exception)

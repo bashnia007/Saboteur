@@ -15,7 +15,12 @@ namespace CommonLibrary.CardsClasses
 
 	    public HandCard(int id)
 	    {
+	        Id = id;
+	    }
 
+	    public HandCard(int x, int y)
+	    {
+            Coordinates = new Coordinates(x, y);
 	    }
 	}
 }

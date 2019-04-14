@@ -1,4 +1,5 @@
-﻿using CommonLibrary.Message;
+﻿using CommonLibrary.Enumerations;
+using CommonLibrary.Message;
 using CommonLibrary.Tcp;
 using System;
 using System.Collections.Generic;
@@ -66,7 +67,15 @@ namespace Server
             }
             else
             {
-                formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+                if (message.IsTurnMessage)
+                {
+                    var directMessage = message as SetTurnMessage;
+                    formatter.Serialize(_clients.First(c => c.Id == directMessage.RecepientId).Stream, message);
+                }
+                else
+                {
+                    formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+                }
             }
         }
 
@@ -84,8 +93,16 @@ namespace Server
                 gameMessage.IsBroadcast = false;
                 gameMessage.RoleCard = player.Role;
                 gameMessage.Hand = player.Hand;
+                gameMessage.IsMyTurn = player.Role.Role == RoleType.Green;
                 SendMessage(gameMessage, client.Id);
             }
+
+            MessageManager.Players.Enqueue(_clients.First(c => c.Id != launcher.Players.First(pl => pl.Role.Role == RoleType.Green).Id));
+            MessageManager.Players.Enqueue(_clients.First(c => c.Id == launcher.Players.First(pl => pl.Role.Role == RoleType.Green).Id));
+            
+            
+            MessageManager.AbstractPlayers = launcher.Players;
+            MessageManager.HandCards = launcher.ShuffledHandCards;
         }
 
         // отключение всех клиентов

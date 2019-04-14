@@ -32,6 +32,7 @@ namespace Saboteur.ViewModel
         public string TrolleyImage { get; set; }
         
         private readonly Client _client;
+        private bool _isMyTurn;
 
         public MainViewModel(string login)
         {
@@ -49,26 +50,7 @@ namespace Saboteur.ViewModel
             MyHand = new PlayerHandViewModel(true, CurrentPlayer);
             EnemyHand = new PlayerHandViewModel(false, Players[1]);
             
-            var list = new List<RouteCard>
-            {
-                new RouteCard(1),
-                new RouteCard(2),
-                new RouteCard(3),
-                new RouteCard(4),
-                new RouteCard(5),
-                new RouteCard(6),
-                new RouteCard(7),
-                new RouteCard(8),
-                new RouteCard(9),
-            };
-            Map = new ObservableCollection<ObservableCollection<RouteCard>>();
-            Map.Add(new ObservableCollection<RouteCard>(list));
-            Map.Add(new ObservableCollection<RouteCard>(list));
-            Map.Add(new ObservableCollection<RouteCard>(list));
-            Map.Add(new ObservableCollection<RouteCard>(list));
-            Map.Add(new ObservableCollection<RouteCard>(list));
-            Map.Add(new ObservableCollection<RouteCard>(list));
-            Map.Add(new ObservableCollection<RouteCard>(list));
+            PrepareMap();
 
             _client = new Client();
             _client.EstablishConnection();
@@ -97,12 +79,19 @@ namespace Saboteur.ViewModel
 
         private void ExecuteBuildTunnelCommand(object obj)
         {
-
+            var mapItem = (RouteCard) obj;
+            _client.SendMessage(new BuildMessage
+            {
+                Coordinates = mapItem.Coordinates,
+                SenderId = CurrentPlayer.Id,
+                CardId = SelectedCard.Id,
+                RouteCard = SelectedCard as RouteCard
+            });
         }
 
         private bool CanExecuteBuildTunnelCommand(object obj)
         {
-            return true;
+            return _isMyTurn && obj is RouteCard && SelectedCard is RouteCard;
         }
 
 		#endregion
@@ -203,6 +192,12 @@ namespace Saboteur.ViewModel
                 case GameMessageType.UpdateTableMessage:
                     HandleUpdateTableMessage((UpdateTableMessage)message);
                     break;
+                case GameMessageType.BuildMessage:
+                    HandleBuildMessage((BuildMessage) message);
+                    break;
+                case GameMessageType.SetTurnMessage:
+                    HandleDirectMessage((SetTurnMessage) message);
+                    break;
             }
         }
 
@@ -220,10 +215,41 @@ namespace Saboteur.ViewModel
         private void HandleUpdateTableMessage(UpdateTableMessage message)
         {
             MyHand.UpdateCards(message.Hand);
+            _isMyTurn = message.IsMyTurn;
             if (message.RoleCard != null)
             {
                 RoleImage = message.RoleCard.ImagePath;
                 OnPropertyChanged(nameof(RoleImage));
+            }
+        }
+
+        private void HandleBuildMessage(BuildMessage message)
+        {
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                Map[message.Coordinates.Coordinate_X][message.Coordinates.Coordinate_Y] = message.RouteCard;
+            });
+            OnPropertyChanged(nameof(Map));
+        }
+
+        private void HandleDirectMessage(SetTurnMessage message)
+        {
+            _isMyTurn = message.IsMyTurn;
+        }
+
+        private void PrepareMap()
+        {
+            Map = new ObservableCollection<ObservableCollection<RouteCard>>();
+            for (int rowNumber = 0; rowNumber < 6; rowNumber++)
+            {
+                var row = new List<RouteCard>();
+                for (int columnNumber = 0; columnNumber < 9; columnNumber++)
+                {
+                    row.Add(new RouteCard(rowNumber, columnNumber));
+                }
+                Map.Add(new ObservableCollection<RouteCard>(row));
             }
         }
 

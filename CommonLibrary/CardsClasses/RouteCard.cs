@@ -31,5 +31,10 @@ namespace CommonLibrary.CardsClasses
 		public bool PassableLeft2Bottom { get; set; }
 		public bool NonPassable { get; set; }
 		#endregion
+
+	    public RouteCard(int x, int y) : base(x, y)
+	    {
+
+	    }
 	}
 }

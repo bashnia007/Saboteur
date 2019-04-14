@@ -5,12 +5,13 @@ namespace CommonLibrary.Enumerations
     [Serializable]
     public enum GameMessageType
     {
-        TextMessage,
-        ReadyToPlay,
-        GameStarted,
         ActionMessage,
         BuildMessage,
+        SetTurnMessage,
+        GameStarted,
         InitializeMessage,
-        UpdateTableMessage
+        ReadyToPlay,
+        TextMessage,
+        UpdateTableMessage,
     }
 }

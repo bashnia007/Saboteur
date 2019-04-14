@@ -1,45 +1,147 @@
-﻿using CommonLibrary.Enumerations;
+﻿using CommonLibrary;
+using CommonLibrary.CardsClasses;
+using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Server
 {
-    public class MessageManager
+    public static class MessageManager
     {
-        private readonly ClientObject _client;
+        public static Queue<ClientObject> Players;
+        public static Queue<Card> HandCards;
+        public static List<AbstractPlayer> AbstractPlayers { get; set; }
 
-        public MessageManager(ClientObject client)
+        static MessageManager()
         {
-            _client = client;
+            Players = new Queue<ClientObject>();
         }
 
-        public Message HandleMessage(Message message)
+        public static List<Message> HandleMessage(Message message, ClientObject client)
         {
             var type = message.MessageType;
             switch (type)
             {
                 case GameMessageType.InitializeMessage:
-                    return new InitializeMessage
-                    {
-                        Id = _client.Id,
-                        IsBroadcast = false
-                    };
+                    return HandleInitializeMessage(message, client);
+
                 case GameMessageType.TextMessage:
-                    return new TextMessage
-                    {
-                        Text = ((TextMessage)message).Text,
-                        SenderId = _client.Id
-                    };
+                    return HandleTextMessage(message, client);
+
                 case GameMessageType.ReadyToPlay:
-                    _client.IsReady = true;
-                    _client.Server.LaunchGame();
-                    return new GameMessage
-                    {
-                        MessageType = GameMessageType.ReadyToPlay,
-                        SenderId = _client.Id
-                    };
+                    return HandleReadyToPlayMessage(message, client);
+
+                case GameMessageType.BuildMessage:
+                    return HandleBuildMessage(message, client);
+
                 default: throw new NotImplementedException();
             }
         }
+
+        #region Private methods
+
+        private static List<Message> HandleInitializeMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+            result.Add(new InitializeMessage
+            {
+                Id = client.Id,
+                IsBroadcast = false
+            });
+
+            return result;
+        }
+
+        private static List<Message> HandleTextMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+            result.Add(new TextMessage
+            {
+                Text = ((TextMessage)message).Text,
+                SenderId = client.Id
+            });
+
+            return result;
+        }
+
+        private static List<Message> HandleReadyToPlayMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+            client.IsReady = true;
+            client.Server.LaunchGame();
+            result.Add(new GameMessage
+            {
+                MessageType = GameMessageType.ReadyToPlay,
+                SenderId = client.Id
+            });
+
+            return result;
+        }
+
+        private static List<Message> HandleBuildMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            var buildMessage = (BuildMessage)message;
+            result.Add(buildMessage);
+
+            // check if user can build card
+            if (true)
+            {
+                buildMessage.IsSuccessfulBuild = true;
+                buildMessage.IsBroadcast = true;
+
+                var updateMessage = ProvidePlayerNewCards(client.Id, 1, buildMessage.CardId);
+                result.Add(updateMessage);
+
+                var directMessage = SetNextPlayer();
+                result.Add(directMessage);
+            }
+            else
+            {
+                buildMessage.IsSuccessfulBuild = false;
+                buildMessage.IsBroadcast = false;
+            }
+
+
+            return result;
+        }
+
+        private static UpdateTableMessage ProvidePlayerNewCards(string clientId, int count, int cardToRemove = -1)
+        {
+            var client = AbstractPlayers.First(pl => pl.Id == clientId);
+
+            if (cardToRemove >= 0)
+            {
+                client.Hand.RemoveAll(c => c.Id == cardToRemove);
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                client.Hand.Add(HandCards.Dequeue() as HandCard);
+            }
+
+            var updateMessage = new UpdateTableMessage();
+            updateMessage.Hand = client.Hand;
+            updateMessage.IsBroadcast = false;
+            updateMessage.IsMyTurn = false;
+            return updateMessage;
+        }
+
+        private static SetTurnMessage SetNextPlayer()
+        {
+            var nextPlayer = Players.Dequeue();
+            Players.Enqueue(nextPlayer);
+
+            var directMessage = new SetTurnMessage();
+            directMessage.IsBroadcast = false;
+            directMessage.RecepientId = nextPlayer.Id;
+
+            return directMessage;
+        }
+
+        #endregion
     }
 }
