@@ -8,7 +8,7 @@ namespace CommonLibrary.CardSets
         public string CardImage { get; }
         public int Count { get; }
 
-        public CardSet(CardType cardType, string cardImage, int count)
+        public CardSet(CardType cardType, string cardImage, int count = 1)
         {
             CardType = cardType;
             CardImage = cardImage;

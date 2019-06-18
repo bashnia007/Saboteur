@@ -13,6 +13,7 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShort, 3),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLong, 3),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngle, 3),
+            new CardSet(CardType.RouteCard, ImagePaths.RightAngle, 3),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonals, 1),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngleDiagonals, 1),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEnd, 1),
@@ -34,7 +35,26 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.ActionCard, ImagePaths.LampPickFix, 1),
             new CardSet(CardType.ActionCard, ImagePaths.TrolleyPickFix, 1),
             new CardSet(CardType.ActionCard, ImagePaths.Map, 2),
-            new CardSet(CardType.ActionCard, ImagePaths.Bang, 2)
+            new CardSet(CardType.ActionCard, ImagePaths.Bang, 2),
+
+            new CardSet(CardType.GoldCard, ImagePaths.Cross_0),
+            new CardSet(CardType.GoldCard, ImagePaths.FourDeadEnds_0),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeDeadEndsLong_0),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeDeadEndsShort_0),
+            new CardSet(CardType.GoldCard, ImagePaths.LeftAngle_1),
+            new CardSet(CardType.GoldCard, ImagePaths.LeftAngle_2),
+            new CardSet(CardType.GoldCard, ImagePaths.RightAngle_1),
+            new CardSet(CardType.GoldCard, ImagePaths.RightAngle_2),
+            new CardSet(CardType.GoldCard, ImagePaths.TwoDeadEndsLeft_1),
+            new CardSet(CardType.GoldCard, ImagePaths.TwoDeadEndsRight_3),
+            new CardSet(CardType.GoldCard, ImagePaths.LongLineWithTwoDeadEnds_1),
+            new CardSet(CardType.GoldCard, ImagePaths.ShortLineWithTwoDeadEnds_2),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesLong_1),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesLong_2),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesLong_3),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesShort_1),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesShort_2),
+            new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesShort_3),
         };
     }
 }

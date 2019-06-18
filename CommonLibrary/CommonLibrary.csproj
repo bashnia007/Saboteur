@@ -136,9 +136,7 @@
     <Content Include="Images\gold\Three_lines_short_1.png" />
     <Content Include="Images\gold\Three_lines_short_2.png" />
     <Content Include="Images\gold\Three_lines_short_3.png" />
-    <Content Include="Images\gold\Two_deadends_left_0.png" />
     <Content Include="Images\gold\Two_deadends_left_1.png" />
-    <Content Include="Images\gold\Two_deadends_right_0.png" />
     <Content Include="Images\gold\Two_deadends_right_3.png" />
     <Content Include="Images\routes\Bridge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

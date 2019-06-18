@@ -48,13 +48,24 @@ namespace CommonLibrary
 
         #region Gold
 
-        public static string FourDeadEnds = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Four_deadends.png";
-        public static string LongLineWithTwoDeadEnds = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Long_line_with_two_deadends.png";
-        public static string ShortLineWithTwoDeadEnds = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Short_line_with_two_deadends.png";
-        public static string ThreeDeadEndsLong = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Three_deadends_long.png";
-        public static string ThreeDeadEndsShort = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Three_deadends_short.png";
-        public static string TwoDeadEndsLeft = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Two_deadends_left.png";
-        public static string TwoDeadEndsRight = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\Two_deadends_right.png";
+        public static string FourDeadEnds_0 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Four_deadends_0.png";
+        public static string Cross_0 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\cross_0.png";
+        public static string LongLineWithTwoDeadEnds_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Long_line_with_two_deadends_1.png";
+        public static string ShortLineWithTwoDeadEnds_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Short_line_with_two_deadends_2.png";
+        public static string ThreeDeadEndsLong_0 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_deadends_long_0.png";
+        public static string ThreeDeadEndsShort_0 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_deadends_short_0.png";
+        public static string TwoDeadEndsLeft_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Two_deadends_left_1.png";
+        public static string TwoDeadEndsRight_3 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Two_deadends_right_3.png";
+        public static string RightAngle_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Right_angle_1.png";
+        public static string RightAngle_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Right_angle_2.png";
+        public static string LeftAngle_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Left_angle_1.png";
+        public static string LeftAngle_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Left_angle_2.png";
+        public static string ThreeLinesLong_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_1.png";
+        public static string ThreeLinesLong_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_2.png";
+        public static string ThreeLinesLong_3 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_3.png";
+        public static string ThreeLinesShort_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_short_1.png";
+        public static string ThreeLinesShort_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_short_2.png";
+        public static string ThreeLinesShort_3 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_short_3.png";
 
         #endregion
 
