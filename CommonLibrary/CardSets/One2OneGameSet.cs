@@ -10,6 +10,7 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.RouteCard, ImagePaths.Cross, 3),
             new CardSet(CardType.RouteCard, ImagePaths.Bridge, 2),
             new CardSet(CardType.RouteCard, ImagePaths.ShortLine, 4),
+            new CardSet(CardType.RouteCard, ImagePaths.LongLine, 3),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShort, 3),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLong, 3),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngle, 3),
