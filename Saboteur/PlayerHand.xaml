@@ -11,8 +11,17 @@
         <DataTemplate DataType="{x:Type cardsClasses:HandCard}">
             <Rectangle Width="55" Height="80" Stroke="Red" StrokeThickness="1" Margin="1">
                 <Rectangle.Fill>
-                    <ImageBrush ImageSource="{Binding ImagePath}" />
+                    <ImageBrush ImageSource="{Binding ImagePath}">
+                        <ImageBrush.Transform>
+                            <RotateTransform Angle="{Binding Angle, UpdateSourceTrigger=PropertyChanged}" CenterX="22.5" CenterY="40"></RotateTransform>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
                 </Rectangle.Fill>
+                <Rectangle.InputBindings>
+                    <MouseBinding MouseAction="RightClick" 
+                                  Command="{Binding DataContext.RotateCardCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+                                  CommandParameter="{Binding }"></MouseBinding>
+                </Rectangle.InputBindings>
             </Rectangle>
         </DataTemplate>
     </UserControl.Resources>

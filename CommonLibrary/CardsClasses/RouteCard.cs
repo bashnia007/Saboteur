@@ -34,7 +34,6 @@ namespace CommonLibrary.CardsClasses
 
 	    public RouteCard(int x, int y) : base(x, y)
 	    {
-
 	    }
 	}
 }

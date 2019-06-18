@@ -36,6 +36,10 @@ namespace Saboteur.ViewModel
 
         #region Commands
 
+        #region RotateCard command
+
+        #endregion
+
         #endregion
 
         #region Public methods

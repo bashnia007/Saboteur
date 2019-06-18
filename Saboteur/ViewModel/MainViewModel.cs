@@ -7,6 +7,7 @@ using Saboteur.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -171,6 +172,29 @@ namespace Saboteur.ViewModel
         private bool CanExecuteReadyCommand(object arg)
         {
             return true;
+        }
+
+        #endregion
+
+        #region RotateCommand
+
+        private RelayCommand _rotateCardCommand;
+
+        public ICommand RotateCardCommand => _rotateCardCommand ?? (_rotateCardCommand =
+                                                  new RelayCommand(ExecuteRotateCardCommand,
+                                                      CanExecuteRotateCardCommand));
+
+        private void ExecuteRotateCardCommand(object obj)
+        {
+            var card = (HandCard) obj;
+            card.Angle = (card.Angle + 180) % 360;
+            MyHand.UpdateCards(MyHand.Cards.ToList());
+        }
+
+        private bool CanExecuteRotateCardCommand(object arg)
+        {
+            var card = (Card)arg;
+            return card is RouteCard;
         }
 
         #endregion
