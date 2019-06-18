@@ -120,33 +120,33 @@
     <Content Include="Images\dwarfs\green_dwarf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\gold\Four_deadends.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\gold\Long_line_with_two_deadends.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\gold\Short_line_with_two_deadends.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\gold\Three_deadends_long.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\gold\Three_deadends_short.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\gold\Two_deadends_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\gold\Two_deadends_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Images\gold\cross_0.png" />
+    <Content Include="Images\gold\Four_deadends_0.png" />
+    <Content Include="Images\gold\Left_angle_1.png" />
+    <Content Include="Images\gold\Left_angle_2.png" />
+    <Content Include="Images\gold\Long_line_with_two_deadends_1.png" />
+    <Content Include="Images\gold\Right_angle_1.png" />
+    <Content Include="Images\gold\Right_angle_2.png" />
+    <Content Include="Images\gold\Short_line_with_two_deadends_2.png" />
+    <Content Include="Images\gold\Three_deadends_long_0.png" />
+    <Content Include="Images\gold\Three_deadends_short_0.png" />
+    <Content Include="Images\gold\Three_lines_long_1.png" />
+    <Content Include="Images\gold\Three_lines_long_2.png" />
+    <Content Include="Images\gold\Three_lines_long_3.png" />
+    <Content Include="Images\gold\Three_lines_short_1.png" />
+    <Content Include="Images\gold\Three_lines_short_2.png" />
+    <Content Include="Images\gold\Three_lines_short_3.png" />
+    <Content Include="Images\gold\Two_deadends_left_0.png" />
+    <Content Include="Images\gold\Two_deadends_left_1.png" />
+    <Content Include="Images\gold\Two_deadends_right_0.png" />
+    <Content Include="Images\gold\Two_deadends_right_3.png" />
     <Content Include="Images\routes\Bridge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\routes\Cross.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\routes\Four_deadends.png" />
     <Content Include="Images\routes\Left_angle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -162,6 +162,7 @@
     <Content Include="Images\routes\Long_line.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\routes\Long_line_with_two_deadends.png" />
     <Content Include="Images\routes\Long_with_deadend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -183,12 +184,15 @@
     <Content Include="Images\routes\Short_line_with_deadend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\routes\Short_line_with_two_deadends.png" />
     <Content Include="Images\routes\Start_blue.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\routes\Start_green.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\routes\Three_deadends_long.png" />
+    <Content Include="Images\routes\Three_deadends_short.png" />
     <Content Include="Images\routes\Three_lines_long.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -201,6 +205,8 @@
     <Content Include="Images\routes\Three_lines_short_with_deadend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\routes\Two_deadends_left.png" />
+    <Content Include="Images\routes\Two_deadends_right.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
