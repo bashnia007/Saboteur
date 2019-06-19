@@ -7,6 +7,7 @@ using Saboteur.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -175,6 +176,29 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region RotateCommand
+
+        private RelayCommand _rotateCardCommand;
+
+        public ICommand RotateCardCommand => _rotateCardCommand ?? (_rotateCardCommand =
+                                                  new RelayCommand(ExecuteRotateCardCommand,
+                                                      CanExecuteRotateCardCommand));
+
+        private void ExecuteRotateCardCommand(object obj)
+        {
+            var card = (HandCard) obj;
+            card.Angle = (card.Angle + 180) % 360;
+            MyHand.UpdateCards(MyHand.Cards.ToList());
+        }
+
+        private bool CanExecuteRotateCardCommand(object arg)
+        {
+            var card = (Card)arg;
+            return card is RouteCard;
+        }
+
+        #endregion
+
         #endregion
 
         #region Private methods
@@ -197,6 +221,9 @@ namespace Saboteur.ViewModel
                     break;
                 case GameMessageType.SetTurnMessage:
                     HandleDirectMessage((SetTurnMessage) message);
+                    break;
+                case GameMessageType.InitializeTableMessage:
+                    HandleInitializeTableMessage((InitializeTableMessage) message);
                     break;
             }
         }
@@ -234,6 +261,24 @@ namespace Saboteur.ViewModel
             OnPropertyChanged(nameof(Map));
         }
 
+        private void HandleInitializeTableMessage(InitializeTableMessage message)
+        {
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                foreach (var goldCard in message.GoldCards)
+                {
+                    Map[goldCard.Coordinates.Coordinate_Y][goldCard.Coordinates.Coordinate_X] = goldCard;
+                }
+
+                foreach (var startCard in message.StartCards)
+                {
+                    Map[startCard.Coordinates.Coordinate_Y][startCard.Coordinates.Coordinate_X] = startCard;
+                }
+                
+            });
+            OnPropertyChanged(nameof(Map));
+        }
+
         private void HandleDirectMessage(SetTurnMessage message)
         {
             _isMyTurn = message.IsMyTurn;
@@ -242,10 +287,10 @@ namespace Saboteur.ViewModel
         private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
-            for (int rowNumber = 0; rowNumber < 6; rowNumber++)
+            for (int rowNumber = 0; rowNumber < 7; rowNumber++)
             {
                 var row = new List<RouteCard>();
-                for (int columnNumber = 0; columnNumber < 9; columnNumber++)
+                for (int columnNumber = 0; columnNumber < 11; columnNumber++)
                 {
                     row.Add(new RouteCard(rowNumber, columnNumber));
                 }

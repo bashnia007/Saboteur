@@ -205,25 +205,4 @@
   <data name="trolley_pick_fix" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Images\actions\trolley_pick_fix.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Four_deadends" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\gold\Four_deadends.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Long_line_with_two_deadends" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\gold\Long_line_with_two_deadends.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Short_line_with_two_deadends" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\gold\Short_line_with_two_deadends.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Three_deadends_long" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\gold\Three_deadends_long.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Three_deadends_short" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\gold\Three_deadends_short.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Two_deadends_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\gold\Two_deadends_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Two_deadends_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\gold\Two_deadends_right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

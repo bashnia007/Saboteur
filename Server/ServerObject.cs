@@ -95,6 +95,11 @@ namespace Server
                 gameMessage.Hand = player.Hand;
                 gameMessage.IsMyTurn = player.Role.Role == RoleType.Green;
                 SendMessage(gameMessage, client.Id);
+
+                var initializeTableMessage = new InitializeTableMessage();
+                initializeTableMessage.GoldCards = launcher.GoldCardsForGame;
+                initializeTableMessage.StartCards = launcher.StartCards;
+                SendMessage(initializeTableMessage, client.Id);
             }
 
             MessageManager.Players.Enqueue(_clients.First(c => c.Id != launcher.Players.First(pl => pl.Role.Role == RoleType.Green).Id));
