@@ -98,6 +98,7 @@ namespace Server
 
                 var initializeTableMessage = new InitializeTableMessage();
                 initializeTableMessage.GoldCards = launcher.GoldCardsForGame;
+                initializeTableMessage.StartCards = launcher.StartCards;
                 SendMessage(initializeTableMessage, client.Id);
             }
 

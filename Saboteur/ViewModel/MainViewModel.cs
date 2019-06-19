@@ -268,8 +268,11 @@ namespace Saboteur.ViewModel
                 foreach (var goldCard in message.GoldCards)
                 {
                     Map[goldCard.Coordinates.Coordinate_Y][goldCard.Coordinates.Coordinate_X] = goldCard;
-                    //Map[2][3] = new RouteCard(1, ImagePaths.Cross);
-                    //Map[3][3] = new RouteCard(1, ImagePaths.Cross_0);
+                }
+
+                foreach (var startCard in message.StartCards)
+                {
+                    Map[startCard.Coordinates.Coordinate_Y][startCard.Coordinates.Coordinate_X] = startCard;
                 }
                 
             });

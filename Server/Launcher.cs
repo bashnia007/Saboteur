@@ -15,6 +15,7 @@ namespace Server
         public List<GoldCard> GoldCards { get; set; }
         public Queue<Card> ShuffledHandCards { get; set; }
         public List<GoldCard> GoldCardsForGame { get; set; }
+        public List<RouteCard> StartCards { get; set; }
 
 		public Launcher(List<string> playerIds)
 		{
@@ -40,6 +41,8 @@ namespace Server
 		    var gameSet = new One2OneGameSet();
             CreateCardSet(gameSet);
 		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
+		    StartCards = gameSet.StartCards;
+
 		}
 
 		public void ProvideRolesForPlayers()

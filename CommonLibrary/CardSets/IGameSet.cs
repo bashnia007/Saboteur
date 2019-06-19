@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CommonLibrary.CardsClasses;
 
 namespace CommonLibrary.CardSets
 {
@@ -6,5 +7,6 @@ namespace CommonLibrary.CardSets
     {
         List<CardSet> CardSets { get; }
         List<Coordinates> GoldCardCoordinates { get; }
+        List<RouteCard> StartCards { get; }
     }
 }

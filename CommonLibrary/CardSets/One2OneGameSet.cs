@@ -1,4 +1,5 @@
-﻿using CommonLibrary.Enumerations;
+﻿using CommonLibrary.CardsClasses;
+using CommonLibrary.Enumerations;
 using System.Collections.Generic;
 
 namespace CommonLibrary.CardSets
@@ -66,6 +67,12 @@ namespace CommonLibrary.CardSets
             new Coordinates(8, 2),
             new Coordinates(8, 4),
             new Coordinates(10, 3),
+        };
+
+        public List<RouteCard> StartCards => new List<RouteCard>
+        {
+            new RouteCard(100, ImagePaths.StartBlue) {Coordinates = new Coordinates(0, 2)},
+            new RouteCard(200, ImagePaths.StartGreen) {Coordinates = new Coordinates(0, 4)}
         };
     }
 }
