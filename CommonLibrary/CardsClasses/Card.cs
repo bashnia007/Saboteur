@@ -10,5 +10,13 @@ namespace CommonLibrary.CardsClasses
 	    public CardType Type { get; set; }
         public string ImagePath { get; set; }
 		public Coordinates Coordinates { get; set; }
+
+        protected Card(int id, string imagePath)
+        {
+            Id = id;
+            ImagePath = imagePath;
+        }
+
+        protected Card() { }
     }
 }

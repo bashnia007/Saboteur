@@ -8,20 +8,16 @@ namespace CommonLibrary.CardsClasses
     {
         public int Angle { get; set; }
 
-        public HandCard(int id, string imagePath)
-	    {
-	        Id = id;
+        public HandCard(int id, string imagePath) : base(id, imagePath)
+        {
 	        Type = CardType.HandCard;
-	        ImagePath = imagePath;
 	        Angle = 0;
-
 	    }
 
 	    public HandCard(int id)
 	    {
 	        Id = id;
 	        Angle = 0;
-
 	    }
 
 	    public HandCard(int x, int y)

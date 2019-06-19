@@ -5,5 +5,6 @@ namespace CommonLibrary.CardSets
     public interface IGameSet
     {
         List<CardSet> CardSets { get; }
+        List<Coordinates> GoldCardCoordinates { get; }
     }
 }

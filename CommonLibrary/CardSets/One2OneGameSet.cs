@@ -57,5 +57,15 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesShort_2),
             new CardSet(CardType.GoldCard, ImagePaths.ThreeLinesShort_3),
         };
+
+        public List<Coordinates> GoldCardCoordinates => new List<Coordinates>
+        {
+            new Coordinates(6, 1),
+            new Coordinates(6, 3),
+            new Coordinates(6, 5),
+            new Coordinates(8, 2),
+            new Coordinates(8, 4),
+            new Coordinates(10, 3),
+        };
     }
 }

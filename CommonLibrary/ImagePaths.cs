@@ -26,12 +26,13 @@ namespace CommonLibrary
         public static string ThreeLinesLongWithDeadEnd = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long_with_deadend.png";
         public static string ThreeLinesShort = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_short.png";
         public static string ThreeLinesShortWithDeadEnd = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_short_with_deadend.png";
+        public static string GoldBack = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Gold_back.png";
 
         #endregion
 
-        
+
         #region Actions
-        
+
         public static string LampBreak = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\lamp_break.png";
         public static string LampFix = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\lamp_fix.png";
         public static string LampPickFix = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\lamp_pick_fix.png";

@@ -12,7 +12,9 @@ namespace Server
 		public List<AbstractPlayer> Players { get; set; }
 		public List<Card> RoleCards { get; set; }
 		public List<Card> HandCards { get; set; }
+        public List<GoldCard> GoldCards { get; set; }
         public Queue<Card> ShuffledHandCards { get; set; }
+        public List<GoldCard> GoldCardsForGame { get; set; }
 
 		public Launcher(List<string> playerIds)
 		{
@@ -33,9 +35,12 @@ namespace Server
 			RoleCards.Add(new RoleCard(RoleType.Green));
 
 			HandCards = new List<Card>();
-		    CreateCardSet(new One2OneGameSet());
+            GoldCards = new List<GoldCard>();
 
-        }
+		    var gameSet = new One2OneGameSet();
+            CreateCardSet(gameSet);
+		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
+		}
 
 		public void ProvideRolesForPlayers()
 		{
@@ -67,7 +72,10 @@ namespace Server
 	            for (int i = 0; i < cardSet.Count; i++)
 	            {
 	                switch (cardSet.CardType)
-	                {
+                    {
+                        case CardType.GoldCard:
+                            GoldCards.Add(new GoldCard(cardId++, cardSet.CardImage));
+                            break;
                         case CardType.RouteCard:
                             HandCards.Add(new RouteCard(cardId++, cardSet.CardImage));
                             break;
@@ -78,5 +86,5 @@ namespace Server
 	            }
 	        }
 	    }
-	}
+    }
 }

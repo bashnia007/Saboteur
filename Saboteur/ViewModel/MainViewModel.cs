@@ -222,6 +222,9 @@ namespace Saboteur.ViewModel
                 case GameMessageType.SetTurnMessage:
                     HandleDirectMessage((SetTurnMessage) message);
                     break;
+                case GameMessageType.InitializeTableMessage:
+                    HandleInitializeTableMessage((InitializeTableMessage) message);
+                    break;
             }
         }
 
@@ -258,6 +261,21 @@ namespace Saboteur.ViewModel
             OnPropertyChanged(nameof(Map));
         }
 
+        private void HandleInitializeTableMessage(InitializeTableMessage message)
+        {
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                foreach (var goldCard in message.GoldCards)
+                {
+                    Map[goldCard.Coordinates.Coordinate_Y][goldCard.Coordinates.Coordinate_X] = goldCard;
+                    //Map[2][3] = new RouteCard(1, ImagePaths.Cross);
+                    //Map[3][3] = new RouteCard(1, ImagePaths.Cross_0);
+                }
+                
+            });
+            OnPropertyChanged(nameof(Map));
+        }
+
         private void HandleDirectMessage(SetTurnMessage message)
         {
             _isMyTurn = message.IsMyTurn;
@@ -266,10 +284,10 @@ namespace Saboteur.ViewModel
         private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
-            for (int rowNumber = 0; rowNumber < 6; rowNumber++)
+            for (int rowNumber = 0; rowNumber < 7; rowNumber++)
             {
                 var row = new List<RouteCard>();
-                for (int columnNumber = 0; columnNumber < 9; columnNumber++)
+                for (int columnNumber = 0; columnNumber < 11; columnNumber++)
                 {
                     row.Add(new RouteCard(rowNumber, columnNumber));
                 }

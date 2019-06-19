@@ -8,7 +8,7 @@ namespace CommonLibrary.Enumerations
         ActionMessage,
         BuildMessage,
         SetTurnMessage,
-        GameStarted,
+        InitializeTableMessage,
         InitializeMessage,
         ReadyToPlay,
         TextMessage,
