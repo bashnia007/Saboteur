@@ -30,6 +30,15 @@ namespace CommonLibrary.CardsClasses
 
         }
 
+        public RouteCard(int id, RouteType routeType, string imagePath) : base(id, imagePath)
+        {
+            var cardOrientation = new RouteCardOrientation(routeType);
+            TopJoining = cardOrientation.TopJoining;
+            BottomJoining = cardOrientation.BottomJoining;
+            LeftJoining = cardOrientation.LeftJoining;
+            RightJoining = cardOrientation.RightJoining;
+        }
+
         public RouteCard(int id) : base(id) { }
 
 		#region Параметры возможности присоединения к карточке

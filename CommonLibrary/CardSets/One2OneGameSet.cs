@@ -71,8 +71,8 @@ namespace CommonLibrary.CardSets
 
         public List<RouteCard> StartCards => new List<RouteCard>
         {
-            new RouteCard(100, ImagePaths.StartBlue) {Coordinates = new Coordinates(0, 2)},
-            new RouteCard(200, ImagePaths.StartGreen) {Coordinates = new Coordinates(0, 4)}
+            new RouteCard(100, RouteType.StartBlue, ImagePaths.StartBlue) {Coordinates = new Coordinates(0, 2)},
+            new RouteCard(200, RouteType.StartGreen, ImagePaths.StartGreen) {Coordinates = new Coordinates(0, 4)}
         };
     }
 }

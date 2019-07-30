@@ -81,12 +81,14 @@ namespace Saboteur.ViewModel
         private void ExecuteBuildTunnelCommand(object obj)
         {
             var mapItem = (RouteCard) obj;
+            var routeCard = SelectedCard as RouteCard;
+            routeCard.Coordinates = mapItem.Coordinates;
             _client.SendMessage(new BuildMessage
             {
                 Coordinates = mapItem.Coordinates,
                 SenderId = CurrentPlayer.Id,
                 CardId = SelectedCard.Id,
-                RouteCard = SelectedCard as RouteCard
+                RouteCard = routeCard
             });
         }
 

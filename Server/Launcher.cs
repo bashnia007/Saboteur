@@ -80,7 +80,7 @@ namespace Server
                             GoldCards.Add(new GoldCard(cardId++, cardSet.CardImage));
                             break;
                         case CardType.RouteCard:
-                            HandCards.Add(new RouteCard(cardId++, cardSet.CardImage));
+                            HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage));
                             break;
                         case CardType.ActionCard:
                             HandCards.Add(new ActionCard(cardId++, cardSet.CardImage));

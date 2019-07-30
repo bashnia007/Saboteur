@@ -25,5 +25,7 @@ namespace CommonLibrary.CardsClasses
             Coordinates = new Coordinates(x, y);
 	        Angle = 0;
 	    }
+
+        public HandCard() { }
 	}
 }

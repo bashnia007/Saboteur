@@ -18,8 +18,8 @@ namespace Server
 		public static bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards)
 		{
 			//Получаем координаты, куда карточку из руки хотят положить
-			int x = routeCard.Coordinates.Coordinate_X;
-			int y = routeCard.Coordinates.Coordinate_Y;
+			int x = routeCard.Coordinates.Coordinate_Y;
+			int y = routeCard.Coordinates.Coordinate_X;
 
 			//Определяем какие карточки находятся вокруг
 			RouteCard topCardFromTable = tableRouteCards.FirstOrDefault(topCard => topCard.Coordinates.Coordinate_X == x && topCard.Coordinates.Coordinate_Y == y + 1);
