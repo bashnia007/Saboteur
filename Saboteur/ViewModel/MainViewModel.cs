@@ -82,10 +82,10 @@ namespace Saboteur.ViewModel
         {
             var mapItem = (RouteCard) obj;
             var routeCard = SelectedCard as RouteCard;
-            routeCard.Coordinates = mapItem.Coordinates;
+            routeCard.Coordinates = new Coordinates(mapItem.Coordinates.Coordinate_Y, mapItem.Coordinates.Coordinate_X);
             _client.SendMessage(new BuildMessage
             {
-                Coordinates = mapItem.Coordinates,
+                Coordinates = routeCard.Coordinates,
                 SenderId = CurrentPlayer.Id,
                 CardId = SelectedCard.Id,
                 RouteCard = routeCard
@@ -258,7 +258,7 @@ namespace Saboteur.ViewModel
             // https://stackoverflow.com/a/18336392/2219089
             Application.Current.Dispatcher.Invoke(delegate
             {
-                Map[message.Coordinates.Coordinate_X][message.Coordinates.Coordinate_Y] = message.RouteCard;
+                Map[message.Coordinates.Coordinate_Y][message.Coordinates.Coordinate_X] = message.RouteCard;
             });
             OnPropertyChanged(nameof(Map));
         }
