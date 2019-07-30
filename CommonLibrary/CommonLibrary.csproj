@@ -69,6 +69,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RouteCardOrientation.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\CardType.cs" />

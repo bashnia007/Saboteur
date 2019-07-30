@@ -6,7 +6,7 @@ namespace CommonLibrary.CardsClasses
     [Serializable]
     public class HandCard : Card
     {
-        public int Angle { get; set; }
+        public virtual int Angle { get; set; }
 
         public HandCard(int id, string imagePath) : base(id, imagePath)
         {

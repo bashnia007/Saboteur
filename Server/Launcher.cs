@@ -42,7 +42,7 @@ namespace Server
             CreateCardSet(gameSet);
 		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
 		    StartCards = gameSet.StartCards;
-
+            Table.OpenedCards.AddRange(StartCards);
 		}
 
 		public void ProvideRolesForPlayers()

@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommonLibrary.Enumerations;
 
 namespace Server
 {
-	class Validator
+	public static class Validator
 	{
 		// Вадилатор возможности хода избранной картой - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
-		public bool ValidateActionCardUsing(ActionCard actionCard, List<ActionCard> tableActionCards)
+		public static bool ValidateActionCardUsing(ActionCard actionCard, List<ActionCard> tableActionCards)
 		{
 
 			return true;
 		}
 
-		public bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards)
+		public static bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards)
 		{
 			//Получаем координаты, куда карточку из руки хотят положить
 			int x = routeCard.Coordinates.Coordinate_X;
@@ -27,20 +28,20 @@ namespace Server
 			RouteCard rightCardFromTable = tableRouteCards.FirstOrDefault(rightCard => rightCard.Coordinates.Coordinate_X == x + 1 && rightCard.Coordinates.Coordinate_Y == y);
 
 			//Создаем переменные валидаторы и проверяем каждое соединение
-			bool validateTopJoining = (routeCard.TopJoining == topCardFromTable.BottomJoining);
-			bool validateBottomJoining = (routeCard.BottomJoining == bottomCardFromTable.TopJoining);
-			bool validateRightJoining = (routeCard.RightJoining == rightCardFromTable.LeftJoining);
-			bool validateLeftJoining = (routeCard.LeftJoining == leftCardFromTable.RightJoining);
+			bool validateTopJoining = topCardFromTable == null || (routeCard.TopJoining == topCardFromTable.BottomJoining);
+			bool validateBottomJoining = bottomCardFromTable == null || (routeCard.BottomJoining == bottomCardFromTable.TopJoining);
+			bool validateRightJoining = rightCardFromTable == null || (routeCard.RightJoining == rightCardFromTable.LeftJoining);
+			bool validateLeftJoining = leftCardFromTable == null || (routeCard.LeftJoining == leftCardFromTable.RightJoining);
 
 			//Вызываем метод, проверяющий возможность прохождения тунеля на данный момент
-			bool canPassTunnel = ValidateCanPassTunnel(routeCard, tableRouteCards);
+		    bool canPassTunnel = true;// ValidateCanPassTunnel(routeCard, tableRouteCards, new RouteCard(0, 2));
 
 			//Итоговая проверка на возможность построения карточки с руки
 			return (validateTopJoining && validateBottomJoining && validateRightJoining && validateLeftJoining && canPassTunnel);
 			
 		}
 
-		public bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards)
+		public static bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards, RouteCard startCard)
 		{
 			//Алгоритм поиска в глубину - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
 			bool canPassTunnel = false;

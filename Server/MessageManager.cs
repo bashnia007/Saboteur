@@ -88,6 +88,7 @@ namespace Server
             result.Add(buildMessage);
 
             // check if user can build card
+            //if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards))
             if (true)
             {
                 buildMessage.IsSuccessfulBuild = true;

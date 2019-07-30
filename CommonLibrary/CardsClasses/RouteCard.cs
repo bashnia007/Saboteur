@@ -5,10 +5,30 @@ namespace CommonLibrary.CardsClasses
 {
     [Serializable]
     public class RouteCard: HandCard
-	{
-		public RouteType RouteType { get; set; }
-        
-		public RouteCard(int id, string imagePath) : base(id, imagePath) { }
+    {
+        private int _angle;
+		//public RouteType RouteType { get; set; }
+
+        public override int Angle
+        {
+            get { return _angle;}
+            set
+            {
+                _angle = value;
+                bool temp = TopJoining;
+                TopJoining = BottomJoining;
+                BottomJoining = temp;
+
+                temp = LeftJoining;
+                LeftJoining = RightJoining;
+                RightJoining = temp;
+            }
+        }
+
+        public RouteCard(int id, string imagePath) : base(id, imagePath)
+        {
+
+        }
 
         public RouteCard(int id) : base(id) { }
 
