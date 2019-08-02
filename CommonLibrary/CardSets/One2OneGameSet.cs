@@ -18,7 +18,7 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.RouteCard, ImagePaths.RightAngle, RouteType.RightAngle),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonals, RouteType.LeftAngleDiagonals),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngleDiagonals, RouteType.RightAngleDiagonals),
-            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEnd, RouteType.ThreeDeadEndsLongWithDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEnd, RouteType.ThreeLinesLongWithDeadEnd),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortWithDeadEnd, RouteType.ThreeLinesShortWithDeadEnd),
             new CardSet(CardType.RouteCard, ImagePaths.ShortLineWithDeadEnd, RouteType.ShortLineWithDeadEnd),
             new CardSet(CardType.RouteCard, ImagePaths.LongWithDeadEnd, RouteType.LongWithDeadEnd),

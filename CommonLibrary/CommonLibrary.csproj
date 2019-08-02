@@ -197,7 +197,7 @@
     <Content Include="Images\routes\Left_angle_with_bottom_deadend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\routes\Left_angle_with_right_deadend.png">
+    <Content Include="Images\routes\Right_angle_with_left_deadend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\routes\Long_line.png">
@@ -218,7 +218,7 @@
     <Content Include="Images\routes\Right_angle_with_bottom_deadend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\routes\Right_angle_with_left_deadend.png">
+    <Content Include="Images\routes\Left_angle_with_right_deadend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\routes\Short_line.png">

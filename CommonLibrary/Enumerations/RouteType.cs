@@ -26,7 +26,7 @@ namespace CommonLibrary.Enumerations
         StartGreen,
         ThreeDeadEndsLong,
         ThreeDeadEndsShort,
-        ThreeDeadEndsLongWithDeadEnd,
+        ThreeLinesLongWithDeadEnd,
         ThreeLinesShort,
         ThreeLinesLong,
         ThreeLinesShortWithDeadEnd,
