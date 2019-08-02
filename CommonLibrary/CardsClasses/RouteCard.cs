@@ -34,6 +34,13 @@ namespace CommonLibrary.CardsClasses
             BottomJoining = cardOrientation.BottomJoining;
             LeftJoining = cardOrientation.LeftJoining;
             RightJoining = cardOrientation.RightJoining;
+
+            PassableRight2Bottom = cardOrientation.PassableRight2Bottom;
+            PassableRight2Top = cardOrientation.PassableRight2Top;
+            PassableTroughVertical = cardOrientation.PassableTroughVertical;
+            PassableThoughHorizontal = cardOrientation.PassableThoughHorizontal;
+            PassableLeft2Bottom = cardOrientation.PassableLeft2Bottom;
+            PassableLeft2Top = cardOrientation.PassableLeft2Top;
         }
 
         public RouteCard(int id) : base(id) { }
