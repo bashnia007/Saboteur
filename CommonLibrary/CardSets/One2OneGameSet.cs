@@ -8,24 +8,24 @@ namespace CommonLibrary.CardSets
     {
         public List<CardSet> CardSets => new List<CardSet>
         {
-            new CardSet(CardType.RouteCard, ImagePaths.Cross, 3),
-            new CardSet(CardType.RouteCard, ImagePaths.Bridge, 2),
-            new CardSet(CardType.RouteCard, ImagePaths.ShortLine, 4),
-            new CardSet(CardType.RouteCard, ImagePaths.LongLine, 3),
-            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShort, 3),
-            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLong, 3),
-            new CardSet(CardType.RouteCard, ImagePaths.LeftAngle, 3),
-            new CardSet(CardType.RouteCard, ImagePaths.RightAngle, 3),
-            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonals, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.RightAngleDiagonals, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEnd, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortWithDeadEnd, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.ShortLineWithDeadEnd, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.LongWithDeadEnd, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithLeftDeadEnd, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithBottomDeadEnd, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithRightDeadEnd, 1),
-            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithBottomDeadEnd, 1),
+            new CardSet(CardType.RouteCard, ImagePaths.Cross, RouteType.Cross),
+            new CardSet(CardType.RouteCard, ImagePaths.Bridge, RouteType.Bridge),
+            new CardSet(CardType.RouteCard, ImagePaths.ShortLine, RouteType.ShortLine),
+            new CardSet(CardType.RouteCard, ImagePaths.LongLine, RouteType.LongLine),
+            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShort, RouteType.ThreeLinesShort),
+            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLong, RouteType.ThreeLinesLong),
+            new CardSet(CardType.RouteCard, ImagePaths.LeftAngle, RouteType.LeftAngle),
+            new CardSet(CardType.RouteCard, ImagePaths.RightAngle, RouteType.RightAngle),
+            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonals, RouteType.LeftAngleDiagonals),
+            new CardSet(CardType.RouteCard, ImagePaths.RightAngleDiagonals, RouteType.RightAngleDiagonals),
+            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEnd, RouteType.ThreeLinesLongWithDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortWithDeadEnd, RouteType.ThreeLinesShortWithDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.ShortLineWithDeadEnd, RouteType.ShortLineWithDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.LongWithDeadEnd, RouteType.LongWithDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithLeftDeadEnd, RouteType.RightAngleWithLeftDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithBottomDeadEnd, RouteType.RightAngleWithBottomDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithRightDeadEnd, RouteType.LeftAngleWithRightDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithBottomDeadEnd, RouteType.LeftAngleWithBottomDeadEnd),
 
             new CardSet(CardType.ActionCard, ImagePaths.LampBreak, 2),
             new CardSet(CardType.ActionCard, ImagePaths.PickBreak, 2),
@@ -71,8 +71,8 @@ namespace CommonLibrary.CardSets
 
         public List<RouteCard> StartCards => new List<RouteCard>
         {
-            new RouteCard(100, ImagePaths.StartBlue) {Coordinates = new Coordinates(0, 2)},
-            new RouteCard(200, ImagePaths.StartGreen) {Coordinates = new Coordinates(0, 4)}
+            new RouteCard(100, RouteType.StartBlue, ImagePaths.StartBlue) {Coordinates = new Coordinates(0, 2)},
+            new RouteCard(200, RouteType.StartGreen, ImagePaths.StartGreen) {Coordinates = new Coordinates(0, 4)}
         };
     }
 }

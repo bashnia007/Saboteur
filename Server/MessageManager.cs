@@ -88,7 +88,8 @@ namespace Server
             result.Add(buildMessage);
 
             // check if user can build card
-            if (true)
+            if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards))
+            //if (true)
             {
                 buildMessage.IsSuccessfulBuild = true;
                 buildMessage.IsBroadcast = true;
@@ -98,6 +99,8 @@ namespace Server
 
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
+
+                Table.OpenedCards.Add(buildMessage.RouteCard);
             }
             else
             {

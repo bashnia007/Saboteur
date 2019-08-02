@@ -5,15 +5,47 @@ namespace CommonLibrary.CardsClasses
 {
     [Serializable]
     public class RouteCard: HandCard
-	{
-		public RouteType RouteType { get; set; }
-        
-		public RouteCard(int id, string imagePath) : base(id, imagePath) { }
+    {
+        private int _angle;
+		//public RouteType RouteType { get; set; }
+
+        public override int Angle
+        {
+            get { return _angle;}
+            set
+            {
+                _angle = value;
+                ChangeOrientation();
+                ChangePassable();
+            }
+        }
+
+        #region Constructors
+
+        public RouteCard(int id, string imagePath) : base(id, imagePath)
+        {
+
+        }
+
+        public RouteCard(int id, RouteType routeType, string imagePath) : base(id, imagePath)
+        {
+            var cardOrientation = new RouteCardOrientation(routeType);
+            TopJoining = cardOrientation.TopJoining;
+            BottomJoining = cardOrientation.BottomJoining;
+            LeftJoining = cardOrientation.LeftJoining;
+            RightJoining = cardOrientation.RightJoining;
+        }
 
         public RouteCard(int id) : base(id) { }
 
-		#region Параметры возможности присоединения к карточке
-		public bool TopJoining { get; set; }
+	    public RouteCard(int x, int y) : base(x, y)
+	    {
+	    }
+
+        #endregion
+
+        #region Параметры возможности присоединения к карточке
+        public bool TopJoining { get; set; }
 		public bool BottomJoining { get; set; }
 		public bool RightJoining { get; set; }
 		public bool LeftJoining { get; set; }
@@ -21,7 +53,7 @@ namespace CommonLibrary.CardsClasses
 
 		#region Параметры проходимости туннеля
 		public bool PassableThough { get; set; }
-		public bool PassableThoughHorisontal { get; set; }
+		public bool PassableThoughHorizontal { get; set; }
 		public bool PassableTroughVertical { get; set; }
 		public bool PassableBlueOnly { get; set; }
 		public bool PassableGreenOnly { get; set; }
@@ -32,8 +64,27 @@ namespace CommonLibrary.CardsClasses
 		public bool NonPassable { get; set; }
 		#endregion
 
-	    public RouteCard(int x, int y) : base(x, y)
-	    {
-	    }
+
+        private void ChangeOrientation()
+        {
+            bool temp = TopJoining;
+            TopJoining = BottomJoining;
+            BottomJoining = temp;
+
+            temp = LeftJoining;
+            LeftJoining = RightJoining;
+            RightJoining = temp;
+        }
+
+        private void ChangePassable()
+        {
+            bool temp = PassableLeft2Top;
+            PassableLeft2Top = PassableRight2Bottom;
+            PassableRight2Bottom = temp;
+
+            temp = PassableLeft2Bottom;
+            PassableLeft2Bottom = PassableRight2Top;
+            PassableRight2Top = temp;
+        }
 	}
 }

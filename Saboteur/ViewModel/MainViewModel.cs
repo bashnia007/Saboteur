@@ -81,12 +81,14 @@ namespace Saboteur.ViewModel
         private void ExecuteBuildTunnelCommand(object obj)
         {
             var mapItem = (RouteCard) obj;
+            var routeCard = SelectedCard as RouteCard;
+            routeCard.Coordinates = new Coordinates(mapItem.Coordinates.Coordinate_Y, mapItem.Coordinates.Coordinate_X);
             _client.SendMessage(new BuildMessage
             {
-                Coordinates = mapItem.Coordinates,
+                Coordinates = routeCard.Coordinates,
                 SenderId = CurrentPlayer.Id,
                 CardId = SelectedCard.Id,
-                RouteCard = SelectedCard as RouteCard
+                RouteCard = routeCard
             });
         }
 
@@ -252,11 +254,12 @@ namespace Saboteur.ViewModel
 
         private void HandleBuildMessage(BuildMessage message)
         {
+            if (!message.IsSuccessfulBuild) return;
             // we should update collection view from another thread
             // https://stackoverflow.com/a/18336392/2219089
             Application.Current.Dispatcher.Invoke(delegate
             {
-                Map[message.Coordinates.Coordinate_X][message.Coordinates.Coordinate_Y] = message.RouteCard;
+                Map[message.Coordinates.Coordinate_Y][message.Coordinates.Coordinate_X] = message.RouteCard;
             });
             OnPropertyChanged(nameof(Map));
         }

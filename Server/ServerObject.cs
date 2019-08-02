@@ -26,7 +26,10 @@ namespace Server
             ClientObject client = _clients.FirstOrDefault(c => c.Id == id);
             // и удаляем его из списка подключений
             if (client != null)
+            {
+                Console.WriteLine("Client disconnected");
                 _clients.Remove(client);
+            }
         }
         // прослушивание входящих подключений
         protected internal void Listen()
