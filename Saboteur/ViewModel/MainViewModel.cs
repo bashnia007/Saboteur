@@ -254,6 +254,7 @@ namespace Saboteur.ViewModel
 
         private void HandleBuildMessage(BuildMessage message)
         {
+            if (!message.IsSuccessfulBuild) return;
             // we should update collection view from another thread
             // https://stackoverflow.com/a/18336392/2219089
             Application.Current.Dispatcher.Invoke(delegate
