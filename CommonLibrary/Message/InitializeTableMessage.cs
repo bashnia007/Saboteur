@@ -11,8 +11,10 @@ namespace CommonLibrary.Message
         public InitializeTableMessage()
         {
             MessageType = GameMessageType.InitializeTableMessage;
+            Players = new List<Player>();
         }
         public List<GoldCard> GoldCards { get; set; }
         public List<RouteCard> StartCards { get; set; }
+        public List<Player> Players { get; set; }
     }
 }

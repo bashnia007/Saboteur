@@ -36,6 +36,9 @@ namespace Server
                 case GameMessageType.BuildMessage:
                     return HandleBuildMessage(message, client);
 
+                case GameMessageType.ActionMessage:
+                    return HandleActionMessage(message, client);
+
                 default: throw new NotImplementedException();
             }
         }
@@ -108,6 +111,72 @@ namespace Server
                 buildMessage.IsBroadcast = false;
             }
 
+
+            return result;
+        }
+
+        private static List<Message> HandleActionMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+            var actionMessage = (ActionMessage)message;
+
+            var resultMessage = new ActionMessage
+            {
+                IsSuccessful = false,
+                RecepientId = actionMessage.RecepientId,
+                SenderId = actionMessage.SenderId,
+            };
+
+            var player = Table.Players.FirstOrDefault(pl => pl.Id == actionMessage.RecepientId);
+            
+            switch (actionMessage.ActionType)
+            {
+                case ActionType.BreakLamp:
+                    if (!player.BrokenEquipments.Contains(Equipment.Lamp))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Add(Equipment.Lamp);
+                    }
+                    break;
+                case ActionType.BreakPick:
+                    if (!player.BrokenEquipments.Contains(Equipment.Pick))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Add(Equipment.Pick);
+                    }
+                    break;
+                case ActionType.BreakTrolley:
+                    if (!player.BrokenEquipments.Contains(Equipment.Trolley))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Add(Equipment.Trolley);
+                    }
+                    break;
+                case ActionType.FixLamp:
+                    if (player.BrokenEquipments.Contains(Equipment.Lamp))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Remove(Equipment.Lamp);
+                    }
+                    break;
+                case ActionType.FixPick:
+                    if (!player.BrokenEquipments.Contains(Equipment.Pick))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Remove(Equipment.Pick);
+                    }
+                    break;
+                case ActionType.FixTrolly:
+                    if (!player.BrokenEquipments.Contains(Equipment.Trolley))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Remove(Equipment.Trolley);
+                    }
+                    break;
+            }
+
+            resultMessage.Players = Table.Players;
+            result.Add(resultMessage);
 
             return result;
         }

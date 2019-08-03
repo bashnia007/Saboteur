@@ -49,7 +49,6 @@ namespace Saboteur.ViewModel
             Window = new MainWindow();
             Window.DataContext = this;
             MyHand = new PlayerHandViewModel(true, CurrentPlayer);
-            EnemyHand = new PlayerHandViewModel(false, Players[1]);
             
             PrepareMap();
 
@@ -136,12 +135,13 @@ namespace Saboteur.ViewModel
         {
             // получаем и сохраняем выбранное действие
             var action = (ActionModel)obj;
+            
             // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
             _client.SendMessage(new ActionMessage
             {
                 ActionType = ActionType.BreakLamp,
                 SenderId = CurrentPlayer.Id,
-                RecepientId = CurrentPlayer.Id
+                RecepientId = action.Player.Id
             });
         }
 
@@ -227,6 +227,9 @@ namespace Saboteur.ViewModel
                 case GameMessageType.InitializeTableMessage:
                     HandleInitializeTableMessage((InitializeTableMessage) message);
                     break;
+                case GameMessageType.ActionMessage:
+                    HandleActionMessage((ActionMessage) message);
+                    break;
             }
         }
 
@@ -277,14 +280,22 @@ namespace Saboteur.ViewModel
                 {
                     Map[startCard.Coordinates.Coordinate_Y][startCard.Coordinates.Coordinate_X] = startCard;
                 }
-                
+
+                Players = message.Players;
             });
             OnPropertyChanged(nameof(Map));
+            EnemyHand = new PlayerHandViewModel(false, Players.First(pl => pl.Id != CurrentPlayer.Id));
+            OnPropertyChanged(nameof(EnemyHand));
         }
 
         private void HandleDirectMessage(SetTurnMessage message)
         {
             _isMyTurn = message.IsMyTurn;
+        }
+
+        private void HandleActionMessage(ActionMessage message)
+        {
+
         }
 
         private void PrepareMap()

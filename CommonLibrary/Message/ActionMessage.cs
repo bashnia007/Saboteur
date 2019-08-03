@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.Enumerations;
 using System;
+using System.Collections.Generic;
 
 namespace CommonLibrary.Message
 {
@@ -10,5 +11,9 @@ namespace CommonLibrary.Message
         public string RecepientId { get; set; }
         // Выбранное игроком действие
         public ActionType ActionType { get; set; }
+
+        public bool IsSuccessful { get; set; }
+
+        public List<Player> Players { get; set; }
     }
 }

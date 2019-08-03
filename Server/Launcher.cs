@@ -28,6 +28,11 @@ namespace Server
 		        {
                     Id = player
 		        });
+                Table.Players.Add(new Player
+                {
+                    Id = player,
+                    BrokenEquipments = new List<Equipment>()
+                });
             }
 
 
