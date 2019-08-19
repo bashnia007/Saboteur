@@ -1,6 +1,7 @@
 ﻿using CommonLibrary.Enumerations;
 using System;
 using System.Collections.Generic;
+using CommonLibrary.CardsClasses;
 
 namespace CommonLibrary.Message
 {
@@ -11,6 +12,10 @@ namespace CommonLibrary.Message
         public string RecepientId { get; set; }
         // Выбранное игроком действие
         public ActionType ActionType { get; set; }
+
+        public ActionCard Card { get; set; }
+
+        public int CardId => Card.Id;
 
         public bool IsSuccessful { get; set; }
 

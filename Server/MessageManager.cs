@@ -160,14 +160,14 @@ namespace Server
                     }
                     break;
                 case ActionType.FixPick:
-                    if (!player.BrokenEquipments.Contains(Equipment.Pick))
+                    if (player.BrokenEquipments.Contains(Equipment.Pick))
                     {
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Remove(Equipment.Pick);
                     }
                     break;
                 case ActionType.FixTrolly:
-                    if (!player.BrokenEquipments.Contains(Equipment.Trolley))
+                    if (player.BrokenEquipments.Contains(Equipment.Trolley))
                     {
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Remove(Equipment.Trolley);
@@ -176,7 +176,14 @@ namespace Server
             }
 
             resultMessage.Players = Table.Players;
+            resultMessage.IsBroadcast = true;
             result.Add(resultMessage);
+
+            var updateMessage = ProvidePlayerNewCards(client.Id, 1, actionMessage.CardId);
+            result.Add(updateMessage);
+
+            var directMessage = SetNextPlayer();
+            result.Add(directMessage);
 
             return result;
         }

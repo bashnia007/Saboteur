@@ -139,7 +139,8 @@ namespace Saboteur.ViewModel
             // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
             _client.SendMessage(new ActionMessage
             {
-                ActionType = ActionType.BreakLamp,
+                ActionType = action.ActionType,
+                Card = (ActionCard)SelectedCard,
                 SenderId = CurrentPlayer.Id,
                 RecepientId = action.Player.Id
             });
@@ -147,7 +148,8 @@ namespace Saboteur.ViewModel
 
         public bool CanExecuteMakeActionCommand(object obj)
         {
-            return SelectedCard != null;
+            var action = (ActionModel)obj;
+            return SelectedCard != null && SelectedCard is ActionCard;
         }
 
         #endregion
@@ -295,7 +297,14 @@ namespace Saboteur.ViewModel
 
         private void HandleActionMessage(ActionMessage message)
         {
-
+            if (message.RecepientId == CurrentPlayer.Id)
+            {
+                MyHand.UpdateEquipment(message.Players.First(pl => pl.Id == CurrentPlayer.Id).BrokenEquipments);
+            }
+            else
+            {
+                EnemyHand.UpdateEquipment(message.Players.First(pl => pl.Id == message.RecepientId).BrokenEquipments);
+            }
         }
 
         private void PrepareMap()

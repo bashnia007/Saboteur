@@ -49,6 +49,48 @@ namespace Saboteur.ViewModel
             Cards = new ObservableCollection<HandCard>(cards);
             OnPropertyChanged(nameof(Cards));
         }
+
+        public void UpdateEquipment(List<Equipment> brokenEquipments)
+        {
+            if (brokenEquipments.Contains(Equipment.Lamp))
+            {
+                Lamp.ImagePath = ImagePaths.LampBreak;
+                Lamp.IsBroken = true;
+            }
+            else
+            {
+                Lamp.ImagePath = ImagePaths.LampFix;
+                Lamp.IsBroken = false;
+            }
+
+            if (brokenEquipments.Contains(Equipment.Pick))
+            {
+                Pick.ImagePath = ImagePaths.PickBreak;
+                Pick.IsBroken = true;
+            }
+            else
+            {
+                Pick.ImagePath = ImagePaths.PickFix;
+                Pick.IsBroken = false;
+            }
+
+            if (brokenEquipments.Contains(Equipment.Trolley))
+            {
+                Trolley.ImagePath = ImagePaths.TrolleyBreak;
+                Trolley.IsBroken = true;
+            }
+            else
+            {
+                Trolley.ImagePath = ImagePaths.TrolleyFix;
+                Trolley.IsBroken = false;
+            }
+            //Lamp.ImagePath = brokenEquipments.Contains(Equipment.Lamp) ? ImagePaths.LampBreak : ImagePaths.LampFix;
+            //Pick.ImagePath = brokenEquipments.Contains(Equipment.Pick) ? ImagePaths.PickBreak : ImagePaths.PickFix;
+            //Trolley.ImagePath = brokenEquipments.Contains(Equipment.Trolley) ? ImagePaths.TrolleyBreak : ImagePaths.TrolleyFix;
+            OnPropertyChanged(nameof(Lamp));
+            OnPropertyChanged(nameof(Pick));
+            OnPropertyChanged(nameof(Trolley));
+        }
         
         #endregion
     }
