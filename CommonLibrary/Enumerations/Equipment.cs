@@ -1,10 +1,13 @@
-﻿namespace CommonLibrary.Enumerations
+﻿using System;
+
+namespace CommonLibrary.Enumerations
 {
+    [Serializable]
     public enum Equipment
     {
-        Lamp,
-        Pick,
-        Trolley,
-        Prison
+        Lamp = 1,
+        Pick = 2,
+        Trolley = 4,
+        //Prison,
     }
 }

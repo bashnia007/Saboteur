@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using CommonLibrary;
 
 namespace Server
 {
@@ -102,6 +103,7 @@ namespace Server
                 var initializeTableMessage = new InitializeTableMessage();
                 initializeTableMessage.GoldCards = launcher.GoldCardsForGame;
                 initializeTableMessage.StartCards = launcher.StartCards;
+                initializeTableMessage.Players = Table.Players;
                 SendMessage(initializeTableMessage, client.Id);
             }
 

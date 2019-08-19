@@ -1,6 +1,7 @@
 ﻿using CommonLibrary.CardsClasses;
 using System;
 using System.Collections.Generic;
+using CommonLibrary.Enumerations;
 
 namespace CommonLibrary
 {
@@ -11,5 +12,6 @@ namespace CommonLibrary
 		public string Name { get; set; }
 		public RoleCard Role { get; set; }
 		public List<HandCard> Hand { get; set; }
-	}
+	    public List<Equipment> BrokenEquipments { get; set; }
+    }
 }

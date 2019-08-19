@@ -49,7 +49,6 @@ namespace Saboteur.ViewModel
             Window = new MainWindow();
             Window.DataContext = this;
             MyHand = new PlayerHandViewModel(true, CurrentPlayer);
-            EnemyHand = new PlayerHandViewModel(false, Players[1]);
             
             PrepareMap();
 
@@ -136,18 +135,21 @@ namespace Saboteur.ViewModel
         {
             // получаем и сохраняем выбранное действие
             var action = (ActionModel)obj;
+            
             // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
             _client.SendMessage(new ActionMessage
             {
-                ActionType = ActionType.BreakLamp,
+                ActionType = action.ActionType,
+                Card = (ActionCard)SelectedCard,
                 SenderId = CurrentPlayer.Id,
-                RecepientId = CurrentPlayer.Id
+                RecepientId = action.Player.Id
             });
         }
 
         public bool CanExecuteMakeActionCommand(object obj)
         {
-            return SelectedCard != null;
+            var action = (ActionModel)obj;
+            return SelectedCard != null && SelectedCard is ActionCard;
         }
 
         #endregion
@@ -227,6 +229,9 @@ namespace Saboteur.ViewModel
                 case GameMessageType.InitializeTableMessage:
                     HandleInitializeTableMessage((InitializeTableMessage) message);
                     break;
+                case GameMessageType.ActionMessage:
+                    HandleActionMessage((ActionMessage) message);
+                    break;
             }
         }
 
@@ -277,14 +282,29 @@ namespace Saboteur.ViewModel
                 {
                     Map[startCard.Coordinates.Coordinate_Y][startCard.Coordinates.Coordinate_X] = startCard;
                 }
-                
+
+                Players = message.Players;
             });
             OnPropertyChanged(nameof(Map));
+            EnemyHand = new PlayerHandViewModel(false, Players.First(pl => pl.Id != CurrentPlayer.Id));
+            OnPropertyChanged(nameof(EnemyHand));
         }
 
         private void HandleDirectMessage(SetTurnMessage message)
         {
             _isMyTurn = message.IsMyTurn;
+        }
+
+        private void HandleActionMessage(ActionMessage message)
+        {
+            if (message.RecepientId == CurrentPlayer.Id)
+            {
+                MyHand.UpdateEquipment(message.Players.First(pl => pl.Id == CurrentPlayer.Id).BrokenEquipments);
+            }
+            else
+            {
+                EnemyHand.UpdateEquipment(message.Players.First(pl => pl.Id == message.RecepientId).BrokenEquipments);
+            }
         }
 
         private void PrepareMap()
