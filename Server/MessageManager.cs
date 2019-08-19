@@ -179,11 +179,14 @@ namespace Server
             resultMessage.IsBroadcast = true;
             result.Add(resultMessage);
 
-            var updateMessage = ProvidePlayerNewCards(client.Id, 1, actionMessage.CardId);
-            result.Add(updateMessage);
+            if (resultMessage.IsSuccessful)
+            {
+                var updateMessage = ProvidePlayerNewCards(client.Id, 1, actionMessage.CardId);
+                result.Add(updateMessage);
 
-            var directMessage = SetNextPlayer();
-            result.Add(directMessage);
+                var directMessage = SetNextPlayer();
+                result.Add(directMessage);
+            }
 
             return result;
         }
