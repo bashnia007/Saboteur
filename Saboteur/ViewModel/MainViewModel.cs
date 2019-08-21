@@ -94,6 +94,7 @@ namespace Saboteur.ViewModel
                         DestroyConnection(actionCard, mapItem);
                         break;
                     case ActionType.Explore:
+                        Expore(actionCard, (GoldCard)mapItem);
                         break;
                     default: break;
                 }
@@ -134,7 +135,12 @@ namespace Saboteur.ViewModel
 
         private void Expore(ActionCard actionCard, GoldCard cardToOpen)
         {
-
+            _client.SendMessage(new ExploreMessage
+            {
+                CardId = actionCard.Id,
+                Coordinates = cardToOpen.Coordinates,
+                SenderId = CurrentPlayer.Id
+            });
         }
 
 		#endregion
@@ -276,6 +282,9 @@ namespace Saboteur.ViewModel
                 case GameMessageType.DestroyConnectionMessage:
                     HandleDestroyMessage((DestroyMessage) message);
                     break;
+                case GameMessageType.ExploreMessage:
+                    HandleExploreMessage((ExploreMessage)message);
+                    break;
             }
         }
 
@@ -361,6 +370,17 @@ namespace Saboteur.ViewModel
                 Map[message.Coordinates.Coordinate_Y][message.Coordinates.Coordinate_X] = 
                     new RouteCard(message.Coordinates.Coordinate_Y, message.Coordinates.Coordinate_X);
             });
+            OnPropertyChanged(nameof(Map));
+        }
+
+        private void HandleExploreMessage(ExploreMessage message)
+        {
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+                {
+                    Map[message.Coordinates.Coordinate_Y][message.Coordinates.Coordinate_X] = message.Card;
+                });
             OnPropertyChanged(nameof(Map));
         }
 

@@ -42,6 +42,9 @@ namespace Server
                 case GameMessageType.DestroyConnectionMessage:
                     return HandleDestroyConnectionMessage(message, client);
 
+                case GameMessageType.ExploreMessage:
+                    return HandleExploreMessage(message, client);
+
                 default: throw new NotImplementedException();
             }
         }
@@ -220,6 +223,25 @@ namespace Server
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
             }
+
+            return result;
+        }
+
+        private static List<Message> HandleExploreMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            var exploreMessage = (ExploreMessage) message;
+            exploreMessage.IsBroadcast = false;
+            exploreMessage.Card = Table.GoldCards.First(c =>
+                c.Coordinates.Coordinate_X == exploreMessage.Coordinates.Coordinate_X &&
+                c.Coordinates.Coordinate_Y == exploreMessage.Coordinates.Coordinate_Y);
+            exploreMessage.Card.IsOpen = true;
+
+            result.Add(exploreMessage);
+
+            result.Add(ProvidePlayerNewCards(client.Id, 1, exploreMessage.CardId));
+            result.Add(SetNextPlayer());
 
             return result;
         }

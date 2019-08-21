@@ -13,6 +13,7 @@ namespace CommonLibrary.Enumerations
         ReadyToPlay,
         TextMessage,
         UpdateTableMessage,
-        DestroyConnectionMessage
+        DestroyConnectionMessage,
+        ExploreMessage
     }
 }

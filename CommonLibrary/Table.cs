@@ -9,7 +9,7 @@ namespace CommonLibrary
         public static List<Player> Players = new List<Player>();
 		//List<AbstractPlayer> players = new List<AbstractPlayer>();
 		//List<Card> openedCards = new List<Card>();
-		//List<GoldCard> goldCards = new List<GoldCard>();
+		public static List<GoldCard> GoldCards = new List<GoldCard>();
 		//Queue<HandCard> unusedCards = new Queue<HandCard>();
 	}
 }

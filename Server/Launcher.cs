@@ -48,6 +48,7 @@ namespace Server
 		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
 		    StartCards = gameSet.StartCards;
             Table.OpenedCards.AddRange(StartCards);
+		    Table.GoldCards = GoldCardsForGame;
 		}
 
 		public void ProvideRolesForPlayers()
