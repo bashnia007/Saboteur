@@ -13,5 +13,6 @@ namespace CommonLibrary
 	        Coordinate_X = x;
 	        Coordinate_Y = y;
 	    }
+        //todo override equals method
 	}
 }

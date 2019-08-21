@@ -36,8 +36,8 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.ActionCard, ImagePaths.TrolleyLampFix, 1),
             new CardSet(CardType.ActionCard, ImagePaths.LampPickFix, 1),
             new CardSet(CardType.ActionCard, ImagePaths.TrolleyPickFix, 1),
-            new CardSet(CardType.ActionCard, ImagePaths.Map, 2),
-            new CardSet(CardType.ActionCard, ImagePaths.Bang, 2),
+            new CardSet(CardType.ActionCard, ImagePaths.Map, ActionType.Explore, 2),
+            new CardSet(CardType.ActionCard, ImagePaths.Bang, ActionType.DestroyConnection, 2),
 
             new CardSet(CardType.GoldCard, ImagePaths.Cross_0),
             new CardSet(CardType.GoldCard, ImagePaths.FourDeadEnds_0),

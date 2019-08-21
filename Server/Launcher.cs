@@ -48,6 +48,7 @@ namespace Server
 		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
 		    StartCards = gameSet.StartCards;
             Table.OpenedCards.AddRange(StartCards);
+		    Table.GoldCards = GoldCardsForGame;
 		}
 
 		public void ProvideRolesForPlayers()
@@ -88,7 +89,7 @@ namespace Server
                             HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage));
                             break;
                         case CardType.ActionCard:
-                            HandCards.Add(new ActionCard(cardId++, cardSet.CardImage));
+                            HandCards.Add(new ActionCard(cardId++, cardSet.CardImage, cardSet.ActionType));
                             break;
 	                }
 	            }
