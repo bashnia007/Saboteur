@@ -88,7 +88,7 @@ namespace Server
                             HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage));
                             break;
                         case CardType.ActionCard:
-                            HandCards.Add(new ActionCard(cardId++, cardSet.CardImage));
+                            HandCards.Add(new ActionCard(cardId++, cardSet.CardImage, cardSet.ActionType));
                             break;
 	                }
 	            }

@@ -39,6 +39,9 @@ namespace Server
                 case GameMessageType.ActionMessage:
                     return HandleActionMessage(message, client);
 
+                case GameMessageType.DestroyConnectionMessage:
+                    return HandleDestroyConnectionMessage(message, client);
+
                 default: throw new NotImplementedException();
             }
         }
@@ -182,6 +185,36 @@ namespace Server
             if (resultMessage.IsSuccessful)
             {
                 var updateMessage = ProvidePlayerNewCards(client.Id, 1, actionMessage.CardId);
+                result.Add(updateMessage);
+
+                var directMessage = SetNextPlayer();
+                result.Add(directMessage);
+            }
+
+            return result;
+        }
+
+        private static List<Message> HandleDestroyConnectionMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            var destroyMessage = (DestroyMessage) message;
+            destroyMessage.IsBroadcast = false;
+            destroyMessage.IsSuccessful = false;
+
+            result.Add(destroyMessage);
+
+            var cardToDestroy = Table.OpenedCards.FirstOrDefault(c =>
+                c.Coordinates.Coordinate_X == destroyMessage.Coordinates.Coordinate_X &&
+                c.Coordinates.Coordinate_Y == destroyMessage.Coordinates.Coordinate_Y);
+
+            if (cardToDestroy != null)
+            {
+                destroyMessage.IsBroadcast = true;
+                destroyMessage.IsSuccessful = true;
+                Table.OpenedCards.Remove(cardToDestroy);
+
+                var updateMessage = ProvidePlayerNewCards(client.Id, 1, destroyMessage.CardId);
                 result.Add(updateMessage);
 
                 var directMessage = SetNextPlayer();
