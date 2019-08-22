@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.CardsClasses;
 using System.Collections.Generic;
+using CommonLibrary.Features;
 
 namespace CommonLibrary
 {
@@ -10,6 +11,7 @@ namespace CommonLibrary
 		//List<AbstractPlayer> players = new List<AbstractPlayer>();
 		//List<Card> openedCards = new List<Card>();
 		public static List<GoldCard> GoldCards = new List<GoldCard>();
+        public static List<Token> Tokens = new List<Token>();
 		//Queue<HandCard> unusedCards = new Queue<HandCard>();
 	}
 }

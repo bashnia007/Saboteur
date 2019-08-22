@@ -241,7 +241,8 @@ namespace Saboteur.ViewModel
         private void ExecuteRotateCardCommand(object obj)
         {
             var card = (HandCard) obj;
-            card.Angle = (card.Angle + 180) % 360;
+            card.Rotate();
+            //card.Angle = (card.Angle + 180) % 360;
             MyHand.UpdateCards(MyHand.Cards.ToList());
         }
 
