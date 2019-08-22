@@ -45,6 +45,9 @@ namespace Server
                 case GameMessageType.ExploreMessage:
                     return HandleExploreMessage(message, client);
 
+                case GameMessageType.FoldMessage:
+                    return HandleFoldMessage(message, client);
+
                 default: throw new NotImplementedException();
             }
         }
@@ -103,7 +106,7 @@ namespace Server
                 buildMessage.IsSuccessfulBuild = true;
                 buildMessage.IsBroadcast = true;
 
-                var updateMessage = ProvidePlayerNewCards(client.Id, 1, buildMessage.CardId);
+                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int>{buildMessage.CardId});
                 result.Add(updateMessage);
 
                 var directMessage = SetNextPlayer();
@@ -187,7 +190,7 @@ namespace Server
 
             if (resultMessage.IsSuccessful)
             {
-                var updateMessage = ProvidePlayerNewCards(client.Id, 1, actionMessage.CardId);
+                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int>{actionMessage.CardId});
                 result.Add(updateMessage);
 
                 var directMessage = SetNextPlayer();
@@ -217,7 +220,7 @@ namespace Server
                 destroyMessage.IsSuccessful = true;
                 Table.OpenedCards.Remove(cardToDestroy);
 
-                var updateMessage = ProvidePlayerNewCards(client.Id, 1, destroyMessage.CardId);
+                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int>{destroyMessage.CardId});
                 result.Add(updateMessage);
 
                 var directMessage = SetNextPlayer();
@@ -240,22 +243,40 @@ namespace Server
 
             result.Add(exploreMessage);
 
-            result.Add(ProvidePlayerNewCards(client.Id, 1, exploreMessage.CardId));
+            result.Add(ProvidePlayerNewCards(client.Id, new List<int> {exploreMessage.CardId}));
             result.Add(SetNextPlayer());
 
             return result;
         }
 
-        private static UpdateTableMessage ProvidePlayerNewCards(string clientId, int count, int cardToRemove = -1)
+        private static List<Message> HandleFoldMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            var foldMessage = (FoldMessage) message;
+
+            if (foldMessage.Cards.Count > 0 && foldMessage.Cards.Count < 3)
+            {
+                result.Add(ProvidePlayerNewCards(client.Id, foldMessage.Cards.Select(c => c.Id).ToList()));
+                result.Add(SetNextPlayer());
+            }
+
+            return result;
+        }
+
+        private static UpdateTableMessage ProvidePlayerNewCards(string clientId, List<int> cardsToRemove)
         {
             var client = AbstractPlayers.First(pl => pl.Id == clientId);
 
-            if (cardToRemove >= 0)
+            if (cardsToRemove.Count >= 0)
             {
-                client.Hand.RemoveAll(c => c.Id == cardToRemove);
+                foreach (var i in cardsToRemove)
+                {
+                    client.Hand.RemoveAll(c => c.Id == i);
+                }
             }
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < cardsToRemove.Count; i++)
             {
                 client.Hand.Add(HandCards.Dequeue() as HandCard);
             }

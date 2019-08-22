@@ -58,6 +58,7 @@
     <Compile Include="Message\BuildMessage.cs" />
     <Compile Include="Message\DestroyMessage.cs" />
     <Compile Include="Message\ExploreMessage.cs" />
+    <Compile Include="Message\FoldMessage.cs" />
     <Compile Include="Message\InitializeTableMessage.cs" />
     <Compile Include="Message\SetTurnMessage.cs" />
     <Compile Include="Message\GameMessage.cs" />

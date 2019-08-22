@@ -8,6 +8,8 @@ namespace CommonLibrary.CardsClasses
     {
         public virtual int Angle { get; set; }
 
+        public int SelectedMargin { get; set; }
+
         public HandCard(int id, string imagePath) : base(id, imagePath)
         {
 	        Type = CardType.HandCard;
