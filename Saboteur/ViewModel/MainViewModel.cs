@@ -31,7 +31,8 @@ namespace Saboteur.ViewModel
         public string LampImage { get; set; }
         public string PickImage { get; set; }
         public string TrolleyImage { get; set; }
-        
+
+        private readonly List<HandCard> _cardsToFold;
         private readonly Client _client;
         private bool _isMyTurn;
 
@@ -65,6 +66,8 @@ namespace Saboteur.ViewModel
             LampImage = ImagePaths.LampFix;
             PickImage = ImagePaths.LampFix;
             TrolleyImage = ImagePaths.LampFix;
+
+            _cardsToFold = new List<HandCard>();
         }
 
 		#region Commands
@@ -199,6 +202,56 @@ namespace Saboteur.ViewModel
         {
             var card = (Card)arg;
             return card is RouteCard;
+        }
+
+        #endregion
+
+        #region FoldCommand
+
+        private RelayCommand _foldCommand;
+
+        public ICommand FoldCommand =>
+            _foldCommand ?? (_foldCommand = new RelayCommand(ExecuteFoldCommand, CanExecuteFoldCommand));
+
+        private void ExecuteFoldCommand(object o)
+        {
+
+        }
+
+        private bool CanExecuteFoldCommand(object o)
+        {
+            return _cardsToFold.Count > 0 && _cardsToFold.Count < 3;
+        }
+
+        #endregion
+
+        #region SelectToFoldCommand
+
+        private RelayCommand _selectToFoldCommand;
+
+        public ICommand SelectToFoldCommand => _selectToFoldCommand ?? (_selectToFoldCommand =
+                                                   new RelayCommand(ExecuteSelectToFoldCommand,
+                                                       CanExecuteSelectToFoldCommand));
+
+        private void ExecuteSelectToFoldCommand(object card)
+        {
+            var selectedCard = (HandCard) card;
+            if (_cardsToFold.Contains(selectedCard))
+            {
+                _cardsToFold.Remove(selectedCard);
+                selectedCard.SelectedMargin = 0;
+            }
+            else
+            {
+                _cardsToFold.Add(selectedCard);
+                selectedCard.SelectedMargin = -10;
+            }
+            MyHand.UpdateCards(MyHand.Cards.ToList());
+        }
+
+        private bool CanExecuteSelectToFoldCommand(object o)
+        {
+            return _isMyTurn;
         }
 
         #endregion

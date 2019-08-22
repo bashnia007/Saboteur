@@ -5,6 +5,7 @@ using CommonLibrary.Enumerations;
 using Saboteur.Models;
 using Saboteur.MVVM;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Saboteur.ViewModel
 {
@@ -36,7 +37,23 @@ namespace Saboteur.ViewModel
 
         #region Commands
 
-        #region RotateCard command
+        #region SelectToFoldCommand
+
+        private RelayCommand _selectToFoldCommand;
+
+        public ICommand SelectToFoldCommand => _selectToFoldCommand ?? (_selectToFoldCommand =
+                                                   new RelayCommand(ExecuteSelectToFoldCommand,
+                                                       CanExecuteSelectToFoldCommand));
+
+        private void ExecuteSelectToFoldCommand(object o)
+        {
+
+        }
+
+        private bool CanExecuteSelectToFoldCommand(object o)
+        {
+            return true;
+        }
 
         #endregion
 
