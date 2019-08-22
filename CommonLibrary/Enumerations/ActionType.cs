@@ -13,6 +13,7 @@ namespace CommonLibrary.Enumerations
 		FixTrolly,
 		SpyGoldCard,
 		DestroyConnection, 
+        Explore,
 	    ToPrison,
         OutPrison
 	}	

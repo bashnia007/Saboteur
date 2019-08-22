@@ -7,6 +7,10 @@ namespace CommonLibrary.CardsClasses
 	public class ActionCard : HandCard
 	{
 		public ActionType Action { get; set; }
-		public ActionCard(int id, string imagePath) : base(id, imagePath) { }
+
+	    public ActionCard(int id, string imagePath, ActionType actionType) : base(id, imagePath)
+	    {
+	        Action = actionType;
+	    }
 	}
 }

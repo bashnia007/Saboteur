@@ -83,6 +83,38 @@ namespace Saboteur.ViewModel
         private void ExecuteBuildTunnelCommand(object obj)
         {
             var mapItem = (RouteCard) obj;
+            if (SelectedCard is RouteCard)
+            {
+                BuildTunnel(mapItem);
+            }
+
+            if (SelectedCard is ActionCard)
+            {
+                var actionCard = SelectedCard as ActionCard;
+                switch (actionCard.Action)
+                {
+                    case ActionType.DestroyConnection:
+                        DestroyConnection(actionCard, mapItem);
+                        break;
+                    case ActionType.Explore:
+                        Expore(actionCard, (GoldCard)mapItem);
+                        break;
+                    default: break;
+                }
+            }
+        }
+
+        private bool CanExecuteBuildTunnelCommand(object obj)
+        {
+            return _isMyTurn &&
+                   (SelectedCard is RouteCard || 
+                   (SelectedCard is ActionCard &&
+                   ((ActionCard)SelectedCard).Action == ActionType.DestroyConnection ||
+                    ((ActionCard)SelectedCard).Action == ActionType.Explore));
+        }
+
+        private void BuildTunnel(RouteCard mapItem)
+        {
             var routeCard = SelectedCard as RouteCard;
             routeCard.Coordinates = new Coordinates(mapItem.Coordinates.Coordinate_Y, mapItem.Coordinates.Coordinate_X);
             _client.SendMessage(new BuildMessage
@@ -94,9 +126,24 @@ namespace Saboteur.ViewModel
             });
         }
 
-        private bool CanExecuteBuildTunnelCommand(object obj)
+        private void DestroyConnection(ActionCard actionCard, RouteCard connectionToDestroy)
         {
-            return _isMyTurn && obj is RouteCard && SelectedCard is RouteCard;
+            _client.SendMessage(new DestroyMessage
+            {
+                CardId = actionCard.Id,
+                Coordinates = connectionToDestroy.Coordinates,
+                SenderId = CurrentPlayer.Id
+            });
+        }
+
+        private void Expore(ActionCard actionCard, GoldCard cardToOpen)
+        {
+            _client.SendMessage(new ExploreMessage
+            {
+                CardId = actionCard.Id,
+                Coordinates = cardToOpen.Coordinates,
+                SenderId = CurrentPlayer.Id
+            });
         }
 
 		#endregion
@@ -152,7 +199,7 @@ namespace Saboteur.ViewModel
         public bool CanExecuteMakeActionCommand(object obj)
         {
             var action = (ActionModel)obj;
-            return SelectedCard != null && SelectedCard is ActionCard;
+            return SelectedCard != null && SelectedCard is ActionCard && _isMyTurn;
         }
 
         #endregion
@@ -285,6 +332,12 @@ namespace Saboteur.ViewModel
                 case GameMessageType.ActionMessage:
                     HandleActionMessage((ActionMessage) message);
                     break;
+                case GameMessageType.DestroyConnectionMessage:
+                    HandleDestroyMessage((DestroyMessage) message);
+                    break;
+                case GameMessageType.ExploreMessage:
+                    HandleExploreMessage((ExploreMessage)message);
+                    break;
             }
         }
 
@@ -358,6 +411,30 @@ namespace Saboteur.ViewModel
             {
                 EnemyHand.UpdateEquipment(message.Players.First(pl => pl.Id == message.RecepientId).BrokenEquipments);
             }
+        }
+
+        private void HandleDestroyMessage(DestroyMessage message)
+        {
+            if (!message.IsSuccessful) return;
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                Map[message.Coordinates.Coordinate_Y][message.Coordinates.Coordinate_X] = 
+                    new RouteCard(message.Coordinates.Coordinate_Y, message.Coordinates.Coordinate_X);
+            });
+            OnPropertyChanged(nameof(Map));
+        }
+
+        private void HandleExploreMessage(ExploreMessage message)
+        {
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+                {
+                    Map[message.Coordinates.Coordinate_Y][message.Coordinates.Coordinate_X] = message.Card;
+                });
+            OnPropertyChanged(nameof(Map));
         }
 
         private void PrepareMap()
