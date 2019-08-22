@@ -29,5 +29,10 @@ namespace CommonLibrary.CardsClasses
 	    }
 
         public HandCard() { }
+
+        public void Rotate()
+        {
+            Angle = (Angle + 180) % 360;
+        }
 	}
 }

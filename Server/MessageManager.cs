@@ -118,6 +118,7 @@ namespace Server
                     goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && !goldCard.IsOpen).ToList();
                 foreach (var goldCard in goldCardsToOpen)
                 {
+                    if (!Validator.ValidateBuildingTunnelAction(goldCard, Table.OpenedCards)) goldCard.Rotate();
                     goldCard.IsOpen = true;
                     Table.OpenedCards.Add(goldCard);
                     var exploreMessage = new ExploreMessage();
