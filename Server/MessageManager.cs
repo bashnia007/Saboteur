@@ -113,6 +113,20 @@ namespace Server
                 result.Add(directMessage);
 
                 Table.OpenedCards.Add(buildMessage.RouteCard);
+
+                var goldCardsToOpen = Table.GoldCards.Where(goldCard =>
+                    goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && !goldCard.IsOpen).ToList();
+                foreach (var goldCard in goldCardsToOpen)
+                {
+                    goldCard.IsOpen = true;
+                    Table.OpenedCards.Add(goldCard);
+                    var exploreMessage = new ExploreMessage();
+                    exploreMessage.IsBroadcast = true;
+                    exploreMessage.Card = goldCard;
+                    exploreMessage.Coordinates = goldCard.Coordinates;
+
+                    result.Add(exploreMessage);
+                }
             }
             else
             {

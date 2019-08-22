@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommonLibrary;
 using CommonLibrary.Enumerations;
 
 namespace Server
@@ -52,5 +53,6 @@ namespace Server
 			else canPassTunnel = false;
 			return canPassTunnel;
 		}
+
 	}
 }
