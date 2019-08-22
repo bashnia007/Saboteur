@@ -32,7 +32,7 @@ namespace Saboteur.ViewModel
         public string PickImage { get; set; }
         public string TrolleyImage { get; set; }
 
-        private readonly List<HandCard> _cardsToFold;
+        private List<HandCard> _cardsToFold;
         private readonly Client _client;
         private bool _isMyTurn;
 
@@ -262,7 +262,12 @@ namespace Saboteur.ViewModel
 
         private void ExecuteFoldCommand(object o)
         {
+            _client.SendMessage(new FoldMessage
+            {
+                Cards = _cardsToFold
+            });
 
+            _cardsToFold = new List<HandCard>();
         }
 
         private bool CanExecuteFoldCommand(object o)
