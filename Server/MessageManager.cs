@@ -112,7 +112,8 @@ namespace Server
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
 
-                Table.OpenedCards.Add(buildMessage.RouteCard);
+                Table.AddCard(buildMessage.RouteCard);
+                //Table.OpenedCards.Add(buildMessage.RouteCard);
 
                 var goldCardsToOpen = Table.GoldCards.Where(goldCard =>
                     goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && !goldCard.IsOpen).ToList();

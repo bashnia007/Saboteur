@@ -69,8 +69,19 @@ namespace CommonLibrary.CardsClasses
 		public bool PassableLeft2Top { get; set; }
 		public bool PassableLeft2Bottom { get; set; }
 		public bool NonPassable { get; set; }
-		#endregion
+        #endregion
 
+
+        #region Parameters of connection to stairs
+
+        //private bool _leftConnection, _rightConnection, _topConnection, _bottomConnection;
+
+        public bool LeftConnected { get; set; }
+        public bool RightConnected { get; set; }
+        public bool TopConnected { get; set; }
+        public bool BottomConnected { get; set; }
+        
+        #endregion
 
         private void ChangeOrientation()
         {
