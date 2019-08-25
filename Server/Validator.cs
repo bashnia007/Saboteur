@@ -23,42 +23,35 @@ namespace Server
 			int y = routeCard.Coordinates.Coordinate_Y;
 
 			//Определяем какие карточки находятся вокруг
-			RouteCard topCardFromTable = tableRouteCards.FirstOrDefault(topCard => topCard.Coordinates.Coordinate_X == x && topCard.Coordinates.Coordinate_Y == y + 1);
-			RouteCard bottomCardFromTable = tableRouteCards.FirstOrDefault(bottomCard => bottomCard.Coordinates.Coordinate_X == x && bottomCard.Coordinates.Coordinate_Y == y - 1);
+			RouteCard topCardFromTable = tableRouteCards.FirstOrDefault(topCard => topCard.Coordinates.Coordinate_X == x && topCard.Coordinates.Coordinate_Y == y - 1);
+			RouteCard bottomCardFromTable = tableRouteCards.FirstOrDefault(bottomCard => bottomCard.Coordinates.Coordinate_X == x && bottomCard.Coordinates.Coordinate_Y == y + 1);
 			RouteCard leftCardFromTable = tableRouteCards.FirstOrDefault(leftCard => leftCard.Coordinates.Coordinate_X == x - 1 && leftCard.Coordinates.Coordinate_Y == y);
 			RouteCard rightCardFromTable = tableRouteCards.FirstOrDefault(rightCard => rightCard.Coordinates.Coordinate_X == x + 1 && rightCard.Coordinates.Coordinate_Y == y);
 
 			//Создаем переменные валидаторы и проверяем каждое соединение
-			bool validateTopJoining = topCardFromTable == null || (routeCard.TopJoining == topCardFromTable.BottomJoining);
-			bool validateBottomJoining = bottomCardFromTable == null || (routeCard.BottomJoining == bottomCardFromTable.TopJoining);
-			bool validateRightJoining = rightCardFromTable == null || (routeCard.RightJoining == rightCardFromTable.LeftJoining);
-			bool validateLeftJoining = leftCardFromTable == null || (routeCard.LeftJoining == leftCardFromTable.RightJoining);
+			bool validateTopJoining = topCardFromTable == null || (routeCard.JoiningTop == topCardFromTable.JoiningBottom);
+			bool validateBottomJoining = bottomCardFromTable == null || (routeCard.JoiningBottom == bottomCardFromTable.JoiningTop);
+			bool validateRightJoining = rightCardFromTable == null || (routeCard.JoiningRight == rightCardFromTable.JoiningLeft);
+			bool validateLeftJoining = leftCardFromTable == null || (routeCard.JoiningLeft == leftCardFromTable.JoiningRight);
 
 			//Вызываем метод, проверяющий возможность прохождения тунеля на данный момент
 		    bool canPassTunnel = IsConnectionOpen(routeCard);// ValidateCanPassTunnel(routeCard, tableRouteCards, new RouteCard(0, 2));
 
 			//Итоговая проверка на возможность построения карточки с руки
-			//return (validateTopJoining && validateBottomJoining && validateRightJoining && validateLeftJoining && canPassTunnel);
-			return (canPassTunnel);
+			return (validateTopJoining && validateBottomJoining && validateRightJoining && validateLeftJoining && canPassTunnel);
+			//return (canPassTunnel);
 			
 		}
 
 	    private static bool IsConnectionOpen(RouteCard routeCard)
 	    {
-	        int x = routeCard.Coordinates.Coordinate_X;
-	        int y = routeCard.Coordinates.Coordinate_Y;
+	        bool validateTopJoining = routeCard.NeighbourTop != null && routeCard.NeighbourTop.ConnectedBottom;
+	        bool validateBottomJoining = routeCard.NeighbourBottom != null && routeCard.NeighbourBottom.ConnectedTop;
+	        bool validateRightJoining = routeCard.NeighbourRight != null && routeCard.NeighbourRight.ConnectedLeft;
+	        bool validateLeftJoining = routeCard.NeighbourLeft != null && routeCard.NeighbourLeft.ConnectedRight;
+           
 
-            RouteCard topCardFromTable = Table.OpenedCards.FirstOrDefault(topCard => topCard.Coordinates.Coordinate_X == x && topCard.Coordinates.Coordinate_Y == y + 1);
-	        RouteCard bottomCardFromTable = Table.OpenedCards.FirstOrDefault(bottomCard => bottomCard.Coordinates.Coordinate_X == x && bottomCard.Coordinates.Coordinate_Y == y - 1);
-	        RouteCard leftCardFromTable = Table.OpenedCards.FirstOrDefault(leftCard => leftCard.Coordinates.Coordinate_X == x - 1 && leftCard.Coordinates.Coordinate_Y == y);
-	        RouteCard rightCardFromTable = Table.OpenedCards.FirstOrDefault(rightCard => rightCard.Coordinates.Coordinate_X == x + 1 && rightCard.Coordinates.Coordinate_Y == y);
-
-	        bool validateTopJoining = topCardFromTable == null || topCardFromTable.BottomConnected;
-	        bool validateBottomJoining = bottomCardFromTable == null || bottomCardFromTable.TopConnected;
-	        bool validateRightJoining = rightCardFromTable == null || rightCardFromTable.LeftConnected;
-	        bool validateLeftJoining = leftCardFromTable == null || leftCardFromTable.RightConnected;
-
-	        return validateTopJoining && validateBottomJoining && validateRightJoining && validateLeftJoining;
+	        return validateTopJoining || validateBottomJoining || validateRightJoining || validateLeftJoining;
 	    }
 
         public static bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards, RouteCard startCard)

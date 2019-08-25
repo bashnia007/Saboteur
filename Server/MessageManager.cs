@@ -113,7 +113,6 @@ namespace Server
                 result.Add(directMessage);
 
                 Table.AddCard(buildMessage.RouteCard);
-                //Table.OpenedCards.Add(buildMessage.RouteCard);
 
                 var goldCardsToOpen = Table.GoldCards.Where(goldCard =>
                     goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && !goldCard.IsOpen).ToList();
@@ -129,6 +128,8 @@ namespace Server
 
                     result.Add(exploreMessage);
                 }
+
+                Table.UpdateAllConnections();
             }
             else
             {
@@ -243,6 +244,7 @@ namespace Server
                 result.Add(directMessage);
             }
 
+            Table.UpdateAllConnections();
             return result;
         }
 
