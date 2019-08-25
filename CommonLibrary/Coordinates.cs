@@ -22,5 +22,23 @@ namespace CommonLibrary
 	               (Coordinate_Y == neighbourCoordinates.Coordinate_Y &&
 	                Math.Abs(neighbourCoordinates.Coordinate_X - Coordinate_X) == 1);
 	    }
+
+	    public override bool Equals(object obj)
+	    {
+	        if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+	        {
+	            return false;
+	        }
+	        else
+	        {
+	            Coordinates coordinates = (Coordinates) obj;
+	            return coordinates.Coordinate_X == Coordinate_X && coordinates.Coordinate_Y == Coordinate_Y;
+	        }
+	    }
+
+	    public override int GetHashCode()
+	    {
+	        unchecked { return (Coordinate_X * 397) ^ (Coordinate_Y * 397); }
+        }
 	}
 }

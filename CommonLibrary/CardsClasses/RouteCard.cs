@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.Enumerations;
 using System;
+using System.Linq;
 
 namespace CommonLibrary.CardsClasses
 {
@@ -30,10 +31,10 @@ namespace CommonLibrary.CardsClasses
         public RouteCard(int id, RouteType routeType, string imagePath) : base(id, imagePath)
         {
             var cardOrientation = new RouteCardOrientation(routeType);
-            TopJoining = cardOrientation.TopJoining;
-            BottomJoining = cardOrientation.BottomJoining;
-            LeftJoining = cardOrientation.LeftJoining;
-            RightJoining = cardOrientation.RightJoining;
+            JoiningTop = cardOrientation.TopJoining;
+            JoiningBottom = cardOrientation.BottomJoining;
+            JoiningLeft = cardOrientation.LeftJoining;
+            JoiningRight = cardOrientation.RightJoining;
 
             PassableRight2Bottom = cardOrientation.PassableRight2Bottom;
             PassableRight2Top = cardOrientation.PassableRight2Top;
@@ -52,10 +53,10 @@ namespace CommonLibrary.CardsClasses
         #endregion
 
         #region Параметры возможности присоединения к карточке
-        public bool TopJoining { get; set; }
-		public bool BottomJoining { get; set; }
-		public bool RightJoining { get; set; }
-		public bool LeftJoining { get; set; }
+        public bool JoiningTop { get; set; }
+		public bool JoiningBottom { get; set; }
+		public bool JoiningRight { get; set; }
+		public bool JoiningLeft { get; set; }
 		#endregion
 
 		#region Параметры проходимости туннеля
@@ -69,18 +70,45 @@ namespace CommonLibrary.CardsClasses
 		public bool PassableLeft2Top { get; set; }
 		public bool PassableLeft2Bottom { get; set; }
 		public bool NonPassable { get; set; }
-		#endregion
+        #endregion
 
+
+        #region Parameters of connection to stairs
+
+        //private bool _leftConnection, _rightConnection, _topConnection, _bottomConnection;
+
+        public bool ConnectedLeft { get; set; }
+        public bool ConnectedRight { get; set; }
+        public bool ConnectedTop { get; set; }
+        public bool ConnectedBottom { get; set; }
+        
+        #endregion
+
+        public RouteCard NeighbourBottom => Table.OpenedCards.FirstOrDefault(c => 
+            c.Coordinates.Coordinate_X == Coordinates.Coordinate_X &&
+            c.Coordinates.Coordinate_Y == Coordinates.Coordinate_Y + 1);
+
+        public RouteCard NeighbourTop => Table.OpenedCards.FirstOrDefault(c =>
+            c.Coordinates.Coordinate_X == Coordinates.Coordinate_X &&
+            c.Coordinates.Coordinate_Y == Coordinates.Coordinate_Y - 1);
+
+        public RouteCard NeighbourLeft => Table.OpenedCards.FirstOrDefault(c =>
+            c.Coordinates.Coordinate_X == Coordinates.Coordinate_X - 1 &&
+            c.Coordinates.Coordinate_Y == Coordinates.Coordinate_Y);
+        
+        public RouteCard NeighbourRight => Table.OpenedCards.FirstOrDefault(c =>
+            c.Coordinates.Coordinate_X == Coordinates.Coordinate_X + 1 &&
+            c.Coordinates.Coordinate_Y == Coordinates.Coordinate_Y);
 
         private void ChangeOrientation()
         {
-            bool temp = TopJoining;
-            TopJoining = BottomJoining;
-            BottomJoining = temp;
+            bool temp = JoiningTop;
+            JoiningTop = JoiningBottom;
+            JoiningBottom = temp;
 
-            temp = LeftJoining;
-            LeftJoining = RightJoining;
-            RightJoining = temp;
+            temp = JoiningLeft;
+            JoiningLeft = JoiningRight;
+            JoiningRight = temp;
         }
 
         private void ChangePassable()

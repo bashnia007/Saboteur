@@ -121,7 +121,7 @@ namespace CommonLibrary
         {
             // by default all passable variables set to false
             PassableThoughHorizontal = false;
-            PassableTroughVertical = true;
+            PassableTroughVertical = false;
             PassableRight2Top = false;
             PassableRight2Bottom = false;
             PassableLeft2Top = false;
@@ -166,7 +166,6 @@ namespace CommonLibrary
                 case RouteType.LongLine:
                 case RouteType.LongLineWithTwoDeadEnds:
                 case RouteType.LongWithDeadEnd:
-                    PassableThoughHorizontal = false;
                     PassableTroughVertical = true;
                     break;
 

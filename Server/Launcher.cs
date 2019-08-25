@@ -47,6 +47,14 @@ namespace Server
             CreateCardSet(gameSet);
 		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
 		    StartCards = gameSet.StartCards;
+		    foreach (var startCard in StartCards)
+		    {
+		        startCard.ConnectedLeft = true;
+		        startCard.ConnectedRight = true;
+		        startCard.ConnectedTop = true;
+		        startCard.ConnectedBottom = true;
+		    }
+            Table.StartCards.AddRange(StartCards);
             Table.OpenedCards.AddRange(StartCards);
 		    Table.GoldCards = GoldCardsForGame;
 		}
