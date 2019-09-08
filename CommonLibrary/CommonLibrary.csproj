@@ -183,6 +183,7 @@
     <Content Include="Images\routes\Bridge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\routes\bridge_gold.png" />
     <Content Include="Images\routes\Cross.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

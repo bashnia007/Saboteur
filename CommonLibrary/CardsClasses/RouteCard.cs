@@ -42,6 +42,19 @@ namespace CommonLibrary.CardsClasses
             PassableThoughHorizontal = cardOrientation.PassableThoughHorizontal;
             PassableLeft2Bottom = cardOrientation.PassableLeft2Bottom;
             PassableLeft2Top = cardOrientation.PassableLeft2Top;
+
+            PassableLeft2BottomBlue = cardOrientation.PassableLeft2BottomBlue;
+            PassableLeft2BottomGreen = cardOrientation.PassableLeft2BottomGreen;
+            PassableLeft2TopBlue = cardOrientation.PassableLeft2TopBlue;
+            PassableLeft2TopGreen = cardOrientation.PassableLeft2TopGreen;
+            PassableRight2BottomGreen = cardOrientation.PassableRight2BottomGreen;
+            PassableRight2BottomBlue = cardOrientation.PassableRight2BottomBlue;
+            PassableRight2TopBlue = cardOrientation.PassableRight2TopBlue;
+            PassableRight2TopGreen = cardOrientation.PassableRight2TopGreen;
+            PassableTroughVerticalBlue = cardOrientation.PassableTroughVerticalBlue;
+            PassableTroughVerticalGreen = cardOrientation.PassableTroughVerticalGreen;
+            PassableThoughHorizontalBlue = cardOrientation.PassableThoughHorizontalBlue;
+            PassableThoughHorizontalGreen = cardOrientation.PassableThoughHorizontalGreen;
         }
 
         public RouteCard(int id) : base(id) { }
@@ -52,6 +65,8 @@ namespace CommonLibrary.CardsClasses
 
         #endregion
 
+        public int Gold { get; set; }
+
         #region Параметры возможности присоединения к карточке
         public bool JoiningTop { get; set; }
 		public bool JoiningBottom { get; set; }
@@ -60,16 +75,29 @@ namespace CommonLibrary.CardsClasses
 		#endregion
 
 		#region Параметры проходимости туннеля
-		public bool PassableThough { get; set; }
 		public bool PassableThoughHorizontal { get; set; }
 		public bool PassableTroughVertical { get; set; }
-		public bool PassableBlueOnly { get; set; }
-		public bool PassableGreenOnly { get; set; }
 		public bool PassableRight2Top { get; set; }
 		public bool PassableRight2Bottom { get; set; }
 		public bool PassableLeft2Top { get; set; }
 		public bool PassableLeft2Bottom { get; set; }
-		public bool NonPassable { get; set; }
+        #endregion
+
+        #region Параметры проходимости по цветам
+        
+        public bool PassableThoughHorizontalGreen { get; set; }
+        public bool PassableThoughHorizontalBlue { get; set; }
+        public bool PassableTroughVerticalGreen { get; set; }
+        public bool PassableTroughVerticalBlue { get; set; }
+        public bool PassableRight2TopGreen { get; set; }
+        public bool PassableRight2TopBlue { get; set; }
+        public bool PassableRight2BottomGreen { get; set; }
+        public bool PassableRight2BottomBlue { get; set; }
+        public bool PassableLeft2TopGreen { get; set; }
+        public bool PassableLeft2TopBlue { get; set; }
+        public bool PassableLeft2BottomGreen { get; set; }
+        public bool PassableLeft2BottomBlue { get; set; }
+
         #endregion
 
 
@@ -120,6 +148,22 @@ namespace CommonLibrary.CardsClasses
             temp = PassableLeft2Bottom;
             PassableLeft2Bottom = PassableRight2Top;
             PassableRight2Top = temp;
+
+            temp = PassableLeft2TopGreen;
+            PassableLeft2TopGreen = PassableRight2BottomGreen;
+            PassableRight2BottomGreen = temp;
+
+            temp = PassableLeft2BottomGreen;
+            PassableLeft2BottomGreen = PassableRight2TopGreen;
+            PassableRight2TopGreen = temp;
+
+            temp = PassableLeft2TopBlue;
+            PassableLeft2TopBlue = PassableRight2BottomBlue;
+            PassableRight2BottomBlue = temp;
+
+            temp = PassableLeft2BottomBlue;
+            PassableLeft2BottomBlue = PassableRight2TopBlue;
+            PassableRight2TopBlue = temp;
         }
 	}
 }

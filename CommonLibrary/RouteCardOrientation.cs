@@ -6,6 +6,7 @@ namespace CommonLibrary
     {
         public RouteCardOrientation(RouteType routeType)
         {
+            SetInitialColorOrientation(routeType);
             SetOrientation(routeType);
             SetPassable(routeType);
         }
@@ -24,21 +25,44 @@ namespace CommonLibrary
         public bool PassableLeft2Top { get; set; }
         public bool PassableLeft2Bottom { get; set; }
 
+        #region Параметры проходимости по цветам
+
+        public bool PassableThoughHorizontalGreen { get; set; }
+        public bool PassableThoughHorizontalBlue { get; set; }
+        public bool PassableTroughVerticalGreen { get; set; }
+        public bool PassableTroughVerticalBlue { get; set; }
+        public bool PassableRight2TopGreen { get; set; }
+        public bool PassableRight2TopBlue { get; set; }
+        public bool PassableRight2BottomGreen { get; set; }
+        public bool PassableRight2BottomBlue { get; set; }
+        public bool PassableLeft2TopGreen { get; set; }
+        public bool PassableLeft2TopBlue { get; set; }
+        public bool PassableLeft2BottomGreen { get; set; }
+        public bool PassableLeft2BottomBlue { get; set; }
+
+        #endregion
+
         private void SetOrientation(RouteType routeType)
         {
             switch (routeType)
             {
                 case RouteType.Bridge:
+                case RouteType.BridgeGold:
                 case RouteType.Cross:
+                case RouteType.CrossBlue:
+                case RouteType.CrossGreen:
                 case RouteType.FourDeadEnds:
                 case RouteType.LeftAngleDiagonals:
+                case RouteType.LeftAngleDiagonalsGold:
                 case RouteType.LongLineWithTwoDeadEnds:
                 case RouteType.RightAngleDiagonals:
                 case RouteType.ShortLineWithTwoDeadEnds:
                 case RouteType.StartBlue:
                 case RouteType.StartGreen:
                 case RouteType.ThreeLinesLongWithDeadEnd:
+                case RouteType.ThreeLinesLongWithDeadEndGold:
                 case RouteType.ThreeLinesShortWithDeadEnd:
+                case RouteType.ThreeLinesShortWithDeadEndGold:
                     TopJoining = true;
                     BottomJoining = true;
                     LeftJoining = true;
@@ -57,6 +81,9 @@ namespace CommonLibrary
                 case RouteType.LongWithDeadEnd:
                 case RouteType.ThreeDeadEndsLong:
                 case RouteType.ThreeLinesLong:
+                case RouteType.ThreeLinesLongBlue:
+                case RouteType.ThreeLinesLongGreen:
+                case RouteType.ThreeLinesLongBlueGold:
                     TopJoining = true;
                     BottomJoining = true;
                     LeftJoining = true;
@@ -67,6 +94,8 @@ namespace CommonLibrary
                 case RouteType.RightAngleWithLeftDeadEnd:
                 case RouteType.ThreeDeadEndsShort:
                 case RouteType.ThreeLinesShort:
+                case RouteType.ThreeLinesShortBlue:
+                case RouteType.ThreeLinesShortGreen:
                     TopJoining = true;
                     BottomJoining = false;
                     LeftJoining = true;
@@ -102,6 +131,7 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.ShortLineWithDeadEnd:
+                case RouteType.ShortLineWithDeadEndGold:
                     TopJoining = false;
                     BottomJoining = true;
                     LeftJoining = true;
@@ -203,6 +233,57 @@ namespace CommonLibrary
                     PassableThoughHorizontal = true;
                     PassableLeft2Top = true;
                     PassableRight2Top = true;
+                    break;
+            }
+        }
+
+        private void SetInitialColorOrientation(RouteType routeType)
+        {
+            switch (routeType)
+            {
+                case RouteType.CrossBlue:
+                    PassableTroughVerticalBlue = true;
+                    PassableRight2TopBlue = true;
+                    PassableLeft2TopBlue = true;
+                    break;
+                case RouteType.CrossGreen:
+                    PassableThoughHorizontalGreen = true;
+                    PassableRight2TopGreen = true;
+                    PassableRight2BottomGreen = true;
+                    break;
+                case RouteType.ThreeLinesShortGreen:
+                    PassableRight2BottomGreen = true;
+                    PassableLeft2BottomGreen = true;
+                    break;
+                case RouteType.ThreeLinesShortBlue:
+                    PassableThoughHorizontalBlue = true;
+                    PassableLeft2BottomBlue = true;
+                    break;
+                case RouteType.ThreeLinesLongBlue:
+                    PassableTroughVerticalBlue = true;
+                    PassableRight2BottomBlue = true;
+                    break;
+                case RouteType.ThreeLinesLongGreen:
+                    PassableTroughVerticalGreen = true;
+                    PassableRight2TopBlue = true;
+                    break;
+                case RouteType.ThreeLinesLongBlueGold:
+                    PassableRight2BottomBlue = true;
+                    PassableRight2TopBlue = true;
+                    break;
+                default:
+                    PassableThoughHorizontalGreen = true;
+                    PassableThoughHorizontalBlue = true;
+                    PassableTroughVerticalGreen = true;
+                    PassableTroughVerticalBlue = true;
+                    PassableRight2TopGreen = true;
+                    PassableRight2TopBlue = true;
+                    PassableRight2BottomGreen = true;
+                    PassableRight2BottomBlue = true;
+                    PassableLeft2TopGreen = true;
+                    PassableLeft2TopBlue = true;
+                    PassableLeft2BottomGreen = true;
+                    PassableLeft2BottomBlue = true;
                     break;
             }
         }
