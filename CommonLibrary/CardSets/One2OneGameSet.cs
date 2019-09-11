@@ -8,17 +8,20 @@ namespace CommonLibrary.CardSets
     {
         public List<CardSet> CardSets => new List<CardSet>
         {
-            new CardSet(CardType.RouteCard, ImagePaths.Cross, RouteType.CrossBlue),
-            new CardSet(CardType.RouteCard, ImagePaths.Cross, RouteType.CrossGreen),
+            new CardSet(CardType.RouteCard, ImagePaths.CrossTroll, RouteType.CrossTroll),
+            new CardSet(CardType.RouteCard, ImagePaths.CrossBlue, RouteType.CrossBlue),
+            new CardSet(CardType.RouteCard, ImagePaths.CrossGreen, RouteType.CrossGreen),
             new CardSet(CardType.RouteCard, ImagePaths.Bridge, RouteType.Bridge),
             new CardSet(CardType.RouteCard, ImagePaths.BridgeGold, RouteType.BridgeGold),
             new CardSet(CardType.RouteCard, ImagePaths.ShortLine, RouteType.ShortLine, 4),
             new CardSet(CardType.RouteCard, ImagePaths.LongLine, RouteType.LongLine, 3),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortBlue, RouteType.ThreeLinesShortBlue),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortGreen, RouteType.ThreeLinesShortGreen),
+            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortTroll, RouteType.ThreeLinesShortTroll),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongBlue, RouteType.ThreeLinesLongBlue),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongBlueGold, RouteType.ThreeLinesLongBlueGold),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongGreen, RouteType.ThreeLinesLongGreen),
+            new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongTroll, RouteType.ThreeLinesLongTroll),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngle, RouteType.LeftAngle, 2),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithBlueStairs, RouteType.LeftAngleWithStairs),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngle, RouteType.RightAngle, 2),
