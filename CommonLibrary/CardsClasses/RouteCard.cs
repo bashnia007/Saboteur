@@ -109,7 +109,16 @@ namespace CommonLibrary.CardsClasses
         public bool ConnectedRight { get; set; }
         public bool ConnectedTop { get; set; }
         public bool ConnectedBottom { get; set; }
-        
+
+        public bool ConnectedLeftBlue { get; set; }
+        public bool ConnectedLeftGreen { get; set; }
+        public bool ConnectedRightBlue { get; set; }
+        public bool ConnectedRightGreen { get; set; }
+        public bool ConnectedTopBlue { get; set; }
+        public bool ConnectedTopGreen { get; set; }
+        public bool ConnectedBottomBlue { get; set; }
+        public bool ConnectedBottomGreen { get; set; }
+
         #endregion
 
         public RouteCard NeighbourBottom => Table.OpenedCards.FirstOrDefault(c => 

@@ -70,6 +70,7 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.LeftAngle:
+                case RouteType.LeftAngleWithStairs:
                 case RouteType.TwoDeadLinesLeft:
                     TopJoining = true;
                     BottomJoining = false;
@@ -110,6 +111,7 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.RightAngle:
+                case RouteType.RightAngleWithStairs:
                     TopJoining = true;
                     BottomJoining = false;
                     LeftJoining = false;
@@ -183,6 +185,7 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.LeftAngle:
+                case RouteType.LeftAngleWithStairs:
                 case RouteType.LeftAngleWithBottomDeadEnd:
                 case RouteType.LeftAngleWithRightDeadEnd:
                     PassableLeft2Top = true;
@@ -200,6 +203,7 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.RightAngle:
+                case RouteType.RightAngleWithStairs:
                 case RouteType.RightAngleWithBottomDeadEnd:
                 case RouteType.RightAngleWithLeftDeadEnd:
                     PassableRight2Top = true;
