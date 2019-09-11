@@ -51,6 +51,7 @@ namespace CommonLibrary
                 case RouteType.Cross:
                 case RouteType.CrossBlue:
                 case RouteType.CrossGreen:
+                case RouteType.CrossTroll:
                 case RouteType.FourDeadEnds:
                 case RouteType.LeftAngleDiagonals:
                 case RouteType.LeftAngleDiagonalsGold:
@@ -85,6 +86,7 @@ namespace CommonLibrary
                 case RouteType.ThreeLinesLongBlue:
                 case RouteType.ThreeLinesLongGreen:
                 case RouteType.ThreeLinesLongBlueGold:
+                case RouteType.ThreeLinesLongTroll:
                     TopJoining = true;
                     BottomJoining = true;
                     LeftJoining = true;
@@ -97,6 +99,7 @@ namespace CommonLibrary
                 case RouteType.ThreeLinesShort:
                 case RouteType.ThreeLinesShortBlue:
                 case RouteType.ThreeLinesShortGreen:
+                case RouteType.ThreeLinesShortTroll:
                     TopJoining = true;
                     BottomJoining = false;
                     LeftJoining = true;
@@ -167,6 +170,9 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.Cross:
+                case RouteType.CrossBlue:
+                case RouteType.CrossGreen:
+                case RouteType.CrossTroll:
                 case RouteType.StartBlue:
                 case RouteType.StartGreen:
                     PassableThoughHorizontal = true;
@@ -221,6 +227,10 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.ThreeLinesLong:
+                case RouteType.ThreeLinesLongBlue:
+                case RouteType.ThreeLinesLongBlueGold:
+                case RouteType.ThreeLinesLongGreen:
+                case RouteType.ThreeLinesLongTroll:
                     PassableTroughVertical = true;
                     PassableLeft2Bottom = true;
                     PassableLeft2Top = true;
@@ -233,6 +243,9 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.ThreeLinesShort:
+                case RouteType.ThreeLinesShortBlue:
+                case RouteType.ThreeLinesShortGreen:
+                case RouteType.ThreeLinesShortTroll:
                 case RouteType.ThreeLinesShortWithDeadEnd:
                     PassableThoughHorizontal = true;
                     PassableLeft2Top = true;
