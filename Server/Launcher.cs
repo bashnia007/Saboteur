@@ -3,6 +3,7 @@ using CommonLibrary.CardsClasses;
 using CommonLibrary.CardSets;
 using CommonLibrary.Enumerations;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Server
 {

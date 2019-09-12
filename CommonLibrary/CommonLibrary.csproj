@@ -50,6 +50,7 @@
     <Compile Include="CardSets\CardSet.cs" />
     <Compile Include="CardSets\IGameSet.cs" />
     <Compile Include="CardSets\One2OneGameSet.cs" />
+    <Compile Include="Connection.cs" />
     <Compile Include="Coordinates.cs" />
     <Compile Include="Enumerations\Equipment.cs" />
     <Compile Include="Enumerations\GameMessageType.cs" />
