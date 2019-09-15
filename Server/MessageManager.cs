@@ -100,7 +100,7 @@ namespace Server
             result.Add(buildMessage);
 
             // check if user can build card
-            if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards))
+            if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards, buildMessage.RoleType))
             //if (true)
             {
                 buildMessage.IsSuccessfulBuild = true;
@@ -118,7 +118,7 @@ namespace Server
                     goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && !goldCard.IsOpen).ToList();
                 foreach (var goldCard in goldCardsToOpen)
                 {
-                    if (!Validator.ValidateBuildingTunnelAction(goldCard, Table.OpenedCards)) goldCard.Rotate();
+                    if (!Validator.ValidateBuildingTunnelAction(goldCard, Table.OpenedCards, buildMessage.RoleType)) goldCard.Rotate();
                     goldCard.IsOpen = true;
                     Table.OpenedCards.Add(goldCard);
                     var exploreMessage = new ExploreMessage();

@@ -31,7 +31,7 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEndGold, RouteType.ThreeLinesLongWithDeadEndGold),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortWithDeadEndGold, RouteType.ThreeLinesShortWithDeadEndGold),
             new CardSet(CardType.RouteCard, ImagePaths.ShortLineWithDeadEndGold, RouteType.ShortLineWithDeadEndGold),
-            new CardSet(CardType.RouteCard, ImagePaths.LongWithDeadEnd, RouteType.LongWithDeadEnd),
+            new CardSet(CardType.RouteCard, ImagePaths.LongWithDeadEnd, RouteType.LongLineWithDeadEnd),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithLeftDeadEnd, RouteType.RightAngleWithLeftDeadEnd),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithBottomDeadEnd, RouteType.RightAngleWithBottomDeadEnd),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithRightDeadEnd, RouteType.LeftAngleWithRightDeadEnd),
@@ -81,21 +81,23 @@ namespace CommonLibrary.CardSets
 
         public List<RouteCard> StartCards => new List<RouteCard>
         {
-            new RouteCard(100, RouteType.StartBlue, ImagePaths.StartBlue)
+            new StartCard(100, RouteType.StartBlue, ImagePaths.StartBlue)
             {
                 Coordinates = new Coordinates(0, 2),
-                ConnectedLeftBlue = true,
-                ConnectedRightBlue = true,
-                ConnectedBottomBlue = true,
-                ConnectedTopBlue = true
+                ConnectionBottom = ConnectionType.Blue,
+                ConnectionLeft = ConnectionType.Blue,
+                ConnectionRight = ConnectionType.Blue,
+                ConnectionTop = ConnectionType.Blue,
+                Role = RoleType.Blue
             },
-            new RouteCard(200, RouteType.StartGreen, ImagePaths.StartGreen)
+            new StartCard(200, RouteType.StartGreen, ImagePaths.StartGreen)
             {
                 Coordinates = new Coordinates(0, 4),
-                ConnectedBottomGreen = true,
-                ConnectedLeftGreen = true,
-                ConnectedTopGreen = true,
-                ConnectedRightGreen = true
+                ConnectionBottom = ConnectionType.Green,
+                ConnectionLeft = ConnectionType.Green,
+                ConnectionRight = ConnectionType.Green,
+                ConnectionTop = ConnectionType.Green,
+                Role = RoleType.Green
             }
         };
     }

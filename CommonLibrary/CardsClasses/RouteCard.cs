@@ -36,25 +36,12 @@ namespace CommonLibrary.CardsClasses
             JoiningLeft = cardOrientation.LeftJoining;
             JoiningRight = cardOrientation.RightJoining;
 
-            PassableRight2Bottom = cardOrientation.PassableRight2Bottom;
-            PassableRight2Top = cardOrientation.PassableRight2Top;
-            PassableTroughVertical = cardOrientation.PassableTroughVertical;
-            PassableThoughHorizontal = cardOrientation.PassableThoughHorizontal;
-            PassableLeft2Bottom = cardOrientation.PassableLeft2Bottom;
-            PassableLeft2Top = cardOrientation.PassableLeft2Top;
-
-            PassableLeft2BottomBlue = cardOrientation.PassableLeft2BottomBlue;
-            PassableLeft2BottomGreen = cardOrientation.PassableLeft2BottomGreen;
-            PassableLeft2TopBlue = cardOrientation.PassableLeft2TopBlue;
-            PassableLeft2TopGreen = cardOrientation.PassableLeft2TopGreen;
-            PassableRight2BottomGreen = cardOrientation.PassableRight2BottomGreen;
-            PassableRight2BottomBlue = cardOrientation.PassableRight2BottomBlue;
-            PassableRight2TopBlue = cardOrientation.PassableRight2TopBlue;
-            PassableRight2TopGreen = cardOrientation.PassableRight2TopGreen;
-            PassableTroughVerticalBlue = cardOrientation.PassableTroughVerticalBlue;
-            PassableTroughVerticalGreen = cardOrientation.PassableTroughVerticalGreen;
-            PassableThoughHorizontalBlue = cardOrientation.PassableThoughHorizontalBlue;
-            PassableThoughHorizontalGreen = cardOrientation.PassableThoughHorizontalGreen;
+            PassabilityVertical = cardOrientation.PassabilityVertical;
+            PassabilityHorizontal = cardOrientation.PassabilityHorizontal;
+            PassabilityLeft2Top = cardOrientation.PassabilityLeft2Top;
+            PassabilityRight2Top = cardOrientation.PassabilityRight2Top;
+            PassabilityLeft2Bottom = cardOrientation.PassabilityLeft2Bottom;
+            PassabilityRight2Bottom = cardOrientation.PassabilityRight2Bottom;
         }
 
         public RouteCard(int id) : base(id) { }
@@ -73,7 +60,7 @@ namespace CommonLibrary.CardsClasses
 		public bool JoiningRight { get; set; }
 		public bool JoiningLeft { get; set; }
 		#endregion
-
+        /*
 		#region Параметры проходимости туннеля
 		public bool PassableThoughHorizontal { get; set; }
 		public bool PassableTroughVertical { get; set; }
@@ -99,8 +86,28 @@ namespace CommonLibrary.CardsClasses
         public bool PassableLeft2BottomBlue { get; set; }
 
         #endregion
+        */
+        #region Connections
+        
+        public ConnectionType ConnectionLeft { get; set; }
+        public ConnectionType ConnectionRight { get; set; }
+        public ConnectionType ConnectionTop { get; set; }
+        public ConnectionType ConnectionBottom { get; set; }
 
+        #endregion
 
+        #region Passability
+        
+        public ConnectionType PassabilityVertical { get; set; }
+        public ConnectionType PassabilityHorizontal { get; set; }
+        public ConnectionType PassabilityLeft2Top { get; set; }
+        public ConnectionType PassabilityRight2Top { get; set; }
+        public ConnectionType PassabilityLeft2Bottom { get; set; }
+        public ConnectionType PassabilityRight2Bottom { get; set; }
+        
+        #endregion
+
+        /*
         #region Parameters of connection to stairs
 
         //private bool _leftConnection, _rightConnection, _topConnection, _bottomConnection;
@@ -120,6 +127,8 @@ namespace CommonLibrary.CardsClasses
         public bool ConnectedBottomGreen { get; set; }
 
         #endregion
+        */
+        #region Neighbours
 
         public RouteCard NeighbourBottom => Table.OpenedCards.FirstOrDefault(c => 
             c.Coordinates.Coordinate_X == Coordinates.Coordinate_X &&
@@ -137,6 +146,8 @@ namespace CommonLibrary.CardsClasses
             c.Coordinates.Coordinate_X == Coordinates.Coordinate_X + 1 &&
             c.Coordinates.Coordinate_Y == Coordinates.Coordinate_Y);
 
+        #endregion
+
         private void ChangeOrientation()
         {
             bool temp = JoiningTop;
@@ -150,29 +161,13 @@ namespace CommonLibrary.CardsClasses
 
         private void ChangePassable()
         {
-            bool temp = PassableLeft2Top;
-            PassableLeft2Top = PassableRight2Bottom;
-            PassableRight2Bottom = temp;
+            var temp = PassabilityLeft2Top;
+            PassabilityLeft2Top = PassabilityRight2Bottom;
+            PassabilityRight2Bottom = temp;
 
-            temp = PassableLeft2Bottom;
-            PassableLeft2Bottom = PassableRight2Top;
-            PassableRight2Top = temp;
-
-            temp = PassableLeft2TopGreen;
-            PassableLeft2TopGreen = PassableRight2BottomGreen;
-            PassableRight2BottomGreen = temp;
-
-            temp = PassableLeft2BottomGreen;
-            PassableLeft2BottomGreen = PassableRight2TopGreen;
-            PassableRight2TopGreen = temp;
-
-            temp = PassableLeft2TopBlue;
-            PassableLeft2TopBlue = PassableRight2BottomBlue;
-            PassableRight2BottomBlue = temp;
-
-            temp = PassableLeft2BottomBlue;
-            PassableLeft2BottomBlue = PassableRight2TopBlue;
-            PassableRight2TopBlue = temp;
+            temp = PassabilityLeft2Bottom;
+            PassabilityLeft2Bottom = PassabilityRight2Top;
+            PassabilityRight2Top = temp;
         }
 	}
 }

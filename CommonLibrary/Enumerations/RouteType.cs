@@ -20,7 +20,7 @@ namespace CommonLibrary.Enumerations
         LeftAngleWithStairs,
         LongLine,
         LongLineWithTwoDeadEnds,
-        LongWithDeadEnd,
+        LongLineWithDeadEnd,
         RightAngle,
         RightAngleDiagonals,
         RightAngleWithBottomDeadEnd,

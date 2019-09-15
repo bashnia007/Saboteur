@@ -122,7 +122,8 @@ namespace Saboteur.ViewModel
                 Coordinates = routeCard.Coordinates,
                 SenderId = CurrentPlayer.Id,
                 CardId = SelectedCard.Id,
-                RouteCard = routeCard
+                RouteCard = routeCard,
+                RoleType = CurrentPlayer.Role.Role
             });
         }
 
@@ -364,6 +365,7 @@ namespace Saboteur.ViewModel
             _isMyTurn = message.IsMyTurn;
             if (message.RoleCard != null)
             {
+                CurrentPlayer.Role = message.RoleCard;
                 RoleImage = message.RoleCard.ImagePath;
                 OnPropertyChanged(nameof(RoleImage));
             }

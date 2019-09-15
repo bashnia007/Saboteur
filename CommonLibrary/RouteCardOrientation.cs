@@ -6,42 +6,147 @@ namespace CommonLibrary
     {
         public RouteCardOrientation(RouteType routeType)
         {
-            SetInitialColorOrientation(routeType);
+            SetPassability(routeType);
             SetOrientation(routeType);
-            SetPassable(routeType);
         }
-
+        
         public bool TopJoining { get; private set; }
         public bool BottomJoining { get; private set; }
         public bool RightJoining { get; private set; }
         public bool LeftJoining { get; private set; }
 
-        public bool PassableThoughHorizontal { get; set; }
-        public bool PassableTroughVertical { get; set; }
-        public bool PassableBlue { get; set; }
-        public bool PassableGreen { get; set; }
-        public bool PassableRight2Top { get; set; }
-        public bool PassableRight2Bottom { get; set; }
-        public bool PassableLeft2Top { get; set; }
-        public bool PassableLeft2Bottom { get; set; }
+        #region Connections to stairs
 
-        #region Параметры проходимости по цветам
-
-        public bool PassableThoughHorizontalGreen { get; set; }
-        public bool PassableThoughHorizontalBlue { get; set; }
-        public bool PassableTroughVerticalGreen { get; set; }
-        public bool PassableTroughVerticalBlue { get; set; }
-        public bool PassableRight2TopGreen { get; set; }
-        public bool PassableRight2TopBlue { get; set; }
-        public bool PassableRight2BottomGreen { get; set; }
-        public bool PassableRight2BottomBlue { get; set; }
-        public bool PassableLeft2TopGreen { get; set; }
-        public bool PassableLeft2TopBlue { get; set; }
-        public bool PassableLeft2BottomGreen { get; set; }
-        public bool PassableLeft2BottomBlue { get; set; }
+        public ConnectionType ConnectionLeft { get; set; }
+        public ConnectionType ConnectionRight { get; set; }
+        public ConnectionType ConnectionTop { get; set; }
+        public ConnectionType ConnectionBottom { get; set; }
 
         #endregion
 
+        #region Passability
+
+        public ConnectionType PassabilityVertical { get; set; }
+        public ConnectionType PassabilityHorizontal { get; set; }
+        public ConnectionType PassabilityLeft2Top { get; set; }
+        public ConnectionType PassabilityRight2Top { get; set; }
+        public ConnectionType PassabilityLeft2Bottom { get; set; }
+        public ConnectionType PassabilityRight2Bottom { get; set; }
+
+        #endregion
+
+        private void SetPassability(RouteType routeType)
+        {
+            PassabilityVertical = ConnectionType.None;
+            PassabilityHorizontal = ConnectionType.None;
+            PassabilityLeft2Top = ConnectionType.None;
+            PassabilityRight2Top = ConnectionType.None;
+            PassabilityLeft2Bottom = ConnectionType.None;
+            PassabilityRight2Bottom = ConnectionType.None;
+
+            switch (routeType)
+            {
+                case RouteType.Cross:
+                case RouteType.CrossTroll:
+                case RouteType.StartGreen:
+                case RouteType.StartBlue:
+                    PassabilityVertical = ConnectionType.Both;
+                    PassabilityHorizontal = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Both;
+                    PassabilityLeft2Bottom = ConnectionType.Both;
+                    PassabilityRight2Bottom = ConnectionType.Both;
+                    break;
+                case RouteType.CrossBlue:
+                    PassabilityVertical = ConnectionType.Blue;
+                    PassabilityHorizontal = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Blue;
+                    PassabilityRight2Top = ConnectionType.Blue;
+                    PassabilityLeft2Bottom = ConnectionType.Both;
+                    PassabilityRight2Bottom = ConnectionType.Both;
+                    break;
+                case RouteType.CrossGreen:
+                    PassabilityVertical = ConnectionType.Both;
+                    PassabilityHorizontal = ConnectionType.Green;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Green;
+                    PassabilityLeft2Bottom = ConnectionType.Both;
+                    PassabilityRight2Bottom = ConnectionType.Green;
+                    break;
+                case RouteType.Bridge:
+                case RouteType.BridgeGold:
+                    PassabilityVertical = ConnectionType.Both;
+                    PassabilityHorizontal = ConnectionType.Both;
+                    break;
+                case RouteType.LongLine:
+                case RouteType.LongLineWithDeadEnd:
+                    PassabilityVertical = ConnectionType.Both;
+                    break;
+                case RouteType.ShortLine:
+                case RouteType.ShortLineWithDeadEndGold:
+                    PassabilityHorizontal = ConnectionType.Both;
+                    break;
+                case RouteType.LeftAngle:
+                case RouteType.LeftAngleWithBottomDeadEnd:
+                case RouteType.LeftAngleWithRightDeadEnd:
+                case RouteType.LeftAngleWithStairs:
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    break;
+                case RouteType.RightAngle:
+                case RouteType.RightAngleWithBottomDeadEnd:
+                case RouteType.RightAngleWithLeftDeadEnd:
+                case RouteType.RightAngleWithStairs:
+                    PassabilityRight2Top = ConnectionType.Both;
+                    break;
+                case RouteType.ThreeLinesShortTroll:
+                case RouteType.ThreeLinesShortWithDeadEndGold:
+                case RouteType.ThreeLinesShort:
+                    PassabilityHorizontal = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    break;
+                case RouteType.ThreeLinesLong:
+                case RouteType.ThreeLinesLongTroll:
+                    PassabilityVertical = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityLeft2Bottom = ConnectionType.Both;
+                    break;
+                case RouteType.LeftAngleDiagonalsGold:
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityRight2Bottom = ConnectionType.Both;
+                    break;
+                case RouteType.RightAngleDiagonals:
+                    PassabilityLeft2Bottom = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Both;
+                    break;
+                case RouteType.ThreeLinesLongBlueGold:
+                    PassabilityVertical = ConnectionType.Both;
+                    PassabilityLeft2Bottom = ConnectionType.Blue;
+                    PassabilityLeft2Top = ConnectionType.Blue;
+                    break;
+                case RouteType.ThreeLinesLongBlue:
+                    PassabilityVertical = ConnectionType.Blue;
+                    PassabilityLeft2Bottom = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Blue;
+                    break;
+                case RouteType.ThreeLinesLongGreen:
+                    PassabilityVertical = ConnectionType.Green;
+                    PassabilityLeft2Bottom = ConnectionType.Green;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    break;
+                case RouteType.ThreeLinesShortGreen:
+                    PassabilityHorizontal = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Green;
+                    PassabilityRight2Top = ConnectionType.Green;
+                    break;
+                case RouteType.ThreeLinesShortBlue:
+                    PassabilityHorizontal = ConnectionType.Blue;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Blue;
+                    break;
+            }
+        }
+        
         private void SetOrientation(RouteType routeType)
         {
             switch (routeType)
@@ -80,7 +185,7 @@ namespace CommonLibrary
                     break;
 
                 case RouteType.LeftAngleWithBottomDeadEnd:
-                case RouteType.LongWithDeadEnd:
+                case RouteType.LongLineWithDeadEnd:
                 case RouteType.ThreeDeadEndsLong:
                 case RouteType.ThreeLinesLong:
                 case RouteType.ThreeLinesLongBlue:
@@ -148,159 +253,6 @@ namespace CommonLibrary
                     BottomJoining = true;
                     LeftJoining = true;
                     RightJoining = false;
-                    break;
-            }
-        }
-
-        private void SetPassable(RouteType routeType)
-        {
-            // by default all passable variables set to false
-            PassableThoughHorizontal = false;
-            PassableTroughVertical = false;
-            PassableRight2Top = false;
-            PassableRight2Bottom = false;
-            PassableLeft2Top = false;
-            PassableLeft2Bottom = false;
-
-            switch (routeType)
-            {
-                case RouteType.Bridge:
-                    PassableThoughHorizontal = true;
-                    PassableTroughVertical = true;
-                    break;
-
-                case RouteType.Cross:
-                case RouteType.CrossBlue:
-                case RouteType.CrossGreen:
-                case RouteType.CrossTroll:
-                case RouteType.StartBlue:
-                case RouteType.StartGreen:
-                    PassableThoughHorizontal = true;
-                    PassableTroughVertical = true;
-                    PassableRight2Top = true;
-                    PassableRight2Bottom = true;
-                    PassableLeft2Top = true;
-                    PassableLeft2Bottom = true;
-                    break;
-
-                case RouteType.FourDeadEnds:
-                case RouteType.ThreeDeadEndsLong:
-                case RouteType.ThreeDeadEndsShort:
-                case RouteType.TwoDeadLinesLeft:
-                case RouteType.TwoDeadLinesRight:
-                    break;
-
-                case RouteType.LeftAngle:
-                case RouteType.LeftAngleWithStairs:
-                case RouteType.LeftAngleWithBottomDeadEnd:
-                case RouteType.LeftAngleWithRightDeadEnd:
-                    PassableLeft2Top = true;
-                    break;
-
-                case RouteType.LeftAngleDiagonals:
-                    PassableRight2Bottom = true;
-                    PassableLeft2Top = true;
-                    break;
-
-                case RouteType.LongLine:
-                case RouteType.LongLineWithTwoDeadEnds:
-                case RouteType.LongWithDeadEnd:
-                    PassableTroughVertical = true;
-                    break;
-
-                case RouteType.RightAngle:
-                case RouteType.RightAngleWithStairs:
-                case RouteType.RightAngleWithBottomDeadEnd:
-                case RouteType.RightAngleWithLeftDeadEnd:
-                    PassableRight2Top = true;
-                    break;
-
-                case RouteType.RightAngleDiagonals:
-                    PassableRight2Top = true;
-                    PassableLeft2Bottom = true;
-                    break;
-
-                case RouteType.ShortLine:
-                case RouteType.ShortLineWithDeadEnd:
-                case RouteType.ShortLineWithTwoDeadEnds:
-                    PassableThoughHorizontal = true;
-                    break;
-
-                case RouteType.ThreeLinesLong:
-                case RouteType.ThreeLinesLongBlue:
-                case RouteType.ThreeLinesLongBlueGold:
-                case RouteType.ThreeLinesLongGreen:
-                case RouteType.ThreeLinesLongTroll:
-                    PassableTroughVertical = true;
-                    PassableLeft2Bottom = true;
-                    PassableLeft2Top = true;
-                    break;
-
-                case RouteType.ThreeLinesLongWithDeadEnd:
-                    PassableTroughVertical = true;
-                    PassableRight2Top = true;
-                    PassableRight2Bottom = true;
-                    break;
-
-                case RouteType.ThreeLinesShort:
-                case RouteType.ThreeLinesShortBlue:
-                case RouteType.ThreeLinesShortGreen:
-                case RouteType.ThreeLinesShortTroll:
-                case RouteType.ThreeLinesShortWithDeadEnd:
-                    PassableThoughHorizontal = true;
-                    PassableLeft2Top = true;
-                    PassableRight2Top = true;
-                    break;
-            }
-        }
-
-        private void SetInitialColorOrientation(RouteType routeType)
-        {
-            switch (routeType)
-            {
-                case RouteType.CrossBlue:
-                    PassableTroughVerticalBlue = true;
-                    PassableRight2TopBlue = true;
-                    PassableLeft2TopBlue = true;
-                    break;
-                case RouteType.CrossGreen:
-                    PassableThoughHorizontalGreen = true;
-                    PassableRight2TopGreen = true;
-                    PassableRight2BottomGreen = true;
-                    break;
-                case RouteType.ThreeLinesShortGreen:
-                    PassableRight2BottomGreen = true;
-                    PassableLeft2BottomGreen = true;
-                    break;
-                case RouteType.ThreeLinesShortBlue:
-                    PassableThoughHorizontalBlue = true;
-                    PassableLeft2BottomBlue = true;
-                    break;
-                case RouteType.ThreeLinesLongBlue:
-                    PassableTroughVerticalBlue = true;
-                    PassableRight2BottomBlue = true;
-                    break;
-                case RouteType.ThreeLinesLongGreen:
-                    PassableTroughVerticalGreen = true;
-                    PassableRight2TopBlue = true;
-                    break;
-                case RouteType.ThreeLinesLongBlueGold:
-                    PassableRight2BottomBlue = true;
-                    PassableRight2TopBlue = true;
-                    break;
-                default:
-                    PassableThoughHorizontalGreen = true;
-                    PassableThoughHorizontalBlue = true;
-                    PassableTroughVerticalGreen = true;
-                    PassableTroughVerticalBlue = true;
-                    PassableRight2TopGreen = true;
-                    PassableRight2TopBlue = true;
-                    PassableRight2BottomGreen = true;
-                    PassableRight2BottomBlue = true;
-                    PassableLeft2TopGreen = true;
-                    PassableLeft2TopBlue = true;
-                    PassableLeft2BottomGreen = true;
-                    PassableLeft2BottomBlue = true;
                     break;
             }
         }
