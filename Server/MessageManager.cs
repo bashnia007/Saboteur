@@ -101,7 +101,6 @@ namespace Server
 
             // check if user can build card
             if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards, buildMessage.RoleType))
-            //if (true)
             {
                 buildMessage.IsSuccessfulBuild = true;
                 buildMessage.IsBroadcast = true;
@@ -129,7 +128,7 @@ namespace Server
                     result.Add(exploreMessage);
                 }
 
-                Table.UpdateAllConnections();
+                Table.UpdateAllConnections(buildMessage.RoleType);
             }
             else
             {

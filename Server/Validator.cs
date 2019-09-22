@@ -9,13 +9,6 @@ namespace Server
 {
 	public static class Validator
 	{
-		// Вадилатор возможности хода избранной картой - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
-		public static bool ValidateActionCardUsing(ActionCard actionCard, List<ActionCard> tableActionCards)
-		{
-
-			return true;
-		}
-
 		public static bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards, RoleType roleType)
 		{
 			//Получаем координаты, куда карточку из руки хотят положить
@@ -43,6 +36,11 @@ namespace Server
 			
 		}
 
+	    public static void CheckForGold()
+	    {
+
+	    }
+
 	    private static bool IsConnectionOpen(RouteCard routeCard, RoleType roleType)
 	    {
             // bitwise operator for comparing role with connection
@@ -58,17 +56,6 @@ namespace Server
 
             return validateTopJoining || validateBottomJoining || validateRightJoining || validateLeftJoining;
 	    }
-
-        public static bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards, RouteCard startCard)
-		{
-			//Алгоритм поиска в глубину - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
-			bool canPassTunnel = false;
-			if (canPassTunnel == false)
-			{
-				canPassTunnel = true;
-			}
-			else canPassTunnel = false;
-			return canPassTunnel;
-		}
+        
     }
 }

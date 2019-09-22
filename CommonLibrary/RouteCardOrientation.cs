@@ -1,4 +1,5 @@
 ﻿using CommonLibrary.Enumerations;
+using CommonLibrary.Features;
 
 namespace CommonLibrary
 {
@@ -8,6 +9,7 @@ namespace CommonLibrary
         {
             SetPassability(routeType);
             SetOrientation(routeType);
+            SetGoldConnections(routeType);
         }
         
         public bool TopJoining { get; private set; }
@@ -34,6 +36,8 @@ namespace CommonLibrary
         public ConnectionType PassabilityRight2Bottom { get; set; }
 
         #endregion
+
+        public GoldConnections GoldConnections { get; set; }
 
         private void SetPassability(RouteType routeType)
         {
@@ -129,7 +133,17 @@ namespace CommonLibrary
                     PassabilityLeft2Bottom = ConnectionType.Both;
                     PassabilityLeft2Top = ConnectionType.Blue;
                     break;
+                case RouteType.ThreeLinesLongBlueGold3:
+                    PassabilityVertical = ConnectionType.Blue;
+                    PassabilityLeft2Bottom = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Blue;
+                    break;
                 case RouteType.ThreeLinesLongGreen:
+                    PassabilityVertical = ConnectionType.Green;
+                    PassabilityLeft2Bottom = ConnectionType.Green;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    break;
+                case RouteType.ThreeLinesLongGreenGold2:
                     PassabilityVertical = ConnectionType.Green;
                     PassabilityLeft2Bottom = ConnectionType.Green;
                     PassabilityLeft2Top = ConnectionType.Both;
@@ -139,9 +153,24 @@ namespace CommonLibrary
                     PassabilityLeft2Top = ConnectionType.Green;
                     PassabilityRight2Top = ConnectionType.Green;
                     break;
+                case RouteType.ThreeLinesShortGreenGold:
+                    PassabilityHorizontal = ConnectionType.Green;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Green;
+                    break;
+                case RouteType.ThreeLinesShortGreenGold3:
+                    PassabilityHorizontal = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Green;
+                    PassabilityRight2Top = ConnectionType.Green;
+                    break;
                 case RouteType.ThreeLinesShortBlue:
                     PassabilityHorizontal = ConnectionType.Blue;
                     PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Blue;
+                    break;
+                case RouteType.ThreeLinesShortBlueGold2:
+                    PassabilityHorizontal = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Blue;
                     PassabilityRight2Top = ConnectionType.Blue;
                     break;
             }
@@ -189,7 +218,9 @@ namespace CommonLibrary
                 case RouteType.ThreeDeadEndsLong:
                 case RouteType.ThreeLinesLong:
                 case RouteType.ThreeLinesLongBlue:
+                case RouteType.ThreeLinesLongBlueGold3:
                 case RouteType.ThreeLinesLongGreen:
+                case RouteType.ThreeLinesLongGreenGold2:
                 case RouteType.ThreeLinesLongBlueGold:
                 case RouteType.ThreeLinesLongTroll:
                     TopJoining = true;
@@ -205,6 +236,9 @@ namespace CommonLibrary
                 case RouteType.ThreeLinesShortBlue:
                 case RouteType.ThreeLinesShortGreen:
                 case RouteType.ThreeLinesShortTroll:
+                case RouteType.ThreeLinesShortGreenGold:
+                case RouteType.ThreeLinesShortBlueGold2:
+                case RouteType.ThreeLinesShortGreenGold3:
                     TopJoining = true;
                     BottomJoining = false;
                     LeftJoining = true;
@@ -253,6 +287,51 @@ namespace CommonLibrary
                     BottomJoining = true;
                     LeftJoining = true;
                     RightJoining = false;
+                    break;
+            }
+        }
+
+        private void SetGoldConnections(RouteType routeType)
+        {
+            GoldConnections = new GoldConnections();
+            switch (routeType)
+            {
+                case RouteType.BridgeGold:
+                    GoldConnections.FromTop = true;
+                    GoldConnections.FromBottom = true;
+                    break;
+                case RouteType.LeftAngleDiagonalsGold:
+                    GoldConnections.FromRight = true;
+                    GoldConnections.FromBottom = true;
+                    break;
+                case RouteType.ThreeLinesLongBlueGold:
+                case RouteType.ThreeLinesLongBlueGold3:
+                case RouteType.ThreeLinesLongGreenGold2:
+                    GoldConnections.FromLeft = true;
+                    GoldConnections.FromBottom = true;
+                    GoldConnections.FromTop = true;
+                    break;
+                case RouteType.ThreeLinesShortWithDeadEndGold:
+                    GoldConnections.FromBottom = true;
+                    break;
+                case RouteType.ThreeLinesLongWithDeadEndGold:
+                    GoldConnections.FromRight = true;
+                    break;
+                case RouteType.ShortLineWithDeadEndGold:
+                    GoldConnections.FromBottom = true;
+                    break;
+                case RouteType.ThreeLinesShortGreenGold:
+                case RouteType.ThreeLinesShortGreenGold3:
+                case RouteType.ThreeLinesShortBlueGold2:
+                    GoldConnections.FromLeft = true;
+                    GoldConnections.FromRight = true;
+                    GoldConnections.FromTop = true;
+                    break;
+                default:
+                    GoldConnections.FromBottom = false;
+                    GoldConnections.FromLeft = false;
+                    GoldConnections.FromRight = false;
+                    GoldConnections.FromTop = false;
                     break;
             }
         }

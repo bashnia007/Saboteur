@@ -55,6 +55,7 @@
     <Compile Include="Enumerations\ConnectionType.cs" />
     <Compile Include="Enumerations\Equipment.cs" />
     <Compile Include="Enumerations\GameMessageType.cs" />
+    <Compile Include="Features\GoldConnections.cs" />
     <Compile Include="Features\Token.cs" />
     <Compile Include="ImagePaths.cs" />
     <Compile Include="Message\ActionMessage.cs" />

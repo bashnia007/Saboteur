@@ -6,10 +6,11 @@ namespace CommonLibrary.CardsClasses
     [Serializable]
     public class GoldCard : RouteCard
 	{
-	    public GoldCard(int id, string imagePath) : base(id, imagePath)
+	    public GoldCard(int id, string imagePath, int goldCount = 0) : base(id, imagePath)
 	    {
 	        Type = CardType.GoldCard;
 	        IsOpen = false;
+	        Gold = goldCount;
 	    }
 
         public GoldType GoldType { get; set; }

@@ -86,10 +86,10 @@ namespace Server
 	                switch (cardSet.CardType)
                     {
                         case CardType.GoldCard:
-                            GoldCards.Add(new GoldCard(cardId++, cardSet.CardImage));
+                            GoldCards.Add(new GoldCard(cardId++, cardSet.CardImage, cardSet.GoldCount));
                             break;
                         case CardType.RouteCard:
-                            HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage));
+                            HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage, cardSet.GoldCount));
                             break;
                         case CardType.ActionCard:
                             HandCards.Add(new ActionCard(cardId++, cardSet.CardImage, cardSet.ActionType));

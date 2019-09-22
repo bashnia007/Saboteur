@@ -22,7 +22,7 @@ namespace CommonLibrary
             OpenedCards.Add(currentCard);
         }
 
-	    public static void UpdateAllConnections()
+	    public static void UpdateAllConnections(RoleType roleType = RoleType.None)
 	    {
             var visitedCards = new List<RouteCard>();
             var cardsToCheck = new Queue<RouteCard>();
@@ -75,10 +75,22 @@ namespace CommonLibrary
 
 	                    cardsToCheck.Enqueue(bottomCard);
                     }
+
+	                if (bottomCard.Gold > 0 && bottomCard.GoldConnections.FromTop &&
+	                    ((int) bottomCard.ConnectionTop & (int) roleType) != 0)
+	                {
+                        Tokens.Add(new Token
+                        {
+                            Card = bottomCard,
+                            Role = roleType
+                        });
+	                    bottomCard.Gold = 0;
+
+	                }
                 }
 
 	            var topCard = card.NeighbourTop;
-	            // если есть соединение снизу
+	            // если есть соединение сверху
 	            if (card.JoiningTop && topCard != null && topCard.JoiningBottom)
 	            {
 	                // если здесь еще не были
@@ -91,7 +103,19 @@ namespace CommonLibrary
 
 	                    cardsToCheck.Enqueue(topCard);
 	                }
-	            }
+
+	                if (topCard.Gold > 0 && topCard.GoldConnections.FromBottom &&
+	                    ((int)topCard.ConnectionBottom & (int)roleType) != 0)
+	                {
+	                    Tokens.Add(new Token
+	                    {
+	                        Card = topCard,
+	                        Role = roleType
+	                    });
+	                    topCard.Gold = 0;
+
+	                }
+                }
 
 	            var leftCard = card.NeighbourLeft;
 	            // если есть соединение слева
@@ -107,10 +131,22 @@ namespace CommonLibrary
 
 	                    cardsToCheck.Enqueue(leftCard);
 	                }
-	            }
+
+	                if (leftCard.Gold > 0 && leftCard.GoldConnections.FromRight &&
+	                    ((int)leftCard.ConnectionRight & (int)roleType) != 0)
+	                {
+	                    Tokens.Add(new Token
+	                    {
+	                        Card = leftCard,
+	                        Role = roleType
+	                    });
+	                    leftCard.Gold = 0;
+
+	                }
+                }
 
 	            var rightCard = card.NeighbourRight;
-	            // если есть соединение слева
+	            // если есть соединение справа
 	            if (card.JoiningRight && rightCard != null && rightCard.JoiningLeft)
 	            {
 	                // если здесь еще не были
@@ -123,7 +159,18 @@ namespace CommonLibrary
 
 	                    cardsToCheck.Enqueue(rightCard);
 	                }
-	            }
+
+	                if (rightCard.Gold > 0 && rightCard.GoldConnections.FromLeft &&
+	                    ((int)rightCard.ConnectionRight & (int)roleType) != 0)
+	                {
+	                    Tokens.Add(new Token
+	                    {
+	                        Card = rightCard,
+	                        Role = roleType
+	                    });
+	                    rightCard.Gold = 0;
+	                }
+                }
             }
 	    }
     }
