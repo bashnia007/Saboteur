@@ -71,7 +71,7 @@ namespace Server
             var result = new List<Message>();
             result.Add(new TextMessage
             {
-                Text = ((TextMessage)message).Text,
+                Text = ((TextMessage) message).Text,
                 SenderId = client.Id
             });
 
@@ -96,20 +96,24 @@ namespace Server
         {
             var result = new List<Message>();
 
-            var buildMessage = (BuildMessage)message;
+            var buildMessage = (BuildMessage) message;
             result.Add(buildMessage);
 
             // check if user can build card
-            if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards, buildMessage.RoleType))
+            if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards, buildMessage.RoleType)
+            )
             {
                 buildMessage.IsSuccessfulBuild = true;
                 buildMessage.IsBroadcast = true;
 
-                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int>{buildMessage.CardId});
+                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int> {buildMessage.CardId});
                 result.Add(updateMessage);
 
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
+
+                if (CheckGameEnd()) result.Add(CreateEndGameMessage());
+
 
                 Table.AddCard(buildMessage.RouteCard);
 
@@ -117,7 +121,8 @@ namespace Server
                     goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && !goldCard.IsOpen).ToList();
                 foreach (var goldCard in goldCardsToOpen)
                 {
-                    if (!Validator.ValidateBuildingTunnelAction(goldCard, Table.OpenedCards, buildMessage.RoleType)) goldCard.Rotate();
+                    if (!Validator.ValidateBuildingTunnelAction(goldCard, Table.OpenedCards, buildMessage.RoleType))
+                        goldCard.Rotate();
                     goldCard.IsOpen = true;
                     Table.OpenedCards.Add(goldCard);
                     var exploreMessage = new ExploreMessage();
@@ -143,7 +148,7 @@ namespace Server
         private static List<Message> HandleActionMessage(Message message, ClientObject client)
         {
             var result = new List<Message>();
-            var actionMessage = (ActionMessage)message;
+            var actionMessage = (ActionMessage) message;
 
             var resultMessage = new ActionMessage
             {
@@ -153,7 +158,7 @@ namespace Server
             };
 
             var player = Table.Players.FirstOrDefault(pl => pl.Id == actionMessage.RecepientId);
-            
+
             switch (actionMessage.ActionType)
             {
                 case ActionType.BreakLamp:
@@ -162,6 +167,7 @@ namespace Server
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Add(Equipment.Lamp);
                     }
+
                     break;
                 case ActionType.BreakPick:
                     if (!player.BrokenEquipments.Contains(Equipment.Pick))
@@ -169,6 +175,7 @@ namespace Server
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Add(Equipment.Pick);
                     }
+
                     break;
                 case ActionType.BreakTrolley:
                     if (!player.BrokenEquipments.Contains(Equipment.Trolley))
@@ -176,6 +183,7 @@ namespace Server
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Add(Equipment.Trolley);
                     }
+
                     break;
                 case ActionType.FixLamp:
                     if (player.BrokenEquipments.Contains(Equipment.Lamp))
@@ -183,6 +191,7 @@ namespace Server
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Remove(Equipment.Lamp);
                     }
+
                     break;
                 case ActionType.FixPick:
                     if (player.BrokenEquipments.Contains(Equipment.Pick))
@@ -190,6 +199,7 @@ namespace Server
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Remove(Equipment.Pick);
                     }
+
                     break;
                 case ActionType.FixTrolly:
                     if (player.BrokenEquipments.Contains(Equipment.Trolley))
@@ -197,6 +207,7 @@ namespace Server
                         resultMessage.IsSuccessful = true;
                         player.BrokenEquipments.Remove(Equipment.Trolley);
                     }
+
                     break;
             }
 
@@ -206,11 +217,12 @@ namespace Server
 
             if (resultMessage.IsSuccessful)
             {
-                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int>{actionMessage.CardId});
+                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int> {actionMessage.CardId});
                 result.Add(updateMessage);
 
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
+                if (CheckGameEnd()) result.Add(CreateEndGameMessage());
             }
 
             return result;
@@ -236,11 +248,12 @@ namespace Server
                 destroyMessage.IsSuccessful = true;
                 Table.OpenedCards.Remove(cardToDestroy);
 
-                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int>{destroyMessage.CardId});
+                var updateMessage = ProvidePlayerNewCards(client.Id, new List<int> {destroyMessage.CardId});
                 result.Add(updateMessage);
 
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
+                if (CheckGameEnd()) result.Add(CreateEndGameMessage());
             }
 
             Table.UpdateAllConnections();
@@ -262,6 +275,7 @@ namespace Server
 
             result.Add(ProvidePlayerNewCards(client.Id, new List<int> {exploreMessage.CardId}));
             result.Add(SetNextPlayer());
+            if (CheckGameEnd()) result.Add(CreateEndGameMessage());
 
             return result;
         }
@@ -276,6 +290,7 @@ namespace Server
             {
                 result.Add(ProvidePlayerNewCards(client.Id, foldMessage.Cards.Select(c => c.Id).ToList()));
                 result.Add(SetNextPlayer());
+                if (CheckGameEnd()) result.Add(CreateEndGameMessage());
             }
 
             return result;
@@ -295,6 +310,7 @@ namespace Server
 
             for (int i = 0; i < cardsToRemove.Count; i++)
             {
+                if (HandCards.Count <= 0) break;
                 client.Hand.Add(HandCards.Dequeue() as HandCard);
             }
 
@@ -310,11 +326,32 @@ namespace Server
             var nextPlayer = Players.Dequeue();
             Players.Enqueue(nextPlayer);
 
+            if (AbstractPlayers.First(pl => pl.Id == nextPlayer.Id).Hand.Count == 0)
+            {
+                nextPlayer = Players.Dequeue();
+                Players.Enqueue(nextPlayer);
+            }
+
             var directMessage = new SetTurnMessage();
             directMessage.IsBroadcast = false;
             directMessage.RecepientId = nextPlayer.Id;
 
             return directMessage;
+        }
+
+        private static EndGameMessage CreateEndGameMessage()
+        {
+            var endGameMessage = new EndGameMessage();
+            endGameMessage.BlueScore = Table.Tokens.Where(t => t.Role == RoleType.Blue).Sum(t => t.Card.Gold);
+            endGameMessage.BlueScore = Table.Tokens.Where(t => t.Role == RoleType.Green).Sum(t => t.Card.Gold);
+
+            return endGameMessage;
+        }
+
+        private static bool CheckGameEnd()
+        {
+            return Table.Tokens.Count >= 8 || Table.GoldCards.All(gc => gc.IsTaken) ||
+                   (HandCards.Count == 0 && AbstractPlayers.All(pl => pl.Hand.Count == 0));
         }
 
         #endregion

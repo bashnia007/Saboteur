@@ -1,13 +1,14 @@
 ﻿using System;
+using CommonLibrary.Enumerations;
 
 namespace CommonLibrary.Features
 {
     [Serializable]
     public class GoldConnections
     {
-        public bool FromTop { get; set; }
-        public bool FromLeft { get; set; }
-        public bool FromBottom { get; set; }
-        public bool FromRight { get; set; }
+        public ConnectionType FromTop { get; set; }
+        public ConnectionType FromLeft { get; set; }
+        public ConnectionType FromBottom { get; set; }
+        public ConnectionType FromRight { get; set; }
     }
 }

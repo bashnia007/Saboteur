@@ -76,7 +76,8 @@ namespace CommonLibrary
 	                    cardsToCheck.Enqueue(bottomCard);
                     }
 
-	                if (bottomCard.Gold > 0 && bottomCard.GoldConnections.FromTop &&
+	                if (bottomCard.Gold > 0 && !bottomCard.IsTaken && 
+	                    ((int)bottomCard.GoldConnections.FromTop & (int) roleType) != 0 &&
 	                    ((int) bottomCard.ConnectionTop & (int) roleType) != 0)
 	                {
                         Tokens.Add(new Token
@@ -84,7 +85,7 @@ namespace CommonLibrary
                             Card = bottomCard,
                             Role = roleType
                         });
-	                    bottomCard.Gold = 0;
+	                    bottomCard.IsTaken = true;
 
 	                }
                 }
@@ -104,7 +105,8 @@ namespace CommonLibrary
 	                    cardsToCheck.Enqueue(topCard);
 	                }
 
-	                if (topCard.Gold > 0 && topCard.GoldConnections.FromBottom &&
+	                if (topCard.Gold > 0 && !topCard.IsTaken &&
+	                    ((int)topCard.GoldConnections.FromBottom & (int)roleType) != 0 &&
 	                    ((int)topCard.ConnectionBottom & (int)roleType) != 0)
 	                {
 	                    Tokens.Add(new Token
@@ -112,8 +114,7 @@ namespace CommonLibrary
 	                        Card = topCard,
 	                        Role = roleType
 	                    });
-	                    topCard.Gold = 0;
-
+	                    topCard.IsTaken = true;
 	                }
                 }
 
@@ -132,7 +133,8 @@ namespace CommonLibrary
 	                    cardsToCheck.Enqueue(leftCard);
 	                }
 
-	                if (leftCard.Gold > 0 && leftCard.GoldConnections.FromRight &&
+	                if (leftCard.Gold > 0 && !leftCard.IsTaken && 
+	                    ((int)leftCard.GoldConnections.FromRight & (int)roleType) != 0 &&
 	                    ((int)leftCard.ConnectionRight & (int)roleType) != 0)
 	                {
 	                    Tokens.Add(new Token
@@ -140,7 +142,7 @@ namespace CommonLibrary
 	                        Card = leftCard,
 	                        Role = roleType
 	                    });
-	                    leftCard.Gold = 0;
+	                    leftCard.IsTaken = true;
 
 	                }
                 }
@@ -160,7 +162,8 @@ namespace CommonLibrary
 	                    cardsToCheck.Enqueue(rightCard);
 	                }
 
-	                if (rightCard.Gold > 0 && rightCard.GoldConnections.FromLeft &&
+	                if (rightCard.Gold > 0 && !rightCard.IsTaken && 
+	                    ((int)rightCard.GoldConnections.FromLeft & (int)roleType) != 0 &&
 	                    ((int)rightCard.ConnectionRight & (int)roleType) != 0)
 	                {
 	                    Tokens.Add(new Token
@@ -168,7 +171,7 @@ namespace CommonLibrary
 	                        Card = rightCard,
 	                        Role = roleType
 	                    });
-	                    rightCard.Gold = 0;
+	                    rightCard.IsTaken = true;
 	                }
                 }
             }

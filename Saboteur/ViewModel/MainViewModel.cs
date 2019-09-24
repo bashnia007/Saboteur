@@ -445,6 +445,13 @@ namespace Saboteur.ViewModel
             OnPropertyChanged(nameof(Map));
         }
 
+        private void HandleEndGameMessage(EndGameMessage message)
+        {
+            TextInChatBox += "Blue score: " + message.BlueScore + "\n";
+            TextInChatBox += "Green score: " + message.GreenScore + "\n";
+            OnPropertyChanged(nameof(TextInChatBox));
+        }
+
         private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();

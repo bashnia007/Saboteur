@@ -84,19 +84,23 @@ namespace CommonLibrary
                     break;
                 case RouteType.LongLine:
                 case RouteType.LongLineWithDeadEnd:
+                case RouteType.LongLineWithTwoDeadEndsGold2:
                     PassabilityVertical = ConnectionType.Both;
                     break;
                 case RouteType.ShortLine:
                 case RouteType.ShortLineWithDeadEndGold:
+                case RouteType.ShortLineWithTwoDeadEndsGold2:
                     PassabilityHorizontal = ConnectionType.Both;
                     break;
                 case RouteType.LeftAngle:
+                case RouteType.LeftAngleGold2:
                 case RouteType.LeftAngleWithBottomDeadEnd:
                 case RouteType.LeftAngleWithRightDeadEnd:
                 case RouteType.LeftAngleWithStairs:
                     PassabilityLeft2Top = ConnectionType.Both;
                     break;
                 case RouteType.RightAngle:
+                case RouteType.RightAngleGold2:
                 case RouteType.RightAngleWithBottomDeadEnd:
                 case RouteType.RightAngleWithLeftDeadEnd:
                 case RouteType.RightAngleWithStairs:
@@ -173,6 +177,12 @@ namespace CommonLibrary
                     PassabilityLeft2Top = ConnectionType.Blue;
                     PassabilityRight2Top = ConnectionType.Blue;
                     break;
+                case RouteType.RightAngleGoldBlue:
+                    PassabilityRight2Top = ConnectionType.Blue;
+                    break;
+                case RouteType.LeftAngleGoldGreen:
+                    PassabilityLeft2Top = ConnectionType.Green;
+                    break;
             }
         }
         
@@ -189,9 +199,9 @@ namespace CommonLibrary
                 case RouteType.FourDeadEnds:
                 case RouteType.LeftAngleDiagonals:
                 case RouteType.LeftAngleDiagonalsGold:
-                case RouteType.LongLineWithTwoDeadEnds:
+                case RouteType.LongLineWithTwoDeadEndsGold2:
                 case RouteType.RightAngleDiagonals:
-                case RouteType.ShortLineWithTwoDeadEnds:
+                case RouteType.ShortLineWithTwoDeadEndsGold2:
                 case RouteType.StartBlue:
                 case RouteType.StartGreen:
                 case RouteType.ThreeLinesLongWithDeadEnd:
@@ -207,6 +217,9 @@ namespace CommonLibrary
                 case RouteType.LeftAngle:
                 case RouteType.LeftAngleWithStairs:
                 case RouteType.TwoDeadLinesLeft:
+                case RouteType.TwoDeadEndsLeftGold:
+                case RouteType.LeftAngleGold2:
+                case RouteType.LeftAngleGoldGreen:
                     TopJoining = true;
                     BottomJoining = false;
                     LeftJoining = true;
@@ -254,6 +267,9 @@ namespace CommonLibrary
 
                 case RouteType.RightAngle:
                 case RouteType.RightAngleWithStairs:
+                case RouteType.RightAngleGoldBlue:
+                case RouteType.RightAngleGold2:
+                case RouteType.TwoDeadEndsRightGold3:
                     TopJoining = true;
                     BottomJoining = false;
                     LeftJoining = false;
@@ -297,41 +313,87 @@ namespace CommonLibrary
             switch (routeType)
             {
                 case RouteType.BridgeGold:
-                    GoldConnections.FromTop = true;
-                    GoldConnections.FromBottom = true;
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    GoldConnections.FromBottom = ConnectionType.Both;
                     break;
                 case RouteType.LeftAngleDiagonalsGold:
-                    GoldConnections.FromRight = true;
-                    GoldConnections.FromBottom = true;
+                    GoldConnections.FromRight = ConnectionType.Both;
+                    GoldConnections.FromBottom = ConnectionType.Both;
                     break;
                 case RouteType.ThreeLinesLongBlueGold:
+                    GoldConnections.FromLeft = ConnectionType.Blue;
+                    GoldConnections.FromBottom = ConnectionType.Both;
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    break;
                 case RouteType.ThreeLinesLongBlueGold3:
+                    GoldConnections.FromLeft = ConnectionType.Both;
+                    GoldConnections.FromBottom = ConnectionType.Both;
+                    GoldConnections.FromTop = ConnectionType.Blue;
+                    break;
                 case RouteType.ThreeLinesLongGreenGold2:
-                    GoldConnections.FromLeft = true;
-                    GoldConnections.FromBottom = true;
-                    GoldConnections.FromTop = true;
+                    GoldConnections.FromLeft = ConnectionType.Both;
+                    GoldConnections.FromBottom = ConnectionType.Green;
+                    GoldConnections.FromTop = ConnectionType.Both;
                     break;
                 case RouteType.ThreeLinesShortWithDeadEndGold:
-                    GoldConnections.FromBottom = true;
+                    GoldConnections.FromBottom = ConnectionType.Both;
                     break;
                 case RouteType.ThreeLinesLongWithDeadEndGold:
-                    GoldConnections.FromRight = true;
+                    GoldConnections.FromRight = ConnectionType.Both;
                     break;
                 case RouteType.ShortLineWithDeadEndGold:
-                    GoldConnections.FromBottom = true;
+                    GoldConnections.FromBottom = ConnectionType.Both;
                     break;
                 case RouteType.ThreeLinesShortGreenGold:
+                    GoldConnections.FromLeft = ConnectionType.Both;
+                    GoldConnections.FromRight = ConnectionType.Green;
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    break;
                 case RouteType.ThreeLinesShortGreenGold3:
+                    GoldConnections.FromLeft = ConnectionType.Both;
+                    GoldConnections.FromRight = ConnectionType.Both;
+                    GoldConnections.FromTop = ConnectionType.Green;
+                    break;
                 case RouteType.ThreeLinesShortBlueGold2:
-                    GoldConnections.FromLeft = true;
-                    GoldConnections.FromRight = true;
-                    GoldConnections.FromTop = true;
+                    GoldConnections.FromLeft = ConnectionType.Both;
+                    GoldConnections.FromRight = ConnectionType.Both;
+                    GoldConnections.FromTop = ConnectionType.Blue;
+                    break;
+                case RouteType.RightAngleGoldBlue:
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    GoldConnections.FromRight = ConnectionType.Blue;
+                    break;
+                case RouteType.RightAngleGold2:
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    GoldConnections.FromRight = ConnectionType.Both;
+                    break;
+                case RouteType.LeftAngleGoldGreen:
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    GoldConnections.FromLeft = ConnectionType.Green;
+                    break;
+                case RouteType.LeftAngleGold2:
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    GoldConnections.FromLeft = ConnectionType.Both;
+                    break;
+                case RouteType.LongLineWithTwoDeadEndsGold2:
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    GoldConnections.FromBottom = ConnectionType.Both;
+                    break;
+                case RouteType.ShortLineWithTwoDeadEndsGold2:
+                    GoldConnections.FromLeft = ConnectionType.Both;
+                    GoldConnections.FromRight = ConnectionType.Both;
+                    break;
+                case RouteType.TwoDeadEndsRightGold3:
+                    GoldConnections.FromTop = ConnectionType.Both;
+                    break;
+                case RouteType.TwoDeadEndsLeftGold:
+                    GoldConnections.FromLeft = ConnectionType.Both;
                     break;
                 default:
-                    GoldConnections.FromBottom = false;
-                    GoldConnections.FromLeft = false;
-                    GoldConnections.FromRight = false;
-                    GoldConnections.FromTop = false;
+                    GoldConnections.FromBottom = ConnectionType.None;
+                    GoldConnections.FromLeft = ConnectionType.None;
+                    GoldConnections.FromRight = ConnectionType.None;
+                    GoldConnections.FromTop = ConnectionType.None;
                     break;
             }
         }

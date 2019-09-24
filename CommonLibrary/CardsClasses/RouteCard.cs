@@ -47,6 +47,7 @@ namespace CommonLibrary.CardsClasses
 
             GoldConnections = cardOrientation.GoldConnections;
             Gold = goldCount;
+            IsTaken = false;
         }
 
         public RouteCard(int id) : base(id) { }
@@ -59,6 +60,7 @@ namespace CommonLibrary.CardsClasses
         #endregion
 
         public int Gold { get; set; }
+        public bool IsTaken { get; set; }
 
         #region Параметры возможности присоединения к карточке
 
