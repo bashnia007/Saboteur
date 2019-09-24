@@ -122,7 +122,8 @@ namespace Saboteur.ViewModel
                 Coordinates = routeCard.Coordinates,
                 SenderId = CurrentPlayer.Id,
                 CardId = SelectedCard.Id,
-                RouteCard = routeCard
+                RouteCard = routeCard,
+                RoleType = CurrentPlayer.Role.Role
             });
         }
 
@@ -364,6 +365,7 @@ namespace Saboteur.ViewModel
             _isMyTurn = message.IsMyTurn;
             if (message.RoleCard != null)
             {
+                CurrentPlayer.Role = message.RoleCard;
                 RoleImage = message.RoleCard.ImagePath;
                 OnPropertyChanged(nameof(RoleImage));
             }
@@ -441,6 +443,13 @@ namespace Saboteur.ViewModel
                     Map[message.Coordinates.Coordinate_Y][message.Coordinates.Coordinate_X] = message.Card;
                 });
             OnPropertyChanged(nameof(Map));
+        }
+
+        private void HandleEndGameMessage(EndGameMessage message)
+        {
+            TextInChatBox += "Blue score: " + message.BlueScore + "\n";
+            TextInChatBox += "Green score: " + message.GreenScore + "\n";
+            OnPropertyChanged(nameof(TextInChatBox));
         }
 
         private void PrepareMap()

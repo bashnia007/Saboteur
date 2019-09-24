@@ -18,5 +18,7 @@ namespace CommonLibrary.Message
         public Coordinates Coordinates { get; set; }
         // удалось ли построить тунелль
         public bool IsSuccessfulBuild { get; set; }
+        // роль игрока, строющего тунелль
+        public RoleType RoleType { get; set; }
     }
 }

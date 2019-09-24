@@ -3,6 +3,7 @@ using CommonLibrary.CardsClasses;
 using CommonLibrary.CardSets;
 using CommonLibrary.Enumerations;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Server
 {
@@ -47,13 +48,7 @@ namespace Server
             CreateCardSet(gameSet);
 		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
 		    StartCards = gameSet.StartCards;
-		    foreach (var startCard in StartCards)
-		    {
-		        startCard.ConnectedLeft = true;
-		        startCard.ConnectedRight = true;
-		        startCard.ConnectedTop = true;
-		        startCard.ConnectedBottom = true;
-		    }
+
             Table.StartCards.AddRange(StartCards);
             Table.OpenedCards.AddRange(StartCards);
 		    Table.GoldCards = GoldCardsForGame;
@@ -91,10 +86,10 @@ namespace Server
 	                switch (cardSet.CardType)
                     {
                         case CardType.GoldCard:
-                            GoldCards.Add(new GoldCard(cardId++, cardSet.CardImage));
+                            GoldCards.Add(new GoldCard(cardId++, cardSet.RouteType, cardSet.CardImage, cardSet.GoldCount));
                             break;
                         case CardType.RouteCard:
-                            HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage));
+                            HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage, cardSet.GoldCount));
                             break;
                         case CardType.ActionCard:
                             HandCards.Add(new ActionCard(cardId++, cardSet.CardImage, cardSet.ActionType));

@@ -9,14 +9,7 @@ namespace Server
 {
 	public static class Validator
 	{
-		// Вадилатор возможности хода избранной картой - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
-		public static bool ValidateActionCardUsing(ActionCard actionCard, List<ActionCard> tableActionCards)
-		{
-
-			return true;
-		}
-
-		public static bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards)
+		public static bool ValidateBuildingTunnelAction(RouteCard routeCard, List<RouteCard> tableRouteCards, RoleType roleType)
 		{
 			//Получаем координаты, куда карточку из руки хотят положить
 			int x = routeCard.Coordinates.Coordinate_X;
@@ -35,7 +28,7 @@ namespace Server
 			bool validateLeftJoining = leftCardFromTable == null || (routeCard.JoiningLeft == leftCardFromTable.JoiningRight);
 
 			//Вызываем метод, проверяющий возможность прохождения тунеля на данный момент
-		    bool canPassTunnel = IsConnectionOpen(routeCard);// ValidateCanPassTunnel(routeCard, tableRouteCards, new RouteCard(0, 2));
+		    bool canPassTunnel = IsConnectionOpen(routeCard, roleType);// ValidateCanPassTunnel(routeCard, tableRouteCards, new RouteCard(0, 2));
 
 			//Итоговая проверка на возможность построения карточки с руки
 			return (validateTopJoining && validateBottomJoining && validateRightJoining && validateLeftJoining && canPassTunnel);
@@ -43,27 +36,26 @@ namespace Server
 			
 		}
 
-	    private static bool IsConnectionOpen(RouteCard routeCard)
+	    public static void CheckForGold()
 	    {
-	        bool validateTopJoining = routeCard.NeighbourTop != null && routeCard.NeighbourTop.ConnectedBottom;
-	        bool validateBottomJoining = routeCard.NeighbourBottom != null && routeCard.NeighbourBottom.ConnectedTop;
-	        bool validateRightJoining = routeCard.NeighbourRight != null && routeCard.NeighbourRight.ConnectedLeft;
-	        bool validateLeftJoining = routeCard.NeighbourLeft != null && routeCard.NeighbourLeft.ConnectedRight;
-           
 
-	        return validateTopJoining || validateBottomJoining || validateRightJoining || validateLeftJoining;
 	    }
 
-        public static bool ValidateCanPassTunnel(RouteCard routeCard, List<RouteCard> tableRouteCards, RouteCard startCard)
-		{
-			//Алгоритм поиска в глубину - НУЖДАЕТСЯ В РЕАЛИЗАЦИИ
-			bool canPassTunnel = false;
-			if (canPassTunnel == false)
-			{
-				canPassTunnel = true;
-			}
-			else canPassTunnel = false;
-			return canPassTunnel;
-		}
+	    private static bool IsConnectionOpen(RouteCard routeCard, RoleType roleType)
+	    {
+            // bitwise operator for comparing role with connection
+	        bool validateTopJoining = routeCard.NeighbourTop != null && 
+                                      (((int)roleType & (int)routeCard.NeighbourTop.ConnectionBottom) != 0);
+	        bool validateBottomJoining = routeCard.NeighbourBottom != null &&
+	                                     (((int)roleType & (int)routeCard.NeighbourBottom.ConnectionTop) != 0);
+	        bool validateRightJoining = routeCard.NeighbourRight != null && 
+	                                    (((int)roleType & (int)routeCard.NeighbourRight.ConnectionLeft) != 0);
+            bool validateLeftJoining = routeCard.NeighbourLeft != null &&
+                                       (((int)roleType & (int)routeCard.NeighbourLeft.ConnectionRight) != 0);
+
+
+            return validateTopJoining || validateBottomJoining || validateRightJoining || validateLeftJoining;
+	    }
+        
     }
 }

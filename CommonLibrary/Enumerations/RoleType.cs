@@ -4,8 +4,9 @@ namespace CommonLibrary.Enumerations
 {
     [Serializable]
 	public enum RoleType
-	{
-		Green,
-		Blue,
+    {
+        None = 0,
+        Blue = 1,
+        Green = 2,
 	}
 }
