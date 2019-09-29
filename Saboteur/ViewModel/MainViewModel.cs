@@ -7,6 +7,7 @@ using Saboteur.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -316,36 +317,46 @@ namespace Saboteur.ViewModel
 
         private void ReceivedMessageFromClient(Message message)
         {
-            switch (message.MessageType)
+            try
             {
-                case GameMessageType.InitializeMessage:
-                    HandleInitMessage((InitializeMessage) message);
-                    break;
-                case GameMessageType.TextMessage:
-                    HandleTextMessage((TextMessage)message);
-                    break;
-                case GameMessageType.UpdateTableMessage:
-                    HandleUpdateTableMessage((UpdateTableMessage)message);
-                    break;
-                case GameMessageType.BuildMessage:
-                    HandleBuildMessage((BuildMessage) message);
-                    break;
-                case GameMessageType.SetTurnMessage:
-                    HandleDirectMessage((SetTurnMessage) message);
-                    break;
-                case GameMessageType.InitializeTableMessage:
-                    HandleInitializeTableMessage((InitializeTableMessage) message);
-                    break;
-                case GameMessageType.ActionMessage:
-                    HandleActionMessage((ActionMessage) message);
-                    break;
-                case GameMessageType.DestroyConnectionMessage:
-                    HandleDestroyMessage((DestroyMessage) message);
-                    break;
-                case GameMessageType.ExploreMessage:
-                    HandleExploreMessage((ExploreMessage)message);
-                    break;
+                switch (message.MessageType)
+                {
+                    case GameMessageType.InitializeMessage:
+                        HandleInitMessage((InitializeMessage)message);
+                        break;
+                    case GameMessageType.TextMessage:
+                        HandleTextMessage((TextMessage)message);
+                        break;
+                    case GameMessageType.UpdateTableMessage:
+                        HandleUpdateTableMessage((UpdateTableMessage)message);
+                        break;
+                    case GameMessageType.BuildMessage:
+                        HandleBuildMessage((BuildMessage)message);
+                        break;
+                    case GameMessageType.SetTurnMessage:
+                        HandleDirectMessage((SetTurnMessage)message);
+                        break;
+                    case GameMessageType.InitializeTableMessage:
+                        HandleInitializeTableMessage((InitializeTableMessage)message);
+                        break;
+                    case GameMessageType.ActionMessage:
+                        HandleActionMessage((ActionMessage)message);
+                        break;
+                    case GameMessageType.DestroyConnectionMessage:
+                        HandleDestroyMessage((DestroyMessage)message);
+                        break;
+                    case GameMessageType.ExploreMessage:
+                        HandleExploreMessage((ExploreMessage)message);
+                        break;
+                }
+
+                WriteLog(message);
             }
+            catch (Exception e)
+            {
+                File.AppendAllText("log.txt", "ПОЛУЧЕНИЕ СООБЩЕНИЯ:\n" + e.Message);
+            }
+            
         }
 
         private void HandleInitMessage(InitializeMessage message)
@@ -464,6 +475,36 @@ namespace Saboteur.ViewModel
                 }
                 Map.Add(new ObservableCollection<RouteCard>(row));
             }
+        }
+
+        private void WriteLog(Message message)
+        {
+            switch (message.MessageType)
+            {
+                case GameMessageType.BuildMessage:
+                    var buildMessage = (BuildMessage)message;
+                    if (buildMessage.IsSuccessfulBuild)
+                        TextInChatBox += $"\nИгрок {(Enum.GetName(typeof(RoleType), buildMessage.RoleType))} построил карту тунеля\n";
+                    else TextInChatBox += "Вы не можете построить здесь эту карту";
+                    break;
+                case GameMessageType.DestroyConnectionMessage:
+                    var destroyMessage = (BuildMessage)message;
+                    TextInChatBox += $"\nИгрок {(Enum.GetName(typeof(RoleType), destroyMessage.RoleType))} разрушил карту тунеля\n";
+                    break;
+                case GameMessageType.ExploreMessage:
+                    var exploreMessage = (BuildMessage)message;
+                    TextInChatBox += $"\nИгрок {(Enum.GetName(typeof(RoleType), exploreMessage.RoleType))} посмотрел карту тунеля\n";
+                    break;
+                case GameMessageType.SetTurnMessage:
+                    var turnMessage = (SetTurnMessage) message;
+                    if (turnMessage.IsMyTurn)
+                    {
+                        TextInChatBox += $"\nВаш ход\n";
+                    }
+                    break;
+            }
+
+            OnPropertyChanged(nameof(TextInChatBox));
         }
 
         #endregion

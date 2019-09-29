@@ -173,7 +173,7 @@ namespace CommonLibrary
 	                    });
 	                    rightCard.IsTaken = true;
 	                }
-                }
+	            }
             }
 	    }
     }
