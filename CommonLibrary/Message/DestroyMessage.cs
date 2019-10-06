@@ -13,5 +13,6 @@ namespace CommonLibrary.Message
         public int CardId { get; set; }
         public Coordinates Coordinates { get; set; }
         public bool IsSuccessful { get; set; }
+        public RoleType RoleType { get; set; }
     }
 }

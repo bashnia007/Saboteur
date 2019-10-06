@@ -108,6 +108,7 @@ namespace Saboteur.ViewModel
         private bool CanExecuteBuildTunnelCommand(object obj)
         {
             return _isMyTurn &&
+                   SelectedCard != null &&
                    (SelectedCard is RouteCard || 
                    (SelectedCard is ActionCard &&
                    ((ActionCard)SelectedCard).Action == ActionType.DestroyConnection ||
@@ -134,7 +135,8 @@ namespace Saboteur.ViewModel
             {
                 CardId = actionCard.Id,
                 Coordinates = connectionToDestroy.Coordinates,
-                SenderId = CurrentPlayer.Id
+                SenderId = CurrentPlayer.Id,
+                RoleType = CurrentPlayer.Role.Role
             });
         }
 
@@ -144,7 +146,8 @@ namespace Saboteur.ViewModel
             {
                 CardId = actionCard.Id,
                 Coordinates = cardToOpen.Coordinates,
-                SenderId = CurrentPlayer.Id
+                SenderId = CurrentPlayer.Id,
+                RoleType = CurrentPlayer.Role.Role
             });
         }
 
@@ -348,6 +351,9 @@ namespace Saboteur.ViewModel
                     case GameMessageType.ExploreMessage:
                         HandleExploreMessage((ExploreMessage)message);
                         break;
+                    case GameMessageType.FindGoldMessage:
+                        HandleFindFoldMessage((FindGoldMessage) message);
+                        break;
                 }
 
                 WriteLog(message);
@@ -463,6 +469,13 @@ namespace Saboteur.ViewModel
             OnPropertyChanged(nameof(TextInChatBox));
         }
 
+        private void HandleFindFoldMessage(FindGoldMessage message)
+        {
+            TextInChatBox += "Blue score: " + message.BlueGold + "\n";
+            TextInChatBox += "Green score: " + message.GreenGold + "\n";
+            OnPropertyChanged(nameof(TextInChatBox));
+        }
+
         private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
@@ -488,11 +501,11 @@ namespace Saboteur.ViewModel
                     else TextInChatBox += "Вы не можете построить здесь эту карту";
                     break;
                 case GameMessageType.DestroyConnectionMessage:
-                    var destroyMessage = (BuildMessage)message;
+                    var destroyMessage = (DestroyMessage)message;
                     TextInChatBox += $"\nИгрок {(Enum.GetName(typeof(RoleType), destroyMessage.RoleType))} разрушил карту тунеля\n";
                     break;
                 case GameMessageType.ExploreMessage:
-                    var exploreMessage = (BuildMessage)message;
+                    var exploreMessage = (ExploreMessage)message;
                     TextInChatBox += $"\nИгрок {(Enum.GetName(typeof(RoleType), exploreMessage.RoleType))} посмотрел карту тунеля\n";
                     break;
                 case GameMessageType.SetTurnMessage:
@@ -501,6 +514,10 @@ namespace Saboteur.ViewModel
                     {
                         TextInChatBox += $"\nВаш ход\n";
                     }
+                    break;
+                case GameMessageType.ActionMessage:
+                    var actionMessage = (ActionMessage) message;
+                    TextInChatBox += $"Игрок {actionMessage.SenderId} сыграл карту {actionMessage.ActionType} на игрока {actionMessage.RecepientId}";
                     break;
             }
 

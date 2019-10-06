@@ -14,7 +14,7 @@
                     <ImageBrush ImageSource="{Binding ImagePath}">
                         <ImageBrush.Transform>
                             <TransformGroup>
-                                <RotateTransform Angle="{Binding Angle, UpdateSourceTrigger=PropertyChanged}" CenterX="22.5" CenterY="40" />
+                                <RotateTransform Angle="{Binding Angle, UpdateSourceTrigger=PropertyChanged}" CenterX="27" CenterY="40" />
                                 <TranslateTransform Y="{Binding SelectedMargin, UpdateSourceTrigger=PropertyChanged}" />
                             </TransformGroup>
                         </ImageBrush.Transform>

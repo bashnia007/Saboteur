@@ -100,8 +100,7 @@ namespace Server
             result.Add(buildMessage);
 
             // check if user can build card
-            if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards, buildMessage.RoleType)
-            )
+            if (Validator.ValidateBuildingTunnelAction(buildMessage.RouteCard, Table.OpenedCards, buildMessage.RoleType))
             {
                 buildMessage.IsSuccessfulBuild = true;
                 buildMessage.IsBroadcast = true;
@@ -111,17 +110,23 @@ namespace Server
 
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
+                result.Add(PrepareGoldMessage());
 
                 if (CheckGameEnd()) result.Add(CreateEndGameMessage());
 
 
                 Table.AddCard(buildMessage.RouteCard);
 
-                var goldCardsToOpen = Table.GoldCards.Where(goldCard =>
-                    goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && !goldCard.IsOpen).ToList();
+                var goldCardsToOpen = Table.GoldCards
+                    .Where(goldCard => 
+                        goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && 
+                        !goldCard.IsOpen 
+                        && !Table.OpenedCards.Contains(goldCard))
+                    .ToList();
+
                 foreach (var goldCard in goldCardsToOpen)
                 {
-                    if (!Validator.ValidateBuildingTunnelAction(goldCard, Table.OpenedCards, buildMessage.RoleType))
+                    if (!Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType))
                         goldCard.Rotate();
                     goldCard.IsOpen = true;
                     Table.OpenedCards.Add(goldCard);
@@ -222,6 +227,7 @@ namespace Server
 
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
+                result.Add(PrepareGoldMessage());
                 if (CheckGameEnd()) result.Add(CreateEndGameMessage());
             }
 
@@ -253,6 +259,7 @@ namespace Server
 
                 var directMessage = SetNextPlayer();
                 result.Add(directMessage);
+                result.Add(PrepareGoldMessage());
                 if (CheckGameEnd()) result.Add(CreateEndGameMessage());
             }
 
@@ -275,6 +282,7 @@ namespace Server
 
             result.Add(ProvidePlayerNewCards(client.Id, new List<int> {exploreMessage.CardId}));
             result.Add(SetNextPlayer());
+            result.Add(PrepareGoldMessage());
             if (CheckGameEnd()) result.Add(CreateEndGameMessage());
 
             return result;
@@ -290,6 +298,7 @@ namespace Server
             {
                 result.Add(ProvidePlayerNewCards(client.Id, foldMessage.Cards.Select(c => c.Id).ToList()));
                 result.Add(SetNextPlayer());
+                result.Add(PrepareGoldMessage());
                 if (CheckGameEnd()) result.Add(CreateEndGameMessage());
             }
 
@@ -343,7 +352,7 @@ namespace Server
         {
             var endGameMessage = new EndGameMessage();
             endGameMessage.BlueScore = Table.Tokens.Where(t => t.Role == RoleType.Blue).Sum(t => t.Card.Gold);
-            endGameMessage.BlueScore = Table.Tokens.Where(t => t.Role == RoleType.Green).Sum(t => t.Card.Gold);
+            endGameMessage.GreenScore = Table.Tokens.Where(t => t.Role == RoleType.Green).Sum(t => t.Card.Gold);
 
             return endGameMessage;
         }
@@ -352,6 +361,16 @@ namespace Server
         {
             return Table.Tokens.Count >= 8 || Table.GoldCards.All(gc => gc.IsTaken) ||
                    (HandCards.Count == 0 && AbstractPlayers.All(pl => pl.Hand.Count == 0));
+        }
+
+        private static FindGoldMessage PrepareGoldMessage()
+        {
+            var findGoldMessage = new FindGoldMessage();
+
+            findGoldMessage.BlueGold = Table.Tokens.Where(t => t.Role == RoleType.Blue).Sum(t => t.Card.Gold);
+            findGoldMessage.GreenGold = Table.Tokens.Where(t => t.Role == RoleType.Green).Sum(t => t.Card.Gold);
+
+            return findGoldMessage;
         }
 
         #endregion
