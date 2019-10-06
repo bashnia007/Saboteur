@@ -15,6 +15,7 @@ namespace CommonLibrary.Enumerations
         UpdateTableMessage,
         DestroyConnectionMessage,
         ExploreMessage,
-        FoldMessage
+        FoldMessage,
+        FindGoldMessage
     }
 }

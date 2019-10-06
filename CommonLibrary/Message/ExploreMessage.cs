@@ -14,5 +14,6 @@ namespace CommonLibrary.Message
         public int CardId { get; set; }
         public Coordinates Coordinates { get; set; }
         public GoldCard Card { get; set; }
+        public RoleType RoleType { get; set; }
     }
 }

@@ -12,7 +12,7 @@
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding ImagePath}" >
                         <ImageBrush.Transform>
-                            <RotateTransform Angle="{Binding Angle, UpdateSourceTrigger=PropertyChanged}" CenterX="22.5" CenterY="40"></RotateTransform>
+                            <RotateTransform Angle="{Binding Angle, UpdateSourceTrigger=PropertyChanged}" CenterX="28" CenterY="40"></RotateTransform>
                         </ImageBrush.Transform>
                     </ImageBrush>
                 </Rectangle.Fill>

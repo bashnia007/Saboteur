@@ -63,6 +63,7 @@
     <Compile Include="Message\DestroyMessage.cs" />
     <Compile Include="Message\EndGameMessage.cs" />
     <Compile Include="Message\ExploreMessage.cs" />
+    <Compile Include="Message\FindGoldMessage.cs" />
     <Compile Include="Message\FoldMessage.cs" />
     <Compile Include="Message\InitializeTableMessage.cs" />
     <Compile Include="Message\SetTurnMessage.cs" />

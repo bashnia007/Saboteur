@@ -115,6 +115,7 @@ namespace CommonLibrary
                     break;
                 case RouteType.ThreeLinesLong:
                 case RouteType.ThreeLinesLongTroll:
+                case RouteType.ThreeLinesLongWithDeadEndGold:
                     PassabilityVertical = ConnectionType.Both;
                     PassabilityLeft2Top = ConnectionType.Both;
                     PassabilityLeft2Bottom = ConnectionType.Both;
