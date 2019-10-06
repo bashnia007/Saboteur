@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using CommonLibrary;
 
 namespace Server
 {
@@ -12,8 +13,10 @@ namespace Server
     {
         static ServerObject server; // сервер
         static Thread listenThread; // потока для прослушивания
+
         static void Main(string[] args)
         {
+            Logger.Write("Server started");
             try
             {
                 server = new ServerObject();
@@ -22,6 +25,7 @@ namespace Server
             }
             catch (Exception ex)
             {
+                Logger.Write("Server stopped due to exception: " + ex.Message, LogLevel.Error);
                 server.Disconnect();
                 Console.WriteLine(ex.Message);
             }

@@ -64,18 +64,18 @@ namespace CommonLibrary
                 case RouteType.CrossBlue:
                     PassabilityVertical = ConnectionType.Blue;
                     PassabilityHorizontal = ConnectionType.Both;
-                    PassabilityLeft2Top = ConnectionType.Blue;
-                    PassabilityRight2Top = ConnectionType.Blue;
-                    PassabilityLeft2Bottom = ConnectionType.Both;
-                    PassabilityRight2Bottom = ConnectionType.Both;
+                    PassabilityLeft2Top = ConnectionType.Both;
+                    PassabilityRight2Top = ConnectionType.Both;
+                    PassabilityLeft2Bottom = ConnectionType.Blue;
+                    PassabilityRight2Bottom = ConnectionType.Blue;
                     break;
                 case RouteType.CrossGreen:
                     PassabilityVertical = ConnectionType.Both;
                     PassabilityHorizontal = ConnectionType.Green;
-                    PassabilityLeft2Top = ConnectionType.Both;
-                    PassabilityRight2Top = ConnectionType.Green;
-                    PassabilityLeft2Bottom = ConnectionType.Both;
-                    PassabilityRight2Bottom = ConnectionType.Green;
+                    PassabilityLeft2Top = ConnectionType.Green;
+                    PassabilityRight2Top = ConnectionType.Both;
+                    PassabilityLeft2Bottom = ConnectionType.Green;
+                    PassabilityRight2Bottom = ConnectionType.Both;
                     break;
                 case RouteType.Bridge:
                 case RouteType.BridgeGold:

@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -58,6 +59,7 @@
     <Compile Include="Features\GoldConnections.cs" />
     <Compile Include="Features\Token.cs" />
     <Compile Include="ImagePaths.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Message\ActionMessage.cs" />
     <Compile Include="Message\BuildMessage.cs" />
     <Compile Include="Message\DestroyMessage.cs" />
