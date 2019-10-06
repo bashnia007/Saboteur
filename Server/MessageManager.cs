@@ -120,8 +120,7 @@ namespace Server
                 var goldCardsToOpen = Table.GoldCards
                     .Where(goldCard => 
                         goldCard.Coordinates.IsNeighbour(buildMessage.RouteCard.Coordinates) && 
-                        !goldCard.IsOpen 
-                        && !Table.OpenedCards.Contains(goldCard))
+                        (!goldCard.IsOpen || !Table.OpenedCards.Contains(goldCard)))
                     .ToList();
 
                 foreach (var goldCard in goldCardsToOpen)
