@@ -15,5 +15,6 @@ namespace CommonLibrary.Message
         }
         public List<HandCard> Hand { get; set; }
         public RoleCard RoleCard { get; set; }
+        public int CardsLeftInDeck { get; set; }
     }
 }

@@ -22,6 +22,8 @@ namespace Server
         public static List<Message> HandleMessage(Message message, ClientObject client)
         {
             var type = message.MessageType;
+            Logger.Write($"Received {type.ToString()} message from client {client.Id}");
+
             switch (type)
             {
                 case GameMessageType.InitializeMessage:
@@ -63,11 +65,14 @@ namespace Server
                 IsBroadcast = false
             });
 
+            Logger.Write($"Initialize message was sent for client {client.Id}");
+
             return result;
         }
 
         private static List<Message> HandleTextMessage(Message message, ClientObject client)
         {
+            Logger.Write($"Text message was received from client {client.Id}");
             var result = new List<Message>();
             result.Add(new TextMessage
             {
@@ -75,11 +80,13 @@ namespace Server
                 SenderId = client.Id
             });
 
+            Logger.Write($"Text message was sent from client {client.Id}");
             return result;
         }
 
         private static List<Message> HandleReadyToPlayMessage(Message message, ClientObject client)
         {
+            Logger.Write($"Ready to play message was received from client {client.Id}");
             var result = new List<Message>();
             client.IsReady = true;
             client.Server.LaunchGame();
@@ -89,11 +96,14 @@ namespace Server
                 SenderId = client.Id
             });
 
+            Logger.Write($"Ready to play message was sent from client {client.Id}");
             return result;
         }
 
         private static List<Message> HandleBuildMessage(Message message, ClientObject client)
         {
+            Logger.Write($"Build message was received from client {client.Id}");
+
             var result = new List<Message>();
 
             var buildMessage = (BuildMessage) message;
@@ -138,11 +148,15 @@ namespace Server
                 }
 
                 Table.UpdateAllConnections(buildMessage.RoleType);
+
+                Logger.Write($"Build message was sent from client {client.Id}");
             }
             else
             {
                 buildMessage.IsSuccessfulBuild = false;
                 buildMessage.IsBroadcast = false;
+
+                Logger.Write($"Can't build message was sent for client {client.Id}");
             }
 
 
@@ -326,6 +340,7 @@ namespace Server
             updateMessage.Hand = client.Hand;
             updateMessage.IsBroadcast = false;
             updateMessage.IsMyTurn = false;
+            updateMessage.CardsLeftInDeck = HandCards.Count;
             return updateMessage;
         }
 
@@ -343,6 +358,7 @@ namespace Server
             var directMessage = new SetTurnMessage();
             directMessage.IsBroadcast = false;
             directMessage.RecepientId = nextPlayer.Id;
+            directMessage.CardsLeftInDeck = HandCards.Count;
 
             return directMessage;
         }

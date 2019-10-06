@@ -33,6 +33,8 @@ namespace Saboteur.ViewModel
         public string PickImage { get; set; }
         public string TrolleyImage { get; set; }
 
+        public int CardsInDeck { get; set; }
+
         private List<HandCard> _cardsToFold;
         private readonly Client _client;
         private bool _isMyTurn;
@@ -379,6 +381,8 @@ namespace Saboteur.ViewModel
         private void HandleUpdateTableMessage(UpdateTableMessage message)
         {
             MyHand.UpdateCards(message.Hand);
+            CardsInDeck = message.CardsLeftInDeck;
+            OnPropertyChanged(nameof(CardsInDeck));
             _isMyTurn = message.IsMyTurn;
             if (message.RoleCard != null)
             {
@@ -424,6 +428,8 @@ namespace Saboteur.ViewModel
         private void HandleDirectMessage(SetTurnMessage message)
         {
             _isMyTurn = message.IsMyTurn;
+            CardsInDeck = message.CardsLeftInDeck;
+            OnPropertyChanged(nameof(CardsInDeck));
         }
 
         private void HandleActionMessage(ActionMessage message)

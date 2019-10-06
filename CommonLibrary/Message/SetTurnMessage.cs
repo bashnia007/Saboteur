@@ -13,5 +13,6 @@ namespace CommonLibrary.Message
         }
         public bool IsMyTurn => true;
         public string RecepientId { get; set; }
+        public int CardsLeftInDeck { get; set; }
     }
 }
