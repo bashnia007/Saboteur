@@ -61,6 +61,7 @@ namespace CommonLibrary.CardsClasses
 
         public int Gold { get; set; }
         public bool IsTaken { get; set; }
+        public bool IsTroll { get; set; }
 
         #region Параметры возможности присоединения к карточке
 

@@ -261,6 +261,11 @@ namespace Server
                 c.Coordinates.Coordinate_X == destroyMessage.Coordinates.Coordinate_X &&
                 c.Coordinates.Coordinate_Y == destroyMessage.Coordinates.Coordinate_Y);
 
+            if (cardToDestroy == null || cardToDestroy is StairsCard || cardToDestroy is GoldCard || cardToDestroy.Gold > 0 || cardToDestroy.IsTroll)
+            {
+                return result;
+            }
+
             if (cardToDestroy != null)
             {
                 destroyMessage.IsBroadcast = true;
