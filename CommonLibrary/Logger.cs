@@ -25,7 +25,7 @@ namespace CommonLibrary
             _logFile = appSettings["log_file"];
             Enum.TryParse(appSettings["log_level"], out _logLevel);
 
-            if (_isLogging) File.Create(_logFile);
+            if (_isLogging) File.Delete(_logFile);
         }
 
         public static void Write(string str, LogLevel level = LogLevel.All)

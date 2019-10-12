@@ -48,6 +48,7 @@
     <Compile Include="CardsClasses\HandCard.cs" />
     <Compile Include="CardsClasses\GoldCard.cs" />
     <Compile Include="CardsClasses\Card.cs" />
+    <Compile Include="CardsClasses\StairsCard.cs" />
     <Compile Include="CardsClasses\StartCard.cs" />
     <Compile Include="CardSets\CardSet.cs" />
     <Compile Include="CardSets\IGameSet.cs" />

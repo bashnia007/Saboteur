@@ -4,7 +4,7 @@ using System;
 namespace CommonLibrary.CardsClasses
 {
     [Serializable]
-    public class StartCard : RouteCard
+    public class StartCard : StairsCard
     {
         #region Constructors
 
