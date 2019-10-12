@@ -22,10 +22,10 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongGreen, RouteType.ThreeLinesLongGreen),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongTroll, RouteType.ThreeLinesLongTroll),
             new CardSet(CardType.RouteCard, ImagePaths.LeftAngle, RouteType.LeftAngle, 2),
-            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleWithBlueStairs, RouteType.LeftAngleWithStairs),
+            new CardSet(CardType.StairsCard, ImagePaths.LeftAngleWithBlueStairs, RouteType.LeftAngleWithStairs),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngle, RouteType.RightAngle, 2),
-            new CardSet(CardType.RouteCard, ImagePaths.RightAngleWithGreenStairs, RouteType.RightAngleWithStairs),
-            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonalsGold, RouteType.LeftAngleDiagonalsGold, goldCount: 1),
+            new CardSet(CardType.StairsCard, ImagePaths.RightAngleWithGreenStairs, RouteType.RightAngleWithStairs),
+            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonalsGold, RouteType.LeftAngleDiagonalsGold, goldCount: 1, count: 20),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngleDiagonals, RouteType.RightAngleDiagonals),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEndGold, RouteType.ThreeLinesLongWithDeadEndGold, goldCount: 1),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortWithDeadEndGold, RouteType.ThreeLinesShortWithDeadEndGold, goldCount: 1),
@@ -87,7 +87,8 @@ namespace CommonLibrary.CardSets
                 ConnectionLeft = ConnectionType.Blue,
                 ConnectionRight = ConnectionType.Blue,
                 ConnectionTop = ConnectionType.Blue,
-                Role = RoleType.Blue
+                Role = RoleType.Blue,
+                Color = ConnectionType.Blue,
             },
             new StartCard(200, RouteType.StartGreen, ImagePaths.StartGreen)
             {
@@ -96,7 +97,8 @@ namespace CommonLibrary.CardSets
                 ConnectionLeft = ConnectionType.Green,
                 ConnectionRight = ConnectionType.Green,
                 ConnectionTop = ConnectionType.Green,
-                Role = RoleType.Green
+                Role = RoleType.Green,
+                Color = ConnectionType.Green,
             }
         };
     }

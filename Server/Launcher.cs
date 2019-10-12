@@ -94,6 +94,9 @@ namespace Server
                         case CardType.ActionCard:
                             HandCards.Add(new ActionCard(cardId++, cardSet.CardImage, cardSet.ActionType));
                             break;
+                        case CardType.StairsCard:
+                            HandCards.Add(new StairsCard(cardId++, cardSet.RouteType, cardSet.CardImage));
+                            break;
 	                }
 	            }
 	        }

@@ -24,12 +24,14 @@ namespace CommonLibrary
 
 	    public static void UpdateAllConnections(RoleType roleType = RoleType.None)
 	    {
+            Logger.Write($"Updating connections for {roleType} started");
+
             var visitedCards = new List<RouteCard>();
             var cardsToCheck = new Queue<RouteCard>();
 
 	        foreach (var card in OpenedCards)
 	        {
-	            if (!StartCards.Contains(card))
+	            if (!StartCards.Contains(card) && !(card is StairsCard))
 	            {
 	                card.ConnectionBottom = ConnectionType.None;
 	                card.ConnectionLeft = ConnectionType.None;
@@ -56,6 +58,21 @@ namespace CommonLibrary
                         break;
 	            }
 	            cardsToCheck.Enqueue(startCard);
+                Logger.Write("Start card was added to start list");
+            }
+
+	        foreach (var openedCard in OpenedCards)
+	        {
+                if (openedCard is StairsCard stairsCard)
+                {
+                    if (openedCard.JoiningBottom) openedCard.ConnectionBottom = stairsCard.Color;
+                    if (openedCard.JoiningTop) openedCard.ConnectionTop = stairsCard.Color;
+                    if (openedCard.JoiningLeft) openedCard.ConnectionLeft = stairsCard.Color;
+                    if (openedCard.JoiningRight) openedCard.ConnectionRight = stairsCard.Color;
+
+                    cardsToCheck.Enqueue(stairsCard);
+                    Logger.Write("Stairs card was added to start list");
+                }
             }
 
 	        while (cardsToCheck.Count > 0)
@@ -80,14 +97,8 @@ namespace CommonLibrary
 	                    ((int)bottomCard.GoldConnections.FromTop & (int) roleType) != 0 &&
 	                    ((int) bottomCard.ConnectionTop & (int) roleType) != 0)
 	                {
-                        Tokens.Add(new Token
-                        {
-                            Card = bottomCard,
-                            Role = roleType
-                        });
-	                    bottomCard.IsTaken = true;
-
-	                }
+                        UseToken(bottomCard, roleType);
+                    }
                 }
 
 	            var topCard = card.NeighbourTop;
@@ -109,13 +120,8 @@ namespace CommonLibrary
 	                    ((int)topCard.GoldConnections.FromBottom & (int)roleType) != 0 &&
 	                    ((int)topCard.ConnectionBottom & (int)roleType) != 0)
 	                {
-	                    Tokens.Add(new Token
-	                    {
-	                        Card = topCard,
-	                        Role = roleType
-	                    });
-	                    topCard.IsTaken = true;
-	                }
+	                    UseToken(topCard, roleType);
+                    }
                 }
 
 	            var leftCard = card.NeighbourLeft;
@@ -136,15 +142,9 @@ namespace CommonLibrary
 	                if (leftCard.Gold > 0 && !leftCard.IsTaken && 
 	                    ((int)leftCard.GoldConnections.FromRight & (int)roleType) != 0 &&
 	                    ((int)leftCard.ConnectionRight & (int)roleType) != 0)
-	                {
-	                    Tokens.Add(new Token
-	                    {
-	                        Card = leftCard,
-	                        Role = roleType
-	                    });
-	                    leftCard.IsTaken = true;
-
-	                }
+                    {
+                        UseToken(leftCard, roleType);
+                    }
                 }
 
 	            var rightCard = card.NeighbourRight;
@@ -166,15 +166,24 @@ namespace CommonLibrary
 	                    ((int)rightCard.GoldConnections.FromLeft & (int)roleType) != 0 &&
 	                    ((int)rightCard.ConnectionRight & (int)roleType) != 0)
 	                {
-	                    Tokens.Add(new Token
-	                    {
-	                        Card = rightCard,
-	                        Role = roleType
-	                    });
-	                    rightCard.IsTaken = true;
-	                }
+	                    UseToken(rightCard, roleType);
+                    }
 	            }
             }
-	    }
+
+	        Logger.Write($"Updating connections for {roleType} finished");
+        }
+
+	    private static void UseToken(RouteCard card, RoleType roleType)
+	    {
+	        Tokens.Add(new Token
+	        {
+	            Card = card,
+	            Role = roleType
+	        });
+	        card.IsTaken = true;
+
+	        Logger.Write($"Token for {roleType} was used. Remaining tokens: {8 - Tokens.Count}");
+        }
     }
 }

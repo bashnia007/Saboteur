@@ -6,6 +6,7 @@
 		GoldCard, 
 		RoleCard,
 		RouteCard,
-		HandCard
+		HandCard,
+        StairsCard
 	}
 }
