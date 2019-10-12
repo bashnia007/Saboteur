@@ -446,7 +446,11 @@ namespace Saboteur.ViewModel
 
         private void HandleDestroyMessage(DestroyMessage message)
         {
-            if (!message.IsSuccessful) return;
+            if (!message.IsSuccessful)
+            {
+                TextInChatBox += "Вы не можете уничтожить эту карту";
+                return;
+            }
             // we should update collection view from another thread
             // https://stackoverflow.com/a/18336392/2219089
             Application.Current.Dispatcher.Invoke(delegate

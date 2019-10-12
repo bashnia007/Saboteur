@@ -25,7 +25,7 @@ namespace CommonLibrary.CardSets
             new CardSet(CardType.StairsCard, ImagePaths.LeftAngleWithBlueStairs, RouteType.LeftAngleWithStairs),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngle, RouteType.RightAngle, 2),
             new CardSet(CardType.StairsCard, ImagePaths.RightAngleWithGreenStairs, RouteType.RightAngleWithStairs),
-            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonalsGold, RouteType.LeftAngleDiagonalsGold, goldCount: 1, count: 20),
+            new CardSet(CardType.RouteCard, ImagePaths.LeftAngleDiagonalsGold, RouteType.LeftAngleDiagonalsGold, goldCount: 1),
             new CardSet(CardType.RouteCard, ImagePaths.RightAngleDiagonals, RouteType.RightAngleDiagonals),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesLongWithDeadEndGold, RouteType.ThreeLinesLongWithDeadEndGold, goldCount: 1),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortWithDeadEndGold, RouteType.ThreeLinesShortWithDeadEndGold, goldCount: 1),
