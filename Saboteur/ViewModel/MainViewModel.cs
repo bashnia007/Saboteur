@@ -12,6 +12,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using CommonLibrary.Features;
 
 namespace Saboteur.ViewModel
 {
@@ -38,6 +39,8 @@ namespace Saboteur.ViewModel
         private List<HandCard> _cardsToFold;
         private readonly Client _client;
         private bool _isMyTurn;
+
+        private bool _canRotate;
 
         public MainViewModel(string login)
         {
@@ -316,6 +319,26 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region TurnCommand
+
+        private RelayCommand _turnCommand;
+
+        public ICommand TurnCommand =>
+            _turnCommand ?? (_turnCommand = new RelayCommand(ExecuteTurnCommand, CanExecuteTurnCommand));
+
+        public void ExecuteTurnCommand(object o)
+        {
+            var rotateMessage = new RotateGoldCardMessage();
+            _client.SendMessage(rotateMessage);
+        }
+
+        private bool CanExecuteTurnCommand(object o)
+        {
+            return _canRotate;
+        }
+
+        #endregion
+
         #endregion
 
         #region Private methods
@@ -355,6 +378,9 @@ namespace Saboteur.ViewModel
                         break;
                     case GameMessageType.FindGoldMessage:
                         HandleFindFoldMessage((FindGoldMessage) message);
+                        break;
+                    case GameMessageType.UpdateTokensMessage:
+                        HandleUpdateTokensMessage((UpdateTokensMessage) message);
                         break;
                 }
 
@@ -448,7 +474,7 @@ namespace Saboteur.ViewModel
         {
             if (!message.IsSuccessful)
             {
-                TextInChatBox += "Вы не можете уничтожить эту карту";
+                TextInChatBox += "Вы не можете уничтожить эту карту\n";
                 return;
             }
             // we should update collection view from another thread
@@ -486,6 +512,25 @@ namespace Saboteur.ViewModel
             OnPropertyChanged(nameof(TextInChatBox));
         }
 
+        private void HandleRotateGoldCardMessage(RotateGoldCardMessage rotateGoldCardMessage)
+        {
+            _canRotate = true;
+            TextInChatBox += "Поверните в нужную сторону карты с золотом \n";
+            OnPropertyChanged(nameof(TextInChatBox));
+        }
+
+        private void HandleUpdateTokensMessage(UpdateTokensMessage updateTokensMessage)
+        {
+            foreach (var token in updateTokensMessage.Tokens)
+            {
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    Map[token.Card.Coordinates.Coordinate_Y][token.Card.Coordinates.Coordinate_X] = token.Card;
+                });
+                OnPropertyChanged(nameof(Map));
+            }
+        }
+
         private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
@@ -508,7 +553,7 @@ namespace Saboteur.ViewModel
                     var buildMessage = (BuildMessage)message;
                     if (buildMessage.IsSuccessfulBuild)
                         TextInChatBox += $"\nИгрок {(Enum.GetName(typeof(RoleType), buildMessage.RoleType))} построил карту тунеля\n";
-                    else TextInChatBox += "Вы не можете построить здесь эту карту";
+                    else TextInChatBox += "Вы не можете построить здесь эту карту\n";
                     break;
                 case GameMessageType.DestroyConnectionMessage:
                     var destroyMessage = (DestroyMessage)message;
@@ -527,7 +572,7 @@ namespace Saboteur.ViewModel
                     break;
                 case GameMessageType.ActionMessage:
                     var actionMessage = (ActionMessage) message;
-                    TextInChatBox += $"Игрок {actionMessage.SenderId} сыграл карту {actionMessage.ActionType} на игрока {actionMessage.RecepientId}";
+                    TextInChatBox += $"Игрок {actionMessage.SenderId} сыграл карту {actionMessage.ActionType} на игрока {actionMessage.RecepientId}\n";
                     break;
             }
 

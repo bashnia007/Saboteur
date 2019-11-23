@@ -50,6 +50,9 @@ namespace Server
                 case GameMessageType.FoldMessage:
                     return HandleFoldMessage(message, client);
 
+                case GameMessageType.RotateGoldCardMessage:
+                    return null;
+
                 default: throw new NotImplementedException();
             }
         }
@@ -117,14 +120,7 @@ namespace Server
 
                 var updateMessage = ProvidePlayerNewCards(client.Id, new List<int> {buildMessage.CardId});
                 result.Add(updateMessage);
-
-                var directMessage = SetNextPlayer();
-                result.Add(directMessage);
-                result.Add(PrepareGoldMessage());
-
-                if (CheckGameEnd()) result.Add(CreateEndGameMessage());
-
-
+                
                 Table.AddCard(buildMessage.RouteCard);
 
                 var goldCardsToOpen = Table.GoldCards
@@ -133,10 +129,21 @@ namespace Server
                         (!goldCard.IsOpen || !Table.OpenedCards.Contains(goldCard)))
                     .ToList();
 
+                var rotateMessage = new RotateGoldCardMessage();
                 foreach (var goldCard in goldCardsToOpen)
                 {
-                    if (!Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType))
-                        goldCard.Rotate();
+                    if (Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType) &&
+                        Validator.CheckForGold((GoldCard)goldCard.Rotate(), Table.OpenedCards, buildMessage.RoleType))
+                    {
+                        rotateMessage.CardsToRotate.Add(goldCard);
+
+                    }
+                    else
+                    {
+                        if (!Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType))
+                            goldCard.Rotate();
+                    }
+                    
                     goldCard.IsOpen = true;
                     Table.OpenedCards.Add(goldCard);
                     var exploreMessage = new ExploreMessage();
@@ -147,7 +154,21 @@ namespace Server
                     result.Add(exploreMessage);
                 }
 
+                if (rotateMessage.CardsToRotate.Count > 0)
+                {
+                    result.Add(rotateMessage);
+                }
+                else
+                {
+                    var directMessage = SetNextPlayer();
+                    result.Add(directMessage);
+                }
+
+                if (CheckGameEnd()) result.Add(CreateEndGameMessage());
+
                 Table.UpdateAllConnections(buildMessage.RoleType);
+                result.Add(PrepareGoldMessage());
+                result.Add(new UpdateTokensMessage(Table.Tokens));
 
                 Logger.Write($"Build message was sent from client {client.Id}");
             }
@@ -391,6 +412,16 @@ namespace Server
             findGoldMessage.GreenGold = Table.Tokens.Where(t => t.Role == RoleType.Green).Sum(t => t.Card.Gold);
 
             return findGoldMessage;
+        }
+
+        private static List<Message> HandleRotateGoldCardMessage(RotateGoldCardMessage rotateGoldCardMessage)
+        {
+            var result = new List<Message>();
+
+            var nextPlayerMessage = SetNextPlayer();
+            result.Add(nextPlayerMessage);
+
+            return result;
         }
 
         #endregion

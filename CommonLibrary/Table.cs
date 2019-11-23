@@ -176,12 +176,15 @@ namespace CommonLibrary
 
 	    private static void UseToken(RouteCard card, RoleType roleType)
 	    {
-	        Tokens.Add(new Token
+	        var token = new Token
 	        {
 	            Card = card,
 	            Role = roleType
-	        });
+	        };
+
+            Tokens.Add(token);
 	        card.IsTaken = true;
+	        card.Token = token;
 
 	        Logger.Write($"Token for {roleType} was used. Remaining tokens: {8 - Tokens.Count}");
         }

@@ -1,10 +1,12 @@
-﻿using CommonLibrary.Message;
+﻿using System;
+using CommonLibrary.Message;
 using CommonLibrary.Tcp;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using CommonLibrary;
 
 namespace Saboteur
 {
@@ -62,7 +64,7 @@ namespace Saboteur
             // десериализация сообщения - преобразования массива байтов, полученных от сервера, в объект типа Message
             IFormatter formatter = new BinaryFormatter();
             Message message = (Message)formatter.Deserialize(_stream);
-
+            
             return message;
         }
     }

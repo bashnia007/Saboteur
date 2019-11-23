@@ -69,13 +69,14 @@
     <Compile Include="Message\FindGoldMessage.cs" />
     <Compile Include="Message\FoldMessage.cs" />
     <Compile Include="Message\InitializeTableMessage.cs" />
-    <Compile Include="Message\RotateGoldCard.cs" />
+    <Compile Include="Message\RotateGoldCardMessage.cs" />
     <Compile Include="Message\SetTurnMessage.cs" />
     <Compile Include="Message\GameMessage.cs" />
     <Compile Include="Message\InitializeMessage.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Message\TextMessage.cs" />
     <Compile Include="Message\UpdateTableMessage.cs" />
+    <Compile Include="Message\UpdateTokensMessage.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
