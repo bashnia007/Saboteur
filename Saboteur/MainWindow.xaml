@@ -22,6 +22,9 @@
                         <MouseBinding Gesture="LeftClick" 
                                           Command="{Binding DataContext.BuildTunnelCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
                                           CommandParameter="{Binding }"/>
+                        <MouseBinding Gesture="RightClick" 
+                                      Command="{Binding DataContext.RotateGoldCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+                                      CommandParameter="{Binding }"/>
                     </Rectangle.InputBindings>
                 </Rectangle>
                 <Ellipse Height="10" Width="10" Margin="30, 10, 10, 30">
@@ -35,13 +38,13 @@
                                     <Setter Property="Fill" Value="Green"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Token.Role}" Value="{x:Static roles:RoleType.None}">
-                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Token.Role}" Value="{x:Static roles:RoleType.Blue}">
-                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                    <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Token.Role}" Value="{x:Static roles:RoleType.Green}">
-                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                    <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

@@ -50,6 +50,9 @@ namespace Server
                 case GameMessageType.FoldMessage:
                     return HandleFoldMessage(message, client);
 
+                case GameMessageType.FoldForFixMessage:
+                    return HandleFoldForFixMessage(message, client);
+
                 case GameMessageType.RotateGoldCardMessage:
                     return null;
 
@@ -344,7 +347,61 @@ namespace Server
             return result;
         }
 
-        private static UpdateTableMessage ProvidePlayerNewCards(string clientId, List<int> cardsToRemove)
+        private static List<Message> HandleFoldForFixMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            var foldMessage = (FoldForFixEquipmentMessage)message;
+
+            if (foldMessage.Cards.Count > 0 && foldMessage.Cards.Count < 3)
+            {
+                result.Add(ProvidePlayerNewCards(client.Id, foldMessage.Cards.Select(c => c.Id).ToList(), true));
+                result.Add(SetNextPlayer());
+                result.Add(PrepareGoldMessage());
+                if (CheckGameEnd()) result.Add(CreateEndGameMessage());
+            }
+            var player = Table.Players.FirstOrDefault(pl => pl.Id == foldMessage.SenderId);
+            var resultMessage = new ActionMessage
+            {
+                IsSuccessful = false,
+                RecepientId = foldMessage.SenderId,
+                SenderId = foldMessage.SenderId,
+            };
+
+            switch (foldMessage.ActionType)
+            {
+                case ActionType.FixLamp:
+                    if (player.BrokenEquipments.Contains(Equipment.Lamp))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Remove(Equipment.Lamp);
+                    }
+
+                    break;
+                case ActionType.FixPick:
+                    if (player.BrokenEquipments.Contains(Equipment.Pick))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Remove(Equipment.Pick);
+                    }
+
+                    break;
+                case ActionType.FixTrolly:
+                    if (player.BrokenEquipments.Contains(Equipment.Trolley))
+                    {
+                        resultMessage.IsSuccessful = true;
+                        player.BrokenEquipments.Remove(Equipment.Trolley);
+                    }
+
+                    break;
+            }
+
+            result.Add(resultMessage);
+
+            return result;
+        }
+
+        private static UpdateTableMessage ProvidePlayerNewCards(string clientId, List<int> cardsToRemove, bool dicrease = false)
         {
             var client = AbstractPlayers.First(pl => pl.Id == clientId);
 
@@ -356,7 +413,9 @@ namespace Server
                 }
             }
 
-            for (int i = 0; i < cardsToRemove.Count; i++)
+            int additionalCardsCount = dicrease ? cardsToRemove.Count - 1 : cardsToRemove.Count;
+
+            for (int i = 0; i < additionalCardsCount; i++)
             {
                 if (HandCards.Count <= 0) break;
                 client.Hand.Add(HandCards.Dequeue() as HandCard);

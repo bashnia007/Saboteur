@@ -8,11 +8,11 @@ namespace CommonLibrary.CardSets
     {
         public List<CardSet> CardSets => new List<CardSet>
         {
-            new CardSet(CardType.RouteCard, ImagePaths.CrossTroll, RouteType.CrossTroll),
+            new CardSet(CardType.RouteCard, ImagePaths.CrossTroll, RouteType.CrossTroll, count: 25),
             new CardSet(CardType.RouteCard, ImagePaths.CrossBlue, RouteType.CrossBlue),
             new CardSet(CardType.RouteCard, ImagePaths.CrossGreen, RouteType.CrossGreen),
             new CardSet(CardType.RouteCard, ImagePaths.Bridge, RouteType.Bridge),
-            new CardSet(CardType.RouteCard, ImagePaths.BridgeGold, RouteType.BridgeGold, goldCount: 1, count:10),
+            new CardSet(CardType.RouteCard, ImagePaths.BridgeGold, RouteType.BridgeGold, goldCount: 1),
             new CardSet(CardType.RouteCard, ImagePaths.ShortLine, RouteType.ShortLine, 4),
             new CardSet(CardType.RouteCard, ImagePaths.LongLine, RouteType.LongLine, 3),
             new CardSet(CardType.RouteCard, ImagePaths.ThreeLinesShortBlue, RouteType.ThreeLinesShortBlue),

@@ -195,21 +195,31 @@ namespace Saboteur.ViewModel
         {
             // получаем и сохраняем выбранное действие
             var action = (ActionModel)obj;
-            
-            // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
-            _client.SendMessage(new ActionMessage
+            if (_cardsToFold.Count == 2)
             {
-                ActionType = action.ActionType,
-                Card = (ActionCard)SelectedCard,
-                SenderId = CurrentPlayer.Id,
-                RecepientId = action.Player.Id
-            });
+                _client.SendMessage(new FoldForFixEquipmentMessage
+                {
+                    Cards = _cardsToFold,
+                    ActionType = action.ActionType
+                });
+            }
+            else
+            {
+                // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
+                _client.SendMessage(new ActionMessage
+                {
+                    ActionType = action.ActionType,
+                    Card = (ActionCard)SelectedCard,
+                    SenderId = CurrentPlayer.Id,
+                    RecepientId = action.Player.Id
+                });
+            }
         }
 
         public bool CanExecuteMakeActionCommand(object obj)
         {
             var action = (ActionModel)obj;
-            return SelectedCard != null && SelectedCard is ActionCard && _isMyTurn;
+            return _isMyTurn && (SelectedCard != null && SelectedCard is ActionCard) || (_cardsToFold.Count == 2);
         }
 
         #endregion
@@ -339,6 +349,53 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region RotateGoldCommand
+
+        private RelayCommand _rotateGoldCommand;
+
+        public ICommand RotateGoldCommand =>
+            _rotateGoldCommand ?? (_rotateGoldCommand = new RelayCommand(ExecuteRotateGoldCommand, CanExecuteRotateGoldCommand));
+
+        private void ExecuteRotateGoldCommand(object o)
+        {
+            RouteCard card = (RouteCard)o;
+            card.Rotate();
+            card.ImagePath = ImagePaths.CrossTroll;
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                Map[card.Coordinates.Coordinate_Y][card.Coordinates.Coordinate_X] = card;
+            });
+            OnPropertyChanged(nameof(Map));
+        }
+
+        private bool CanExecuteRotateGoldCommand(object o)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region FoldForEquipment
+
+        private RelayCommand _fixEquipmentCommand;
+
+        public ICommand FixEquipmentCommand => _fixEquipmentCommand ?? 
+                                               (_fixEquipmentCommand = new RelayCommand(ExecuteFixEquipmentCommand, CanExecuteFixEquipmentCommand));
+
+        private void ExecuteFixEquipmentCommand(object o)
+        {
+
+        }
+
+        private bool CanExecuteFixEquipmentCommand(object o)
+        {
+            return _cardsToFold.Count > 0 && _cardsToFold.Count < 3;
+        }
+
+        #endregion
+
         #endregion
 
         #region Private methods
@@ -378,6 +435,9 @@ namespace Saboteur.ViewModel
                         break;
                     case GameMessageType.FindGoldMessage:
                         HandleFindFoldMessage((FindGoldMessage) message);
+                        break;
+                    case GameMessageType.RotateGoldCardMessage:
+                        HandleRotateGoldCardMessage((RotateGoldCardMessage)message);
                         break;
                     case GameMessageType.UpdateTokensMessage:
                         HandleUpdateTokensMessage((UpdateTokensMessage) message);
@@ -517,6 +577,12 @@ namespace Saboteur.ViewModel
             _canRotate = true;
             TextInChatBox += "Поверните в нужную сторону карты с золотом \n";
             OnPropertyChanged(nameof(TextInChatBox));
+
+            foreach (var goldCard in rotateGoldCardMessage.CardsToRotate)
+            {
+                
+            }
+
         }
 
         private void HandleUpdateTokensMessage(UpdateTokensMessage updateTokensMessage)

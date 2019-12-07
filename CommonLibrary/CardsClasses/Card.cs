@@ -14,8 +14,6 @@ namespace CommonLibrary.CardsClasses
 		public Coordinates Coordinates { get; set; }
         public Token Token { get; set; }
 
-        public Color TokenColor { get; set; }
-
         protected Card(int id, string imagePath)
         {
             Token = new Token

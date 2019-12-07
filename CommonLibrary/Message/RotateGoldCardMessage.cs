@@ -12,6 +12,7 @@ namespace CommonLibrary.Message
         {
             MessageType = GameMessageType.RotateGoldCardMessage;
             CardsToRotate = new List<GoldCard>();
+            IsBroadcast = false;
         }
         public List<GoldCard> CardsToRotate { get; set; }
     }
