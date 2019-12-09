@@ -442,6 +442,9 @@ namespace Saboteur.ViewModel
                     case GameMessageType.UpdateTokensMessage:
                         HandleUpdateTokensMessage((UpdateTokensMessage) message);
                         break;
+                    case GameMessageType.EndGameMessage:
+                        HandleEndGameMessage((EndGameMessage) message);
+                        break;
                 }
 
                 WriteLog(message);

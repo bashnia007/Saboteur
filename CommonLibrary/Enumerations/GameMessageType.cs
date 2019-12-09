@@ -19,6 +19,7 @@ namespace CommonLibrary.Enumerations
         FoldForFixMessage,
         FindGoldMessage,
         RotateGoldCardMessage,
-        UpdateTokensMessage
+        UpdateTokensMessage,
+        EndGameMessage
     }
 }

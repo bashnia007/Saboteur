@@ -10,6 +10,7 @@ namespace CommonLibrary.CardSets
         public RouteType RouteType { get; }
         public ActionType ActionType { get; }
         public int GoldCount { get; }
+        public bool IsTroll { get; }
 
         public CardSet(CardType cardType, string cardImage, int count = 1)
         {
@@ -26,13 +27,14 @@ namespace CommonLibrary.CardSets
             ActionType = actionType;
         }
 
-        public CardSet(CardType cardType, string cardImage, RouteType routeType, int count = 1, int goldCount = 0)
+        public CardSet(CardType cardType, string cardImage, RouteType routeType, int count = 1, int goldCount = 0, bool isTroll = false)
         {
             CardType = cardType;
             CardImage = cardImage;
             Count = count;
             RouteType = routeType;
             GoldCount = goldCount;
+            IsTroll = isTroll;
         }
     }
 }

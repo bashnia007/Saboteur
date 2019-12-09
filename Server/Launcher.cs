@@ -89,7 +89,7 @@ namespace Server
                             GoldCards.Add(new GoldCard(cardId++, cardSet.RouteType, cardSet.CardImage, cardSet.GoldCount));
                             break;
                         case CardType.RouteCard:
-                            HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage, cardSet.GoldCount));
+                            HandCards.Add(new RouteCard(cardId++, cardSet.RouteType, cardSet.CardImage, cardSet.GoldCount, cardSet.IsTroll));
                             break;
                         case CardType.ActionCard:
                             HandCards.Add(new ActionCard(cardId++, cardSet.CardImage, cardSet.ActionType));

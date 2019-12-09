@@ -124,7 +124,7 @@ namespace Server
                 var updateMessage = ProvidePlayerNewCards(client.Id, new List<int> {buildMessage.CardId});
                 result.Add(updateMessage);
                 
-                Table.AddCard(buildMessage.RouteCard);
+                Table.AddCard(buildMessage.RouteCard, buildMessage.RoleType);
 
                 var goldCardsToOpen = Table.GoldCards
                     .Where(goldCard => 
@@ -132,16 +132,16 @@ namespace Server
                         (!goldCard.IsOpen || !Table.OpenedCards.Contains(goldCard)))
                     .ToList();
 
-                var rotateMessage = new RotateGoldCardMessage();
+                //var rotateMessage = new RotateGoldCardMessage();
                 foreach (var goldCard in goldCardsToOpen)
                 {
-                    if (Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType) &&
-                        Validator.CheckForGold((GoldCard)goldCard.Rotate(), Table.OpenedCards, buildMessage.RoleType))
-                    {
-                        rotateMessage.CardsToRotate.Add(goldCard);
-
-                    }
-                    else
+                    //if (Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType) &&
+                    //    Validator.CheckForGold((GoldCard)goldCard.Rotate(), Table.OpenedCards, buildMessage.RoleType))
+                    //{
+                    //    rotateMessage.CardsToRotate.Add(goldCard);
+                    //
+                    //}
+                    //else
                     {
                         if (!Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType))
                             goldCard.Rotate();
@@ -157,11 +157,11 @@ namespace Server
                     result.Add(exploreMessage);
                 }
 
-                if (rotateMessage.CardsToRotate.Count > 0)
-                {
-                    result.Add(rotateMessage);
-                }
-                else
+                //if (rotateMessage.CardsToRotate.Count > 0)
+                //{
+                //    result.Add(rotateMessage);
+                //}
+                //else
                 {
                     var directMessage = SetNextPlayer();
                     result.Add(directMessage);

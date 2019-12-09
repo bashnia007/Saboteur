@@ -30,7 +30,7 @@ namespace CommonLibrary.CardsClasses
 
         }
 
-        public RouteCard(int id, RouteType routeType, string imagePath, int goldCount = 0) : base(id, imagePath)
+        public RouteCard(int id, RouteType routeType, string imagePath, int goldCount = 0, bool isTroll = false) : base(id, imagePath)
         {
             var cardOrientation = new RouteCardOrientation(routeType);
             JoiningTop = cardOrientation.TopJoining;
@@ -48,6 +48,7 @@ namespace CommonLibrary.CardsClasses
             GoldConnections = cardOrientation.GoldConnections;
             Gold = goldCount;
             IsTaken = false;
+            IsTroll = isTroll;
         }
 
         public RouteCard(int id) : base(id) { }

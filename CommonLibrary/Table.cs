@@ -17,9 +17,13 @@ namespace CommonLibrary
         public static List<RouteCard> StartCards = new List<RouteCard>();
 
 
-        public static void AddCard(RouteCard currentCard)
+        public static void AddCard(RouteCard currentCard, RoleType roleType = RoleType.None)
         {
             OpenedCards.Add(currentCard);
+            if (currentCard.IsTroll)
+            {
+                UseToken(currentCard, roleType);
+            }
         }
 
 	    public static void UpdateAllConnections(RoleType roleType = RoleType.None)
