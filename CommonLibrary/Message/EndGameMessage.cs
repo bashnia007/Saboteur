@@ -8,7 +8,7 @@ namespace CommonLibrary.Message
     {
         public EndGameMessage()
         {
-            MessageType = GameMessageType.BuildMessage;
+            MessageType = GameMessageType.EndGameMessage;
         }
 
         public int GreenScore { get; set; }

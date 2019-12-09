@@ -12,6 +12,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using CommonLibrary.Features;
 
 namespace Saboteur.ViewModel
 {
@@ -38,6 +39,8 @@ namespace Saboteur.ViewModel
         private List<HandCard> _cardsToFold;
         private readonly Client _client;
         private bool _isMyTurn;
+
+        private bool _canRotate;
 
         public MainViewModel(string login)
         {
@@ -192,21 +195,31 @@ namespace Saboteur.ViewModel
         {
             // получаем и сохраняем выбранное действие
             var action = (ActionModel)obj;
-            
-            // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
-            _client.SendMessage(new ActionMessage
+            if (_cardsToFold.Count == 2)
             {
-                ActionType = action.ActionType,
-                Card = (ActionCard)SelectedCard,
-                SenderId = CurrentPlayer.Id,
-                RecepientId = action.Player.Id
-            });
+                _client.SendMessage(new FoldForFixEquipmentMessage
+                {
+                    Cards = _cardsToFold,
+                    ActionType = action.ActionType
+                });
+            }
+            else
+            {
+                // отправка сообщения, хранящего выбранное действие, ID отправителя и ID игрока, на которого действие направлено
+                _client.SendMessage(new ActionMessage
+                {
+                    ActionType = action.ActionType,
+                    Card = (ActionCard)SelectedCard,
+                    SenderId = CurrentPlayer.Id,
+                    RecepientId = action.Player.Id
+                });
+            }
         }
 
         public bool CanExecuteMakeActionCommand(object obj)
         {
             var action = (ActionModel)obj;
-            return SelectedCard != null && SelectedCard is ActionCard && _isMyTurn;
+            return _isMyTurn && (SelectedCard != null && SelectedCard is ActionCard) || (_cardsToFold.Count == 2);
         }
 
         #endregion
@@ -316,6 +329,73 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region TurnCommand
+
+        private RelayCommand _turnCommand;
+
+        public ICommand TurnCommand =>
+            _turnCommand ?? (_turnCommand = new RelayCommand(ExecuteTurnCommand, CanExecuteTurnCommand));
+
+        public void ExecuteTurnCommand(object o)
+        {
+            var rotateMessage = new RotateGoldCardMessage();
+            _client.SendMessage(rotateMessage);
+        }
+
+        private bool CanExecuteTurnCommand(object o)
+        {
+            return _canRotate;
+        }
+
+        #endregion
+
+        #region RotateGoldCommand
+
+        private RelayCommand _rotateGoldCommand;
+
+        public ICommand RotateGoldCommand =>
+            _rotateGoldCommand ?? (_rotateGoldCommand = new RelayCommand(ExecuteRotateGoldCommand, CanExecuteRotateGoldCommand));
+
+        private void ExecuteRotateGoldCommand(object o)
+        {
+            RouteCard card = (RouteCard)o;
+            card.Rotate();
+            card.ImagePath = ImagePaths.CrossTroll;
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                Map[card.Coordinates.Coordinate_Y][card.Coordinates.Coordinate_X] = card;
+            });
+            OnPropertyChanged(nameof(Map));
+        }
+
+        private bool CanExecuteRotateGoldCommand(object o)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region FoldForEquipment
+
+        private RelayCommand _fixEquipmentCommand;
+
+        public ICommand FixEquipmentCommand => _fixEquipmentCommand ?? 
+                                               (_fixEquipmentCommand = new RelayCommand(ExecuteFixEquipmentCommand, CanExecuteFixEquipmentCommand));
+
+        private void ExecuteFixEquipmentCommand(object o)
+        {
+
+        }
+
+        private bool CanExecuteFixEquipmentCommand(object o)
+        {
+            return _cardsToFold.Count > 0 && _cardsToFold.Count < 3;
+        }
+
+        #endregion
+
         #endregion
 
         #region Private methods
@@ -355,6 +435,15 @@ namespace Saboteur.ViewModel
                         break;
                     case GameMessageType.FindGoldMessage:
                         HandleFindFoldMessage((FindGoldMessage) message);
+                        break;
+                    case GameMessageType.RotateGoldCardMessage:
+                        HandleRotateGoldCardMessage((RotateGoldCardMessage)message);
+                        break;
+                    case GameMessageType.UpdateTokensMessage:
+                        HandleUpdateTokensMessage((UpdateTokensMessage) message);
+                        break;
+                    case GameMessageType.EndGameMessage:
+                        HandleEndGameMessage((EndGameMessage) message);
                         break;
                 }
 
@@ -448,7 +537,7 @@ namespace Saboteur.ViewModel
         {
             if (!message.IsSuccessful)
             {
-                TextInChatBox += "Вы не можете уничтожить эту карту";
+                TextInChatBox += "Вы не можете уничтожить эту карту\n";
                 return;
             }
             // we should update collection view from another thread
@@ -486,6 +575,31 @@ namespace Saboteur.ViewModel
             OnPropertyChanged(nameof(TextInChatBox));
         }
 
+        private void HandleRotateGoldCardMessage(RotateGoldCardMessage rotateGoldCardMessage)
+        {
+            _canRotate = true;
+            TextInChatBox += "Поверните в нужную сторону карты с золотом \n";
+            OnPropertyChanged(nameof(TextInChatBox));
+
+            foreach (var goldCard in rotateGoldCardMessage.CardsToRotate)
+            {
+                
+            }
+
+        }
+
+        private void HandleUpdateTokensMessage(UpdateTokensMessage updateTokensMessage)
+        {
+            foreach (var token in updateTokensMessage.Tokens)
+            {
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    Map[token.Card.Coordinates.Coordinate_Y][token.Card.Coordinates.Coordinate_X] = token.Card;
+                });
+                OnPropertyChanged(nameof(Map));
+            }
+        }
+
         private void PrepareMap()
         {
             Map = new ObservableCollection<ObservableCollection<RouteCard>>();
@@ -508,7 +622,7 @@ namespace Saboteur.ViewModel
                     var buildMessage = (BuildMessage)message;
                     if (buildMessage.IsSuccessfulBuild)
                         TextInChatBox += $"\nИгрок {(Enum.GetName(typeof(RoleType), buildMessage.RoleType))} построил карту тунеля\n";
-                    else TextInChatBox += "Вы не можете построить здесь эту карту";
+                    else TextInChatBox += "Вы не можете построить здесь эту карту\n";
                     break;
                 case GameMessageType.DestroyConnectionMessage:
                     var destroyMessage = (DestroyMessage)message;
@@ -527,7 +641,7 @@ namespace Saboteur.ViewModel
                     break;
                 case GameMessageType.ActionMessage:
                     var actionMessage = (ActionMessage) message;
-                    TextInChatBox += $"Игрок {actionMessage.SenderId} сыграл карту {actionMessage.ActionType} на игрока {actionMessage.RecepientId}";
+                    TextInChatBox += $"Игрок {actionMessage.SenderId} сыграл карту {actionMessage.ActionType} на игрока {actionMessage.RecepientId}\n";
                     break;
             }
 
