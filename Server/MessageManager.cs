@@ -54,7 +54,7 @@ namespace Server
                     return HandleFoldForFixMessage(message, client);
 
                 case GameMessageType.RotateGoldCardMessage:
-                    return null;
+                    return HandleRotateGoldCardMessage(message);
 
                 default: throw new NotImplementedException();
             }
@@ -132,16 +132,16 @@ namespace Server
                         (!goldCard.IsOpen || !Table.OpenedCards.Contains(goldCard)))
                     .ToList();
 
-                //var rotateMessage = new RotateGoldCardMessage();
+                var rotateMessage = new RotateGoldCardMessage();
                 foreach (var goldCard in goldCardsToOpen)
                 {
-                    //if (Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType) &&
-                    //    Validator.CheckForGold((GoldCard)goldCard.Rotate(), Table.OpenedCards, buildMessage.RoleType))
-                    //{
-                    //    rotateMessage.CardsToRotate.Add(goldCard);
-                    //
-                    //}
-                    //else
+                    if (Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType) &&
+                        Validator.CheckForGold((GoldCard)goldCard.Rotate(), Table.OpenedCards, buildMessage.RoleType))
+                    {
+                        rotateMessage.CardsToRotate.Add(goldCard);
+                    
+                    }
+                    else
                     {
                         if (!Validator.CheckForGold(goldCard, Table.OpenedCards, buildMessage.RoleType))
                             goldCard.Rotate();
@@ -157,11 +157,11 @@ namespace Server
                     result.Add(exploreMessage);
                 }
 
-                //if (rotateMessage.CardsToRotate.Count > 0)
-                //{
-                //    result.Add(rotateMessage);
-                //}
-                //else
+                if (rotateMessage.CardsToRotate.Count > 0)
+                {
+                    result.Add(rotateMessage);
+                }
+                else
                 {
                     var directMessage = SetNextPlayer();
                     result.Add(directMessage);
@@ -459,7 +459,7 @@ namespace Server
 
         private static bool CheckGameEnd()
         {
-            return Table.Tokens.Count >= 8 || Table.GoldCards.All(gc => gc.IsTaken) ||
+            return Table.Tokens.Count >= 12 || Table.GoldCards.All(gc => gc.IsTaken) ||
                    (HandCards.Count == 0 && AbstractPlayers.All(pl => pl.Hand.Count == 0));
         }
 
@@ -473,10 +473,11 @@ namespace Server
             return findGoldMessage;
         }
 
-        private static List<Message> HandleRotateGoldCardMessage(RotateGoldCardMessage rotateGoldCardMessage)
+        private static List<Message> HandleRotateGoldCardMessage(Message message)
         {
+            var rotateGoldCardMessage = (RotateGoldCardMessage) message;
             var result = new List<Message>();
-
+            Table.UpdateAllConnections(rotateGoldCardMessage.RoleType);
             var nextPlayerMessage = SetNextPlayer();
             result.Add(nextPlayerMessage);
 

@@ -39,6 +39,7 @@ namespace Saboteur.ViewModel
         private List<HandCard> _cardsToFold;
         private readonly Client _client;
         private bool _isMyTurn;
+        private List<GoldCard> _cardsToRotate;
 
         private bool _canRotate;
 
@@ -339,7 +340,11 @@ namespace Saboteur.ViewModel
         public void ExecuteTurnCommand(object o)
         {
             var rotateMessage = new RotateGoldCardMessage();
+            rotateMessage.CardsToRotate = _cardsToRotate;
+            rotateMessage.RoleType = CurrentPlayer.Role.Role;
             _client.SendMessage(rotateMessage);
+
+            _canRotate = false;
         }
 
         private bool CanExecuteTurnCommand(object o)
@@ -360,19 +365,19 @@ namespace Saboteur.ViewModel
         {
             RouteCard card = (RouteCard)o;
             card.Rotate();
-            card.ImagePath = ImagePaths.CrossTroll;
             // we should update collection view from another thread
             // https://stackoverflow.com/a/18336392/2219089
             Application.Current.Dispatcher.Invoke(delegate
             {
                 Map[card.Coordinates.Coordinate_Y][card.Coordinates.Coordinate_X] = card;
             });
+            Map = new ObservableCollection<ObservableCollection<RouteCard>>(Map);
             OnPropertyChanged(nameof(Map));
         }
 
         private bool CanExecuteRotateGoldCommand(object o)
         {
-            return true;
+            return _canRotate && _cardsToRotate != null && (o is GoldCard && _cardsToRotate.Select(c => c.Id).Contains(((GoldCard)o).Id));
         }
 
         #endregion
@@ -581,11 +586,7 @@ namespace Saboteur.ViewModel
             TextInChatBox += "Поверните в нужную сторону карты с золотом \n";
             OnPropertyChanged(nameof(TextInChatBox));
 
-            foreach (var goldCard in rotateGoldCardMessage.CardsToRotate)
-            {
-                
-            }
-
+            _cardsToRotate = rotateGoldCardMessage.CardsToRotate;
         }
 
         private void HandleUpdateTokensMessage(UpdateTokensMessage updateTokensMessage)
