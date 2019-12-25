@@ -14,6 +14,7 @@ namespace CommonLibrary.Enumerations
 		SpyGoldCard,
 		DestroyConnection, 
         Explore,
+        Key,
 	    ToPrison,
         OutPrison
 	}	

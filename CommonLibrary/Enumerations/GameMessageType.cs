@@ -20,6 +20,7 @@ namespace CommonLibrary.Enumerations
         FindGoldMessage,
         RotateGoldCardMessage,
         UpdateTokensMessage,
-        EndGameMessage
+        EndGameMessage,
+        KeyMessage
     }
 }

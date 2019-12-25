@@ -56,6 +56,9 @@ namespace Server
                 case GameMessageType.RotateGoldCardMessage:
                     return HandleRotateGoldCardMessage(message);
 
+                case GameMessageType.KeyMessage:
+                    return HandleKeyMessage(message, client);
+
                 default: throw new NotImplementedException();
             }
         }
@@ -398,6 +401,26 @@ namespace Server
 
             result.Add(resultMessage);
 
+            return result;
+        }
+
+        private static List<Message> HandleKeyMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            KeyMessage keyMessage = message as KeyMessage;
+            keyMessage.IsBroadcast = true;
+            keyMessage.Card = Table.OpenedCards.First(c =>
+                c.Coordinates.Coordinate_X == keyMessage.Coordinates.Coordinate_X &&
+                c.Coordinates.Coordinate_Y == keyMessage.Coordinates.Coordinate_Y);
+            Table.SetKey(keyMessage.Card);
+            keyMessage.Card.SetKey();
+
+            result.Add(keyMessage);
+
+            result.Add(ProvidePlayerNewCards(client.Id, new List<int> { keyMessage.CardId }));
+            result.Add(SetNextPlayer());
+            if (CheckGameEnd()) result.Add(CreateEndGameMessage());
             return result;
         }
 

@@ -106,6 +106,9 @@ namespace Saboteur.ViewModel
                     case ActionType.Explore:
                         Expore(actionCard, (GoldCard)mapItem);
                         break;
+                    case ActionType.Key:
+                        UseKey(actionCard, mapItem);
+                        break;
                     default: break;
                 }
             }
@@ -118,7 +121,8 @@ namespace Saboteur.ViewModel
                    (SelectedCard is RouteCard || 
                    (SelectedCard is ActionCard &&
                    ((ActionCard)SelectedCard).Action == ActionType.DestroyConnection ||
-                    ((ActionCard)SelectedCard).Action == ActionType.Explore));
+                    ((ActionCard)SelectedCard).Action == ActionType.Explore) ||
+                    ((ActionCard)SelectedCard).Action == ActionType.Key && obj is RouteCard && ((RouteCard)obj).HasDoor);
         }
 
         private void BuildTunnel(RouteCard mapItem)
@@ -152,6 +156,17 @@ namespace Saboteur.ViewModel
             {
                 CardId = actionCard.Id,
                 Coordinates = cardToOpen.Coordinates,
+                SenderId = CurrentPlayer.Id,
+                RoleType = CurrentPlayer.Role.Role
+            });
+        }
+
+        private void UseKey(ActionCard actionCard, RouteCard routeCard)
+        {
+            _client.SendMessage(new KeyMessage
+            {
+                CardId = actionCard.Id,
+                Coordinates = routeCard.Coordinates,
                 SenderId = CurrentPlayer.Id,
                 RoleType = CurrentPlayer.Role.Role
             });
@@ -450,6 +465,9 @@ namespace Saboteur.ViewModel
                     case GameMessageType.EndGameMessage:
                         HandleEndGameMessage((EndGameMessage) message);
                         break;
+                    case GameMessageType.KeyMessage:
+                        HandleKeyMessage((KeyMessage)message);
+                        break;
                 }
 
                 WriteLog(message);
@@ -599,6 +617,17 @@ namespace Saboteur.ViewModel
                 });
                 OnPropertyChanged(nameof(Map));
             }
+        }
+
+        private void HandleKeyMessage(KeyMessage keyMessage)
+        {
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                Map[keyMessage.Coordinates.Coordinate_Y][keyMessage.Coordinates.Coordinate_X] = keyMessage.Card;
+            });
+            OnPropertyChanged(nameof(Map));
         }
 
         private void PrepareMap()

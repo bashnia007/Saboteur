@@ -11,6 +11,7 @@ namespace CommonLibrary.CardSets
         public ActionType ActionType { get; }
         public int GoldCount { get; }
         public bool IsTroll { get; }
+        public bool HasGates { get; }
 
         public CardSet(CardType cardType, string cardImage, int count = 1)
         {
@@ -27,7 +28,7 @@ namespace CommonLibrary.CardSets
             ActionType = actionType;
         }
 
-        public CardSet(CardType cardType, string cardImage, RouteType routeType, int count = 1, int goldCount = 0, bool isTroll = false)
+        public CardSet(CardType cardType, string cardImage, RouteType routeType, int count = 1, int goldCount = 0, bool isTroll = false, bool hasGates = false)
         {
             CardType = cardType;
             CardImage = cardImage;
@@ -35,6 +36,7 @@ namespace CommonLibrary.CardSets
             RouteType = routeType;
             GoldCount = goldCount;
             IsTroll = isTroll;
+            HasGates = hasGates;
         }
     }
 }
