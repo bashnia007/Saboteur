@@ -35,8 +35,14 @@ namespace Saboteur.ViewModel
 
         private void ExecuteJoinCommand(object obj)
         {
+#if false
             var mainViewModel = new MainViewModel(Login);
             mainViewModel.Window.Show();
+#else
+            var lobbyViewModel = new LobbyViewModel(Login);
+            lobbyViewModel.Window.Show();
+#endif
+
             _loginWindow.Close();
         }
 
@@ -45,8 +51,8 @@ namespace Saboteur.ViewModel
             return !string.IsNullOrWhiteSpace(Login);
         }
 
-        #endregion
+#endregion
 
-        #endregion
+#endregion
     }
 }

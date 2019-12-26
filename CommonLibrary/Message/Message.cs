@@ -6,6 +6,7 @@ namespace CommonLibrary.Message
     [Serializable]
     public abstract class Message
     {
+        public string GameId { get; set; }
         public string SenderId { get; set; }
 		public string Login { get; set; }
         public GameMessageType MessageType { get; set; }
