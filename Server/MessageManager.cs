@@ -420,7 +420,10 @@ namespace Server
 
             result.Add(ProvidePlayerNewCards(client.Id, new List<int> { keyMessage.CardId }));
             result.Add(SetNextPlayer());
+
             if (CheckGameEnd()) result.Add(CreateEndGameMessage());
+            Table.UpdateAllConnections(keyMessage.RoleType);
+
             return result;
         }
 
@@ -474,10 +477,33 @@ namespace Server
         private static EndGameMessage CreateEndGameMessage()
         {
             var endGameMessage = new EndGameMessage();
-            endGameMessage.BlueScore = Table.Tokens.Where(t => t.Role == RoleType.Blue).Sum(t => t.Card.Gold);
-            endGameMessage.GreenScore = Table.Tokens.Where(t => t.Role == RoleType.Green).Sum(t => t.Card.Gold);
+            endGameMessage.BlueScore = CalculatePoints(RoleType.Blue);
+            endGameMessage.GreenScore = CalculatePoints(RoleType.Green);
 
             return endGameMessage;
+        }
+
+        private static int CalculatePoints(RoleType roleType)
+        {
+            var goldCards = Table.Tokens
+                .Where(t => t.Role == roleType && t.Card.Gold > 0)
+                .OrderBy(t => t.Card.Gold)
+                .ToList();
+            var trollsCount = Table.Tokens.Where(t => t.Role == roleType && t.Card.IsTroll).Count();
+            
+            int result = 0;
+            
+            foreach(var goldCard in goldCards)
+            {
+                if (trollsCount > 0)
+                {
+                    trollsCount--;
+                    continue;
+                }
+                result += goldCard.Card.Gold;
+            }
+
+            return result;
         }
 
         private static bool CheckGameEnd()
@@ -505,6 +531,11 @@ namespace Server
             result.Add(nextPlayerMessage);
 
             return result;
+        }
+
+        private static void StartNewRound()
+        {
+
         }
 
         #endregion
