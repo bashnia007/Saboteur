@@ -1,7 +1,8 @@
 ﻿using CommonLibrary.Enumerations;
+using CommonLibrary.Features;
 using System;
 using System.Linq;
-using CommonLibrary.Features;
+using System.Windows.Forms;
 
 namespace CommonLibrary.CardsClasses
 {
@@ -30,7 +31,7 @@ namespace CommonLibrary.CardsClasses
 
         }
 
-        public RouteCard(int id, RouteType routeType, string imagePath, int goldCount = 0, bool isTroll = false) : base(id, imagePath)
+        public RouteCard(int id, RouteType routeType, string imagePath, int goldCount = 0, bool isTroll = false, bool hasDoor = false) : base(id, imagePath)
         {
             var cardOrientation = new RouteCardOrientation(routeType);
             JoiningTop = cardOrientation.TopJoining;
@@ -49,6 +50,7 @@ namespace CommonLibrary.CardsClasses
             Gold = goldCount;
             IsTaken = false;
             IsTroll = isTroll;
+            HasDoor = hasDoor;
         }
 
         public RouteCard(int id) : base(id) { }
@@ -63,6 +65,8 @@ namespace CommonLibrary.CardsClasses
         public int Gold { get; set; }
         public bool IsTaken { get; set; }
         public bool IsTroll { get; set; }
+        public string Key { get; set; }
+        public bool HasDoor { get; set; }
 
         #region Параметры возможности присоединения к карточке
 
@@ -114,6 +118,11 @@ namespace CommonLibrary.CardsClasses
         #endregion
 
         public GoldConnections GoldConnections = new GoldConnections();
+
+        public void SetKey()
+        {
+            Key = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\key_token.png";
+        }
 
         private void ChangeOrientation()
         {

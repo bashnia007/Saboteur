@@ -33,7 +33,6 @@ namespace CommonLibrary
         public static string ThreeLinesLong = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long.png";
         public static string ThreeLinesLongTroll = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long_troll.png";
         public static string ThreeLinesLongBlue = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long_blue_gates.png";
-        public static string ThreeLinesLongBlueGold = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long_gold_blue_gates.png";
         public static string ThreeLinesLongGreen = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long_green_gates.png";
         public static string ThreeLinesLongWithDeadEnd = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long_with_deadend.png";
         public static string ThreeLinesLongWithDeadEndGold = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\routes\\Three_lines_long_with_deadend_gold.png";
@@ -61,6 +60,7 @@ namespace CommonLibrary
         public static string TrolleyPickFix = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\trolley_pick_fix.png";
         public static string Bang = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\bang.png";
         public static string Map = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\map.png";
+        public static string Key = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\actions\\key.png";
 
         #endregion
 
@@ -81,6 +81,8 @@ namespace CommonLibrary
         public static string ThreeLinesLong_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_1.png";
         public static string ThreeLinesLong_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_2.png";
         public static string ThreeLinesLong_3 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_3.png";
+        public static string ThreeLinesLongBlue_3 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_3_blue_gates.png";
+        public static string ThreeLinesLongGreen_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_long_2_green_gates.png";
         public static string ThreeLinesShort_1 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_short_1.png";
         public static string ThreeLinesShort_2 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_short_2.png";
         public static string ThreeLinesShort_3 = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Images\\gold\\Three_lines_short_3.png";

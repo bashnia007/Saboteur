@@ -192,5 +192,20 @@ namespace CommonLibrary
 
 	        Logger.Write($"Token for {roleType} was used. Remaining tokens: {8 - Tokens.Count}");
         }
+
+        public static void SetKey(RouteCard card)
+        {
+            if (card.PassabilityHorizontal != ConnectionType.None) card.PassabilityHorizontal = ConnectionType.Both;
+            if (card.PassabilityLeft2Bottom != ConnectionType.None) card.PassabilityLeft2Bottom = ConnectionType.Both;
+            if (card.PassabilityLeft2Top != ConnectionType.None) card.PassabilityLeft2Top = ConnectionType.Both;
+            if (card.PassabilityRight2Bottom != ConnectionType.None) card.PassabilityRight2Bottom = ConnectionType.Both;
+            if (card.PassabilityRight2Top != ConnectionType.None) card.PassabilityRight2Top = ConnectionType.Both;
+            if (card.PassabilityVertical != ConnectionType.None) card.PassabilityVertical = ConnectionType.Both;
+
+            if (card.ConnectionBottom != ConnectionType.None) card.ConnectionBottom = ConnectionType.Both;
+            if (card.ConnectionLeft != ConnectionType.None) card.ConnectionLeft = ConnectionType.Both;
+            if (card.ConnectionRight != ConnectionType.None) card.ConnectionRight = ConnectionType.Both;
+            if (card.ConnectionTop != ConnectionType.None) card.ConnectionTop = ConnectionType.Both;
+        }
     }
 }

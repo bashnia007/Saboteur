@@ -15,5 +15,6 @@ namespace CommonLibrary.Message
             IsBroadcast = false;
         }
         public List<GoldCard> CardsToRotate { get; set; }
+        public RoleType RoleType { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace Saboteur.ViewModel
         private List<HandCard> _cardsToFold;
         private readonly Client _client;
         private bool _isMyTurn;
+        private List<GoldCard> _cardsToRotate;
 
         private bool _canRotate;
 
@@ -105,6 +106,9 @@ namespace Saboteur.ViewModel
                     case ActionType.Explore:
                         Expore(actionCard, (GoldCard)mapItem);
                         break;
+                    case ActionType.Key:
+                        UseKey(actionCard, mapItem);
+                        break;
                     default: break;
                 }
             }
@@ -117,7 +121,8 @@ namespace Saboteur.ViewModel
                    (SelectedCard is RouteCard || 
                    (SelectedCard is ActionCard &&
                    ((ActionCard)SelectedCard).Action == ActionType.DestroyConnection ||
-                    ((ActionCard)SelectedCard).Action == ActionType.Explore));
+                    ((ActionCard)SelectedCard).Action == ActionType.Explore) ||
+                    ((ActionCard)SelectedCard).Action == ActionType.Key && obj is RouteCard && ((RouteCard)obj).HasDoor);
         }
 
         private void BuildTunnel(RouteCard mapItem)
@@ -151,6 +156,17 @@ namespace Saboteur.ViewModel
             {
                 CardId = actionCard.Id,
                 Coordinates = cardToOpen.Coordinates,
+                SenderId = CurrentPlayer.Id,
+                RoleType = CurrentPlayer.Role.Role
+            });
+        }
+
+        private void UseKey(ActionCard actionCard, RouteCard routeCard)
+        {
+            _client.SendMessage(new KeyMessage
+            {
+                CardId = actionCard.Id,
+                Coordinates = routeCard.Coordinates,
                 SenderId = CurrentPlayer.Id,
                 RoleType = CurrentPlayer.Role.Role
             });
@@ -339,7 +355,11 @@ namespace Saboteur.ViewModel
         public void ExecuteTurnCommand(object o)
         {
             var rotateMessage = new RotateGoldCardMessage();
+            rotateMessage.CardsToRotate = _cardsToRotate;
+            rotateMessage.RoleType = CurrentPlayer.Role.Role;
             _client.SendMessage(rotateMessage);
+
+            _canRotate = false;
         }
 
         private bool CanExecuteTurnCommand(object o)
@@ -360,19 +380,19 @@ namespace Saboteur.ViewModel
         {
             RouteCard card = (RouteCard)o;
             card.Rotate();
-            card.ImagePath = ImagePaths.CrossTroll;
             // we should update collection view from another thread
             // https://stackoverflow.com/a/18336392/2219089
             Application.Current.Dispatcher.Invoke(delegate
             {
                 Map[card.Coordinates.Coordinate_Y][card.Coordinates.Coordinate_X] = card;
             });
+            Map = new ObservableCollection<ObservableCollection<RouteCard>>(Map);
             OnPropertyChanged(nameof(Map));
         }
 
         private bool CanExecuteRotateGoldCommand(object o)
         {
-            return true;
+            return _canRotate && _cardsToRotate != null && (o is GoldCard && _cardsToRotate.Select(c => c.Id).Contains(((GoldCard)o).Id));
         }
 
         #endregion
@@ -444,6 +464,9 @@ namespace Saboteur.ViewModel
                         break;
                     case GameMessageType.EndGameMessage:
                         HandleEndGameMessage((EndGameMessage) message);
+                        break;
+                    case GameMessageType.KeyMessage:
+                        HandleKeyMessage((KeyMessage)message);
                         break;
                 }
 
@@ -581,11 +604,7 @@ namespace Saboteur.ViewModel
             TextInChatBox += "Поверните в нужную сторону карты с золотом \n";
             OnPropertyChanged(nameof(TextInChatBox));
 
-            foreach (var goldCard in rotateGoldCardMessage.CardsToRotate)
-            {
-                
-            }
-
+            _cardsToRotate = rotateGoldCardMessage.CardsToRotate;
         }
 
         private void HandleUpdateTokensMessage(UpdateTokensMessage updateTokensMessage)
@@ -598,6 +617,17 @@ namespace Saboteur.ViewModel
                 });
                 OnPropertyChanged(nameof(Map));
             }
+        }
+
+        private void HandleKeyMessage(KeyMessage keyMessage)
+        {
+            // we should update collection view from another thread
+            // https://stackoverflow.com/a/18336392/2219089
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                Map[keyMessage.Coordinates.Coordinate_Y][keyMessage.Coordinates.Coordinate_X] = keyMessage.Card;
+            });
+            OnPropertyChanged(nameof(Map));
         }
 
         private void PrepareMap()
