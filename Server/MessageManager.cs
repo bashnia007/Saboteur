@@ -32,6 +32,11 @@ namespace Server
                 case GameMessageType.RetrieveAllGamesMessage:
                     return HandleRetrieveAllGamesMessage(message);
 
+                case GameMessageType.CreateGameMessage:
+                    return HandleCreateGameMessage(message, client);
+
+
+
                 case GameMessageType.InitializeMessage:
                     return HandleInitializeMessage(message, client);
 
@@ -75,31 +80,7 @@ namespace Server
         {
             var result = new List<Message>();
             var clientConnectedMessage = message as ClientConnectedMessage;
-
-            var players = new List<Player>
-            {
-                new Player(),
-                new Player(),
-            };
-            GameManager.CreateGame(new Game
-            {
-                Creator = "creator 1",
-                GameType = GameType.Classic,
-                Players = players
-            });
-            GameManager.CreateGame(new Game
-            {
-                Creator = "creator 2",
-                GameType = GameType.Duel,
-                Players = players
-            });
-            GameManager.CreateGame(new Game
-            {
-                Creator = "creator 3",
-                GameType = GameType.Extended,
-                Players = players
-            });
-
+            
             clientConnectedMessage.Games = GameManager.RecieveAllGames();
 
             result.Add(clientConnectedMessage);
@@ -110,33 +91,23 @@ namespace Server
         {
             var result = new List<Message>();
             var clientConnectedMessage = message as ClientConnectedMessage;
-
-            var players = new List<Player>
-            {
-                new Player(),
-                new Player(),
-            };
-            GameManager.CreateGame(new Game
-            {
-                Creator = "creator 1",
-                GameType = GameType.Classic,
-                Players = players
-            });
-            GameManager.CreateGame(new Game
-            {
-                Creator = "creator 2",
-                GameType = GameType.Duel,
-                Players = players
-            });
-            GameManager.CreateGame(new Game
-            {
-                Creator = "creator 3",
-                GameType = GameType.Extended,
-                Players = players
-            });
-
+            
             clientConnectedMessage.Games = GameManager.RecieveAllGames();
             result.Add(clientConnectedMessage);
+
+            return result;
+        }
+
+        private static List<Message> HandleCreateGameMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            var createGameMessage = message as CreateGameMessage;
+
+            var game = GameManager.CreateGame(createGameMessage.GameType, createGameMessage.Creator);
+            createGameMessage.GameId = game.GameId;
+
+            result.Add(createGameMessage);
 
             return result;
         }

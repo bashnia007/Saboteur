@@ -6,6 +6,8 @@ using Saboteur.Models;
 using Saboteur.MVVM;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Saboteur.ViewModel
@@ -15,6 +17,10 @@ namespace Saboteur.ViewModel
         #region Properties
 
         public List<GameModel> Games { get; set; }
+
+        public List<GameType> GameTypes { get; set; }
+
+        public GameType SelectedGameType { get; set; }
 
         #endregion
 
@@ -39,6 +45,8 @@ namespace Saboteur.ViewModel
             clientLogic.EstablishConnection(_login);
 
             clientLogic.Client.OnReceiveMessageEvent += ReceivedMessageFromClient;
+            
+            GameTypes = ((GameType[])Enum.GetValues(typeof(GameType))).ToList();
         }
 
         #endregion
@@ -64,6 +72,24 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region Create game
+
+        private RelayCommand _createGame;
+
+        public ICommand CreateGameCommand => _createGame ?? (_createGame = new RelayCommand(ExecuteCreateGame, CanExecuteCreateGame));
+        
+        private void ExecuteCreateGame(object o)
+        {
+            clientLogic.CreateGame(SelectedGameType, _login);
+        }
+
+        private bool CanExecuteCreateGame(object o)
+        {
+            return true;
+        }
+
+        #endregion
+
         #endregion
 
         #region Private methods
@@ -76,6 +102,9 @@ namespace Saboteur.ViewModel
                     UpdateGamesList(message as ClientConnectedMessage);
                     break;
                 case GameMessageType.RetrieveAllGamesMessage:
+                    break;
+                case GameMessageType.CreateGameMessage:
+                    HandlerGameCreatedMessage(message as CreateGameMessage);
                     break;
                 default:
                     break;
@@ -90,6 +119,17 @@ namespace Saboteur.ViewModel
                 Games.Add(new GameModel(game));
             }
             OnPropertyChanged(nameof(Games));
+        }
+
+        private void HandlerGameCreatedMessage(CreateGameMessage createGameMessage)
+        {
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                var mainViewModel = new MainViewModel(_login);
+                mainViewModel.Window.Show();
+
+                Window.Close();
+            });
         }
 
         #endregion

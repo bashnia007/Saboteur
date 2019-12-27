@@ -4,10 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Saboteur"
+        xmlns:converter="clr-namespace:Saboteur.Converters"
         mc:Ignorable="d"
         Title="Лобби" Height="450" Width="800">
+    <Window.Resources>
+        <converter:EnumToCollectionConverter x:Key="enumToCollection" />
+    </Window.Resources>
     <Grid>
-        <DataGrid AutoGenerateColumns="False"
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0"
+                  AutoGenerateColumns="False"
                   ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Тип игры" Binding="{Binding GameType}" />
@@ -15,5 +24,20 @@
                 <DataGridTextColumn Header="Создатель" Binding="{Binding Creator}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Row="1">
+            <ComboBox Width="100"
+                      Margin="5"
+                      ItemsSource="{Binding GameTypes}"
+                      SelectedItem="{Binding SelectedGameType, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource enumToCollection}}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="Создать игру"
+                    Command="{Binding CreateGameCommand}"
+                    Width="80" />
+        </StackPanel>
     </Grid>
 </Window>

@@ -24,6 +24,7 @@ namespace CommonLibrary.Enumerations
         KeyMessage,
 
         ClientConnectedMessage,
-        RetrieveAllGamesMessage
+        RetrieveAllGamesMessage,
+        CreateGameMessage,
     }
 }

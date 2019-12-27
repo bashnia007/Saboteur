@@ -1,4 +1,5 @@
 ﻿using CommonLibrary;
+using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace ClientLibrary
         public void RefreshGamesList()
         {
             Client.SendMessage(new RetrieveAllGamesMessage());
+        }
+
+        public void CreateGame(GameType gameType, string login)
+        {
+            Client.SendMessage(new CreateGameMessage(gameType, login));
         }
     }
 }

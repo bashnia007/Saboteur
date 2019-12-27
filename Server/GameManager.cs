@@ -1,4 +1,6 @@
 ﻿using CommonLibrary;
+using CommonLibrary.Enumerations;
+using System;
 using System.Collections.Generic;
 
 namespace Server
@@ -24,7 +26,15 @@ namespace Server
             return game;
         }
 
-        public static void CloseGame(string gameId)
+        public static Game CreateGame(GameType gameType, string creator)
+        {
+            Game newGame = new Game(gameType, creator);
+            Logger.Write($"Game with id={newGame.GameId} was created");
+            _games.Add(newGame);
+            return newGame;
+        }
+
+        public static void CloseGame(Guid gameId)
         {
             Logger.Write($"Game with id={gameId} was closed");
             _games.RemoveAll(g => g.GameId == gameId);

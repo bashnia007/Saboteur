@@ -67,6 +67,7 @@
     <Compile Include="Message\ActionMessage.cs" />
     <Compile Include="Message\BuildMessage.cs" />
     <Compile Include="Message\ClientConnectedMessage.cs" />
+    <Compile Include="Message\CreateGameMessage.cs" />
     <Compile Include="Message\DestroyMessage.cs" />
     <Compile Include="Message\EndGameMessage.cs" />
     <Compile Include="Message\ExploreMessage.cs" />
