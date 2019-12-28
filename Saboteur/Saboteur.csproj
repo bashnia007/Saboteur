@@ -55,6 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientManager.cs" />
+    <Compile Include="Converters\EnumToCollectionConverter.cs" />
+    <Compile Include="LobbyWindow.xaml.cs">
+      <DependentUpon>LobbyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LogChat.xaml.cs">
       <DependentUpon>LogChat.xaml</DependentUpon>
     </Compile>
@@ -62,6 +67,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\ActionModel.cs" />
+    <Compile Include="Models\GameModel.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="PlayerActions.xaml.cs">
@@ -72,10 +78,15 @@
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="ViewModel\LobbyViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlayerActionsViewModel.cs" />
     <Compile Include="ViewModel\PlayerHandViewModel.cs" />
+    <Page Include="LobbyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LogChat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +144,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\ClientLibrary\ClientLibrary.csproj">
+      <Project>{DC7BDE3F-C5D1-4613-AB80-F892B4C78B82}</Project>
+      <Name>ClientLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{03aa8623-e629-47ea-a0d2-458b5627016a}</Project>
       <Name>CommonLibrary</Name>

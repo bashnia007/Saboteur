@@ -21,6 +21,10 @@ namespace CommonLibrary.Enumerations
         RotateGoldCardMessage,
         UpdateTokensMessage,
         EndGameMessage,
-        KeyMessage
+        KeyMessage,
+
+        ClientConnectedMessage,
+        RetrieveAllGamesMessage,
+        CreateGameMessage,
     }
 }
