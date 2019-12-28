@@ -6,9 +6,9 @@ using CommonLibrary.CardSets;
 
 namespace Server
 {
-	static class CardManager
+	class CardManager
 	{
-		public static Queue<Card> ShuffleCards(List<Card> initialSet)
+		public Queue<Card> ShuffleCards(List<Card> initialSet)
 		{
 			Queue<Card> ShuffledCards = new Queue<Card>();
 			int initialSetLength = initialSet.Count;
@@ -24,7 +24,7 @@ namespace Server
 			return ShuffledCards;
 		}
         
-	    public static List<GoldCard> SetGoldCards(IGameSet gameSet, List<GoldCard> goldCards)
+	    public List<GoldCard> SetGoldCards(IGameSet gameSet, List<GoldCard> goldCards)
 	    {
 	        var shuffledCards = ShuffleCards(new List<Card>(goldCards));
 

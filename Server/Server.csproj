@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="CardManager.cs" />
     <Compile Include="ClientObject.cs" />
-    <Compile Include="GameManager.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="Program.cs" />

@@ -9,6 +9,7 @@ namespace Server
 {
 	public class Launcher
 	{
+		CardManager cardManager;
 		public List<AbstractPlayer> Players { get; set; }
 		public List<Card> RoleCards { get; set; }
 		public List<Card> HandCards { get; set; }
@@ -19,6 +20,7 @@ namespace Server
 
 		public Launcher(List<string> playerIds)
 		{
+			cardManager = new CardManager();
 
 		    Players = new List<AbstractPlayer>();
 		    foreach (var player in playerIds)
@@ -44,7 +46,7 @@ namespace Server
 
 		    var gameSet = new One2OneGameSet();
             CreateCardSet(gameSet);
-		    GoldCardsForGame = CardManager.SetGoldCards(gameSet, GoldCards);
+		    GoldCardsForGame = cardManager.SetGoldCards(gameSet, GoldCards);
 		    StartCards = gameSet.StartCards;
 
             Table.StartCards.AddRange(StartCards);
@@ -54,14 +56,14 @@ namespace Server
 
 		public void ProvideRolesForPlayers()
 		{
-			Queue<Card> shuffledRoleCards = CardManager.ShuffleCards(RoleCards);
+			Queue<Card> shuffledRoleCards = cardManager.ShuffleCards(RoleCards);
 			Players[0].Role = (RoleCard)shuffledRoleCards.Dequeue();
 			Players[1].Role = (RoleCard)shuffledRoleCards.Dequeue();
 		}
 
 		public void ProvideHandCardsForPlayers()
 		{
-		    ShuffledHandCards = CardManager.ShuffleCards(HandCards);
+		    ShuffledHandCards = cardManager.ShuffleCards(HandCards);
 			int k = 0;
 
 			while (k != 12)

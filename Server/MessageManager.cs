@@ -2,7 +2,6 @@
 using CommonLibrary.CardsClasses;
 using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
-using Server.Launchers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +26,6 @@ namespace Server
 
             switch (type)
             {
-                case GameMessageType.ClientConnectedMessage:
-                    return HandleClientConnectedMessage(message);
-
-                case GameMessageType.RetrieveAllGamesMessage:
-                    return HandleRetrieveAllGamesMessage(message);
-
-                case GameMessageType.CreateGameMessage:
-                    return HandleCreateGameMessage(message, client);
-
-
-
                 case GameMessageType.InitializeMessage:
                     return HandleInitializeMessage(message, client);
 
@@ -76,47 +64,6 @@ namespace Server
         }
 
         #region Private methods
-
-        private static List<Message> HandleClientConnectedMessage(Message message)
-        {
-            var result = new List<Message>();
-            var clientConnectedMessage = message as ClientConnectedMessage;
-            
-            clientConnectedMessage.Games = GameManager.RecieveAllGames();
-
-            result.Add(clientConnectedMessage);
-            return result;
-        }
-
-        private static List<Message> HandleRetrieveAllGamesMessage(Message message)
-        {
-            var result = new List<Message>();
-            var clientConnectedMessage = message as ClientConnectedMessage;
-            
-            clientConnectedMessage.Games = GameManager.RecieveAllGames();
-            result.Add(clientConnectedMessage);
-
-            return result;
-        }
-
-        private static List<Message> HandleCreateGameMessage(Message message, ClientObject client)
-        {
-            var result = new List<Message>();
-
-            var createGameMessage = message as CreateGameMessage;
-
-            var game = GameManager.CreateGame(createGameMessage.GameType, createGameMessage.Creator);
-            createGameMessage.GameId = game.GameId;
-
-
-            AbstractLauncherFactory launcherFactory = new DuelLauncherFactory();
-
-            result.Add(createGameMessage);
-
-            return result;
-        }
-
-
 
         private static List<Message> HandleInitializeMessage(Message message, ClientObject client)
         {
