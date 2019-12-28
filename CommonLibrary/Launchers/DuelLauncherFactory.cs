@@ -12,5 +12,10 @@ namespace CommonLibrary.Launchers
         {
             return new DuelLauncher();
         }
+
+        protected override void PrepareCardSet()
+        {
+
+        }
     }
 }

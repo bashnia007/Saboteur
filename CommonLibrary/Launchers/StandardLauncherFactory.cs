@@ -12,5 +12,10 @@ namespace CommonLibrary.Launchers
         {
             return new StandardLauncher();
         }
+
+        protected override void PrepareCardSet()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
