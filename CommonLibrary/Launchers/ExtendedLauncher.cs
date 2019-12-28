@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Launchers
+namespace CommonLibrary.Launchers
 {
     public class ExtendedLauncher : AbstractLauncher
     {

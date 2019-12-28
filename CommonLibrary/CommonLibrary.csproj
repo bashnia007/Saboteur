@@ -63,6 +63,14 @@
     <Compile Include="Game.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="ImagePaths.cs" />
+    <Compile Include="Launchers\AbstractLauncher.cs" />
+    <Compile Include="Launchers\AbstractLauncherFactory.cs" />
+    <Compile Include="Launchers\DuelLauncher.cs" />
+    <Compile Include="Launchers\DuelLauncherFactory.cs" />
+    <Compile Include="Launchers\ExtendedLauncher.cs" />
+    <Compile Include="Launchers\ExtendedLauncherFactory.cs" />
+    <Compile Include="Launchers\StandardLauncher.cs" />
+    <Compile Include="Launchers\StandardLauncherFactory.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Message\ActionMessage.cs" />
     <Compile Include="Message\BuildMessage.cs" />

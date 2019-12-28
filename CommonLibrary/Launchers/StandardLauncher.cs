@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Launchers
+namespace CommonLibrary.Launchers
 {
-    public class One2OneLauncher : AbstractLauncher
+    public class StandardLauncher : AbstractLauncher
     {
     }
 }

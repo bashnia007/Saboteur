@@ -2,6 +2,7 @@
 using CommonLibrary.CardsClasses;
 using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
+using Server.Launchers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,6 +107,9 @@ namespace Server
 
             var game = GameManager.CreateGame(createGameMessage.GameType, createGameMessage.Creator);
             createGameMessage.GameId = game.GameId;
+
+
+            AbstractLauncherFactory launcherFactory = new DuelLauncherFactory();
 
             result.Add(createGameMessage);
 

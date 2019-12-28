@@ -1,4 +1,5 @@
 ﻿using CommonLibrary.Enumerations;
+using CommonLibrary.Launchers;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,7 @@ namespace CommonLibrary
         public string Creator { get; }
         public List<Player> Players { get; }
         public int MaxPlayers { get; }
+        public AbstractLauncher Launcher { get; }
 
         public Game(GameType gameType, string creator)
         {
@@ -20,18 +22,27 @@ namespace CommonLibrary
             Creator = creator;
             Players = new List<Player>();
 
-            switch(gameType)
+            AbstractLauncherFactory launcherFactory;
+
+            switch (gameType)
             {
                 case GameType.Duel:
                     MaxPlayers = 2;
+                    launcherFactory = new DuelLauncherFactory();
                     break;
                 case GameType.Classic:
                     MaxPlayers = 10;
+                    launcherFactory = new StandardLauncherFactory();
                     break;
                 case GameType.Extended:
                     MaxPlayers = 12;
+                    launcherFactory = new ExtendedLauncherFactory();
                     break;
+                default:
+                    throw new NotImplementedException();
             }
+
+            Launcher = launcherFactory.CreateLauncher();
         }
     }
 }

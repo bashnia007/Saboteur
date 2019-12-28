@@ -47,10 +47,6 @@
     <Compile Include="ClientObject.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="Launchers\AbstractLauncher.cs" />
-    <Compile Include="Launchers\ExtendedLauncher.cs" />
-    <Compile Include="Launchers\One2OneLauncher.cs" />
-    <Compile Include="Launchers\StandardLauncher.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
