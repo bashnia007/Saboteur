@@ -7,6 +7,7 @@ using CommonLibrary.GameSets;
 
 namespace CommonLibrary.Launchers
 {
+    [Serializable]
     public class DuelLauncher : AbstractLauncher
     {
         public DuelLauncher(IGameSet gameSet) : base(gameSet)

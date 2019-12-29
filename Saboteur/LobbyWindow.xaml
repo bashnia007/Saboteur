@@ -17,12 +17,18 @@
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0"
                   AutoGenerateColumns="False"
+                  IsSynchronizedWithCurrentItem="True"
                   ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Тип игры" Binding="{Binding GameType}" />
                 <DataGridTextColumn Header="Количество игроков" Binding="{Binding PlayersCount}"/>
                 <DataGridTextColumn Header="Создатель" Binding="{Binding Creator}"/>
             </DataGrid.Columns>
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding JoinCommand}"
+                              CommandParameter="{Binding Games/}"/>
+            </DataGrid.InputBindings>
         </DataGrid>
         <StackPanel Grid.Row="1">
             <ComboBox Width="100"

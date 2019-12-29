@@ -106,9 +106,17 @@ namespace Server
 
             var game = GameManager.CreateGame(createGameMessage.GameType, createGameMessage.Creator);
             createGameMessage.GameId = game.GameId;
-            game.Launcher.StartRound();
 
             result.Add(createGameMessage);
+
+            return result;
+        }
+
+        private static List<Message> HandleJoinGameMessage(Message message, ClientObject client)
+        {
+            var result = new List<Message>();
+
+            var joinGameMessage = message as JoinGameMessage;
 
             return result;
         }
@@ -582,12 +590,7 @@ namespace Server
 
             return result;
         }
-
-        private static void StartNewRound()
-        {
-
-        }
-
+        
         #endregion
     }
 }

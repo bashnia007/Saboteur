@@ -7,6 +7,7 @@ using CommonLibrary.GameSets;
 
 namespace CommonLibrary.Launchers
 {
+    [Serializable]
     public class StandardLauncher : AbstractLauncher
     {
         public StandardLauncher(IGameSet gameSet) : base(gameSet)

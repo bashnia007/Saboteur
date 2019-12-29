@@ -1,12 +1,9 @@
 ﻿using CommonLibrary.GameSets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonLibrary.Launchers
 {
+    [Serializable]
     public abstract class AbstractLauncher
     {
         public IGameSet GameSet { get; }

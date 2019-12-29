@@ -1,13 +1,10 @@
-﻿using System;
+﻿using CommonLibrary.CardsClasses;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommonLibrary.CardsClasses;
-using CommonLibrary.CardSets;
 
 namespace CommonLibrary.GameSets
 {
+    [Serializable]
     public class DuelGameSet : IGameSet
     {
         public List<CardSet> HandCards { get; }

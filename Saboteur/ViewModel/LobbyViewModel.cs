@@ -90,6 +90,25 @@ namespace Saboteur.ViewModel
 
         #endregion
 
+        #region Join 
+
+        private RelayCommand _joinCommand;
+
+        public ICommand JoinCommand => _joinCommand ?? (_joinCommand = new RelayCommand(ExecuteJoinCommand, CanExecuteJoinCommand));
+        
+        private void ExecuteJoinCommand(object obj)
+        {
+            var game = obj as GameModel;
+            clientLogic.JoinGame(game.GameId, _login);
+        }
+
+        private bool CanExecuteJoinCommand(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
         #endregion
 
         #region Private methods

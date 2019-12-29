@@ -1,7 +1,9 @@
 ﻿using CommonLibrary.Enumerations;
+using System;
 
 namespace CommonLibrary.GameSets
 {
+    [Serializable]
     public class CardSet
     {
         public CardType CardType { get; set; }

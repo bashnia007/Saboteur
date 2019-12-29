@@ -34,6 +34,11 @@ namespace Server
             return newGame;
         }
 
+        public static bool JoinGame(Guid gameId, string login)
+        {
+            return true;
+        }
+
         public static void CloseGame(Guid gameId)
         {
             Logger.Write($"Game with id={gameId} was closed");

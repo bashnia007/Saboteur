@@ -1,7 +1,6 @@
-﻿using CommonLibrary;
-using CommonLibrary.Enumerations;
+﻿using CommonLibrary.Enumerations;
 using CommonLibrary.Message;
-using System.Collections.Generic;
+using System;
 
 namespace ClientLibrary
 {
@@ -13,5 +12,6 @@ namespace ClientLibrary
         void EstablishConnection(string login);
         void RefreshGamesList();
         void CreateGame(GameType gameType, string login);
+        void JoinGame(Guid gameId, string login);
     }
 }

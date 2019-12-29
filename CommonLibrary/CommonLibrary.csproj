@@ -88,6 +88,7 @@
     <Compile Include="Message\FoldForFixEquipmentMessage.cs" />
     <Compile Include="Message\FoldMessage.cs" />
     <Compile Include="Message\InitializeTableMessage.cs" />
+    <Compile Include="Message\JoinGameMessage.cs" />
     <Compile Include="Message\KeyMessage.cs" />
     <Compile Include="Message\RetrieveAllGamesMessage.cs" />
     <Compile Include="Message\RotateGoldCardMessage.cs" />
