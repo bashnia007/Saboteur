@@ -2,6 +2,7 @@
 using CommonLibrary.Enumerations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Server
 {
@@ -26,7 +27,7 @@ namespace Server
             return game;
         }
 
-        public static Game CreateGame(GameType gameType, string creator)
+        public static Game CreateGame(GameType gameType, Player creator)
         {
             Game newGame = new Game(gameType, creator);
             Logger.Write($"Game with id={newGame.GameId} was created");
@@ -34,9 +35,17 @@ namespace Server
             return newGame;
         }
 
-        public static bool JoinGame(Guid gameId, string login)
+        public static bool JoinGame(Guid gameId, Player player)
         {
-            return true;
+            var game = _games.FirstOrDefault(g => g.GameId == gameId);
+
+            if (game == null)
+            {
+                Logger.Write($"Game with id={gameId} wasn't found", LogLevel.Error);
+                return false;
+            }
+
+            return game.JoinPlayer(player);
         }
 
         public static void CloseGame(Guid gameId)

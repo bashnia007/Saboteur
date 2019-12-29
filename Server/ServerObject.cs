@@ -30,6 +30,7 @@ namespace Server
             {
                 Console.WriteLine("Client disconnected");
                 _clients.Remove(client);
+                MessageManager.AbstractPlayers.RemoveAll(p => p.Id == id);
             }
         }
         // прослушивание входящих подключений

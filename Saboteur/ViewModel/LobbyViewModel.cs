@@ -125,6 +125,9 @@ namespace Saboteur.ViewModel
                 case GameMessageType.CreateGameMessage:
                     HandlerGameCreatedMessage(message as CreateGameMessage);
                     break;
+                case GameMessageType.JoinMessage:
+                    HandlerJoinMessage(message as JoinGameMessage);
+                    break;
                 default:
                     break;
             }
@@ -141,6 +144,17 @@ namespace Saboteur.ViewModel
         }
 
         private void HandlerGameCreatedMessage(CreateGameMessage createGameMessage)
+        {
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                var mainViewModel = new MainViewModel(_login);
+                mainViewModel.Window.Show();
+
+                Window.Close();
+            });
+        }
+
+        private void HandlerJoinMessage(JoinGameMessage createGameMessage)
         {
             Application.Current.Dispatcher.Invoke(delegate
             {

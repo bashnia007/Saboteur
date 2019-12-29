@@ -17,6 +17,7 @@ namespace Server
         static MessageManager()
         {
             Players = new Queue<ClientObject>();
+            AbstractPlayers = new List<AbstractPlayer>();
         }
 
         public static List<Message> HandleMessage(Message message, ClientObject client)
@@ -27,13 +28,16 @@ namespace Server
             switch (type)
             {
                 case GameMessageType.ClientConnectedMessage:
-                    return HandleClientConnectedMessage(message);
+                    return HandleClientConnectedMessage(message, client.Id);
 
                 case GameMessageType.RetrieveAllGamesMessage:
                     return HandleRetrieveAllGamesMessage(message);
 
                 case GameMessageType.CreateGameMessage:
-                    return HandleCreateGameMessage(message, client);
+                    return HandleCreateGameMessage(message, client.Id);
+
+                case GameMessageType.JoinMessage:
+                    return HandleJoinGameMessage(message, client.Id);
 
 
 
@@ -76,11 +80,21 @@ namespace Server
 
         #region Private methods
 
-        private static List<Message> HandleClientConnectedMessage(Message message)
+        private static List<Message> HandleClientConnectedMessage(Message message, string userId)
         {
             var result = new List<Message>();
             var clientConnectedMessage = message as ClientConnectedMessage;
-            
+
+            if (!AbstractPlayers.Select(p => p.Id).Contains(userId))
+            {
+                AbstractPlayers.Add(new Player
+                {
+                    Id = userId,
+                    Name = message.Login
+                });
+
+            }
+
             clientConnectedMessage.Games = GameManager.RecieveAllGames();
 
             result.Add(clientConnectedMessage);
@@ -98,25 +112,47 @@ namespace Server
             return result;
         }
 
-        private static List<Message> HandleCreateGameMessage(Message message, ClientObject client)
+        // todo rewrite HandleCreateGameMessage and HandleJoinGameMessage. They are almost the same
+        private static List<Message> HandleCreateGameMessage(Message message, string userId)
         {
             var result = new List<Message>();
 
             var createGameMessage = message as CreateGameMessage;
 
-            var game = GameManager.CreateGame(createGameMessage.GameType, createGameMessage.Creator);
-            createGameMessage.GameId = game.GameId;
+            Player player = (Player)AbstractPlayers.FirstOrDefault(p => p.Id == userId);
 
-            result.Add(createGameMessage);
+            if (player == null)
+            {
+                Logger.Write($"Cannot find player with id {userId} in connected players", LogLevel.Error);
+            }
+            else
+            {
+                var game = GameManager.CreateGame(createGameMessage.GameType, player);
+                createGameMessage.GameId = game.GameId;
+                createGameMessage.IsBroadcast = false;
+
+                result.Add(createGameMessage);
+            }
 
             return result;
         }
 
-        private static List<Message> HandleJoinGameMessage(Message message, ClientObject client)
+        private static List<Message> HandleJoinGameMessage(Message message, string userId)
         {
             var result = new List<Message>();
 
             var joinGameMessage = message as JoinGameMessage;
+            Player player = (Player)AbstractPlayers.FirstOrDefault(p => p.Id == userId);
+            if (player == null)
+            {
+                Logger.Write($"Cannot find player with id {userId} in connected players", LogLevel.Error);
+            }
+            else
+            {
+                GameManager.JoinGame(joinGameMessage.GameId, player);
+                joinGameMessage.IsBroadcast = false;
+                result.Add(joinGameMessage);
+            }
 
             return result;
         }

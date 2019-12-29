@@ -15,12 +15,13 @@ namespace CommonLibrary
         public int MaxPlayers { get; }
         public AbstractLauncher Launcher { get; }
 
-        public Game(GameType gameType, string creator)
+        public Game(GameType gameType, Player creator)
         {
             GameId = Guid.NewGuid();
             GameType = gameType;
-            Creator = creator;
+            Creator = creator.Name;
             Players = new List<Player>();
+            Players.Add(creator);
 
             AbstractLauncherFactory launcherFactory;
 
@@ -43,6 +44,14 @@ namespace CommonLibrary
             }
 
             Launcher = launcherFactory.CreateLauncher();
+        }
+
+        public bool JoinPlayer(Player player)
+        {
+            if (MaxPlayers <= Players.Count) return false;
+            Players.Add(player);
+
+            return true;
         }
     }
 }
