@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLibrary.GameSets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace CommonLibrary.Launchers
 {
     public abstract class AbstractLauncher
     {
-        public virtual void CreateGameSet()
-        {
+        public IGameSet GameSet { get; }
 
+        public AbstractLauncher(IGameSet gameSet)
+        {
+            GameSet = gameSet;
         }
 
         public virtual void StartRound()

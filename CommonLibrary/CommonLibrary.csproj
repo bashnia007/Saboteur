@@ -61,6 +61,11 @@
     <Compile Include="Features\GoldConnections.cs" />
     <Compile Include="Features\Token.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameSets\AbstractGameSetFactory.cs" />
+    <Compile Include="GameSets\CardSet.cs" />
+    <Compile Include="GameSets\DuelGameSet.cs" />
+    <Compile Include="GameSets\DuelGameSetFactory.cs" />
+    <Compile Include="GameSets\IGameSet.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="ImagePaths.cs" />
     <Compile Include="Launchers\AbstractLauncher.cs" />
