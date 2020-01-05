@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace CommonLibrary.Message
 {
+    [Serializable]
     public class StartGameMessage : Message
     {
-        public StartGameMessage()
+        public StartGameMessage(Guid gameId)
         {
             MessageType = GameMessageType.StartGameMessage;
+            GameId = gameId;
         }
     }
 }

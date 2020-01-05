@@ -7,13 +7,11 @@ namespace CommonLibrary.Launchers
     [Serializable]
     public abstract class AbstractLauncher
     {
-        public IGameSet GameSet { get; }
         public GameTable GameTable { get; }
 
         public AbstractLauncher(IGameSet gameSet)
         {
-            GameSet = gameSet;
-            GameTable = new GameTable(GameSet);
+            GameTable = new GameTable(gameSet);
         }
 
         public virtual void StartRound(List<Player> players)

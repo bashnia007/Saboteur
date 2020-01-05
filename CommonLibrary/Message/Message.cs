@@ -12,6 +12,8 @@ namespace CommonLibrary.Message
         public GameMessageType MessageType { get; set; }
         public bool IsBroadcast { get; set; }
         public bool IsTurnMessage { get; set; }
+        public bool IsPrivateForEveryone { get; set; }
+        public string RecepientId { get; set; }
 
         protected Message()
         {

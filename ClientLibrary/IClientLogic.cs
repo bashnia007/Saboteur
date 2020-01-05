@@ -13,5 +13,6 @@ namespace ClientLibrary
         void RefreshGamesList();
         void CreateGame(GameType gameType, string login);
         void JoinGame(Guid gameId, string login);
+        void StartGame(Guid gameId);
     }
 }

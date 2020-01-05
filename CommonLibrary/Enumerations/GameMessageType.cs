@@ -29,5 +29,6 @@ namespace CommonLibrary.Enumerations
         JoinMessage,
 
         StartGameMessage,
+        HandInfoMessage
     }
 }

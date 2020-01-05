@@ -72,14 +72,37 @@ namespace Server
             }
             else
             {
-                if (message.IsTurnMessage)
+                // todo change this ugly method
+                if (message is JoinGameMessage)
                 {
-                    var directMessage = message as SetTurnMessage;
-                    formatter.Serialize(_clients.First(c => c.Id == directMessage.RecepientId).Stream, message);
+                    var joinGameMessage = message as JoinGameMessage;
+                    if (joinGameMessage.Recepients != null)
+                    {
+                        foreach (var recepientId in joinGameMessage.Recepients)
+                        {
+                            formatter.Serialize(_clients.First(c => c.Id == recepientId).Stream, message);
+                        }
+                    }
+                    else
+                    {
+                        formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+                    }
+                }
+                if (message.IsPrivateForEveryone)
+                {
+                    formatter.Serialize(_clients.First(c => c.Id == message.RecepientId).Stream, message);
                 }
                 else
                 {
-                    formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+                    if (message.IsTurnMessage)
+                    {
+                        var directMessage = message as SetTurnMessage;
+                        formatter.Serialize(_clients.First(c => c.Id == directMessage.RecepientId).Stream, message);
+                    }
+                    else
+                    {
+                        formatter.Serialize(_clients.First(c => c.Id == id).Stream, message);
+                    }
                 }
             }
         }

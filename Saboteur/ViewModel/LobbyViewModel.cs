@@ -147,7 +147,8 @@ namespace Saboteur.ViewModel
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                var mainViewModel = new MainViewModel(_login);
+                clientLogic.Client.OnReceiveMessageEvent -= ReceivedMessageFromClient;
+                var mainViewModel = new MainViewModel(_login, createGameMessage.GameId, clientLogic);
                 mainViewModel.Window.Show();
 
                 Window.Close();
@@ -158,7 +159,9 @@ namespace Saboteur.ViewModel
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                var mainViewModel = new MainViewModel(_login);
+                clientLogic.Client.OnReceiveMessageEvent -= ReceivedMessageFromClient;
+
+                var mainViewModel = new MainViewModel(_login, createGameMessage.GameId, clientLogic);
                 mainViewModel.Window.Show();
 
                 Window.Close();

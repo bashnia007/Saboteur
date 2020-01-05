@@ -78,6 +78,7 @@
     <Compile Include="Launchers\StandardLauncher.cs" />
     <Compile Include="Launchers\StandardLauncherFactory.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Message\AbstractGameMessage.cs" />
     <Compile Include="Message\ActionMessage.cs" />
     <Compile Include="Message\BuildMessage.cs" />
     <Compile Include="Message\ClientConnectedMessage.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Message\FindGoldMessage.cs" />
     <Compile Include="Message\FoldForFixEquipmentMessage.cs" />
     <Compile Include="Message\FoldMessage.cs" />
+    <Compile Include="Message\HandInfoMessage.cs" />
     <Compile Include="Message\InitializeTableMessage.cs" />
     <Compile Include="Message\JoinGameMessage.cs" />
     <Compile Include="Message\KeyMessage.cs" />

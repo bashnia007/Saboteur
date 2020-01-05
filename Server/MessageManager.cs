@@ -27,6 +27,7 @@ namespace Server
 
             switch (type)
             {
+                #region Lobby messages
                 case GameMessageType.ClientConnectedMessage:
                     return HandleClientConnectedMessage(message, client.Id);
 
@@ -37,7 +38,9 @@ namespace Server
                     return HandleCreateGameMessage(message, client.Id);
 
                 case GameMessageType.JoinMessage:
-                    return HandleJoinGameMessage(message, client.Id);
+                    return HandleJoinGameMessage(message as JoinGameMessage, client.Id);
+
+                #endregion
 
                 case GameMessageType.StartGameMessage:
                     return HandleStartGameMessage(message);
@@ -141,11 +144,10 @@ namespace Server
             return result;
         }
 
-        private static List<Message> HandleJoinGameMessage(Message message, string userId)
+        private static List<Message> HandleJoinGameMessage(JoinGameMessage joinGameMessage, string userId)
         {
             var result = new List<Message>();
-
-            var joinGameMessage = message as JoinGameMessage;
+            
             Player player = (Player)AbstractPlayers.FirstOrDefault(p => p.Id == userId);
             if (player == null)
             {
@@ -154,8 +156,9 @@ namespace Server
             else
             {
                 GameManager.JoinGame(joinGameMessage.GameId, player);
-                joinGameMessage.IsBroadcast = false;
-                result.Add(joinGameMessage);
+                var message = new JoinGameMessage(joinGameMessage.GameId, player.Name,
+                    GameManager.RecieveGame(joinGameMessage.GameId).Players.Select(p => p.Id).ToList());
+                result.Add(message);
             }
 
             return result;
@@ -167,7 +170,11 @@ namespace Server
 
             var startGameMessage = message as StartGameMessage;
             var game = GameManager.RecieveGame(startGameMessage.GameId);
+            GameManager.CloseGame(startGameMessage.GameId);
             game.Start();
+
+            SendUpdatedGamesList(result);
+            SendHandInfo(game, result);
 
             return result;
         }
@@ -641,7 +648,28 @@ namespace Server
 
             return result;
         }
-        
+
+        #endregion
+
+        #region Helpers
+
+        private static void SendUpdatedGamesList(List<Message> result)
+        {
+            var clientConnectedMessage = new ClientConnectedMessage();
+
+            clientConnectedMessage.Games = GameManager.RecieveAllGames();
+            result.Add(clientConnectedMessage);
+        }
+
+        private static void SendHandInfo(Game game, List<Message> result)
+        {
+            foreach(var player in game.Players)
+            {
+                var handInfo = new HandInfoMessage(player.Role, player.Hand, player.Id);
+                result.Add(handInfo);
+            }
+        }
+
         #endregion
     }
 }

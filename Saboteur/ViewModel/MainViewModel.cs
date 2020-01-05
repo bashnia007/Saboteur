@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using CommonLibrary.Features;
+using ClientLibrary;
 
 namespace Saboteur.ViewModel
 {
@@ -46,13 +47,10 @@ namespace Saboteur.ViewModel
         public MainViewModel(string login)
         {
             Login = login;
-            CurrentPlayer = new Player
-            {
-                Name = Login
-            };
+            CurrentPlayer = new Player(Login);
             Players = new List<Player>();
             Players.Add(CurrentPlayer);
-            Players.Add(new Player());
+            Players.Add(new Player("Enemy"));
 
             Window = new MainWindow();
             Window.DataContext = this;
@@ -75,6 +73,44 @@ namespace Saboteur.ViewModel
             TrolleyImage = ImagePaths.LampFix;
 
             _cardsToFold = new List<HandCard>();
+        }
+
+        private IClientLogic _clientLogic;
+        private Guid _gameId;
+        private ClientLibrary.Table _table;
+
+        public MainViewModel(string login, Guid gameId, IClientLogic clientLogic)
+        {
+            Login = login;
+            _gameId = gameId;
+            _clientLogic = clientLogic;
+
+            Window = new MainWindow();
+            Window.DataContext = this;
+
+            Init();
+        }
+
+        public MainViewModel(string login, Guid gameId, IClientLogic clientLogic, List<string> playerNames) : this (login, gameId, clientLogic)
+        {
+            foreach(var name in playerNames)
+            {
+                _table.AddPlayer(new Player(name));
+            }
+        }
+
+        private void Init()
+        {
+            _cardsToFold = new List<HandCard>();
+
+            MyHand = new PlayerHandViewModel(true, CurrentPlayer);
+            _clientLogic.Client.OnReceiveMessageEvent += ReceivedMessageFromClient;
+
+            CurrentPlayer = new Player(Login);
+
+            _table = new ClientLibrary.Table();
+            _table.AddPlayer(CurrentPlayer);
+
         }
 
 		#region Commands
@@ -250,18 +286,19 @@ namespace Saboteur.ViewModel
 
         private void ExecuteReadyCommand(object obj)
         {
-            _client.SendMessage(new GameMessage
-            {
-                SenderId = CurrentPlayer.Id,
-                MessageType = GameMessageType.ReadyToPlay
-            });
+            _clientLogic.StartGame(_gameId);
+            //_client.SendMessage(new GameMessage
+            //{
+            //    SenderId = CurrentPlayer.Id,
+            //    MessageType = GameMessageType.ReadyToPlay
+            //});
             ReadyButtonVisibility = Visibility.Hidden;
             OnPropertyChanged(nameof(ReadyButtonVisibility));
         }
 
         private bool CanExecuteReadyCommand(object arg)
         {
-            return true;
+            return _table.Players.Count >= 2;
         }
 
         #endregion
@@ -468,6 +505,13 @@ namespace Saboteur.ViewModel
                     case GameMessageType.KeyMessage:
                         HandleKeyMessage((KeyMessage)message);
                         break;
+
+                    case GameMessageType.HandInfoMessage:
+                        HandleHandInfoMessage((HandInfoMessage)message);
+                        break;
+                    case GameMessageType.JoinMessage:
+                        HandleJoinMessage((JoinGameMessage)message);
+                        break;
                 }
 
                 WriteLog(message);
@@ -628,6 +672,23 @@ namespace Saboteur.ViewModel
                 Map[keyMessage.Coordinates.Coordinate_Y][keyMessage.Coordinates.Coordinate_X] = keyMessage.Card;
             });
             OnPropertyChanged(nameof(Map));
+        }
+
+        private void HandleHandInfoMessage(HandInfoMessage handInfoMessage)
+        {
+            ReadyButtonVisibility = Visibility.Hidden;
+            OnPropertyChanged(nameof(ReadyButtonVisibility));
+
+            MyHand.UpdateCards(handInfoMessage.HandCards);
+
+            CurrentPlayer.Role = handInfoMessage.Role;
+            RoleImage = handInfoMessage.Role.ImagePath;
+            OnPropertyChanged(nameof(RoleImage));
+        }
+
+        private void HandleJoinMessage(JoinGameMessage joinGameMessage)
+        {
+            _table.AddPlayer(new Player(joinGameMessage.Login));
         }
 
         private void PrepareMap()

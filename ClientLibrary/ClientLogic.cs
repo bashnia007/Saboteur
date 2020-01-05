@@ -41,5 +41,10 @@ namespace ClientLibrary
         {
             Client.SendMessage(new JoinGameMessage(gameId, login));
         }
+
+        public void StartGame(Guid gameId)
+        {
+            Client.SendMessage(new StartGameMessage(gameId));
+        }
     }
 }
