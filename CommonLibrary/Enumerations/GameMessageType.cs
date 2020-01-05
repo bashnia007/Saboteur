@@ -27,5 +27,7 @@ namespace CommonLibrary.Enumerations
         RetrieveAllGamesMessage,
         CreateGameMessage,
         JoinMessage,
+
+        StartGameMessage,
     }
 }

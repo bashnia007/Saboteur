@@ -112,5 +112,11 @@ namespace CommonLibrary.GameSets
             GameSet.GoldCardCoordinates.Add(new Coordinates(8, 4));
             GameSet.GoldCardCoordinates.Add(new Coordinates(10, 3));
         }
+
+        protected override void PrepareRoleCards()
+        {
+            GameSet.Roles.Add(new RoleCard(RoleType.Green));
+            GameSet.Roles.Add(new RoleCard(RoleType.Blue));
+        }
     }
 }

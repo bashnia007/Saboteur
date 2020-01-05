@@ -39,6 +39,10 @@ namespace Server
                 case GameMessageType.JoinMessage:
                     return HandleJoinGameMessage(message, client.Id);
 
+                case GameMessageType.StartGameMessage:
+                    return HandleStartGameMessage(message);
+
+
 
 
                 case GameMessageType.InitializeMessage:
@@ -153,6 +157,17 @@ namespace Server
                 joinGameMessage.IsBroadcast = false;
                 result.Add(joinGameMessage);
             }
+
+            return result;
+        }
+
+        private static List<Message> HandleStartGameMessage(Message message)
+        {
+            var result = new List<Message>();
+
+            var startGameMessage = message as StartGameMessage;
+            var game = GameManager.RecieveGame(startGameMessage.GameId);
+            game.Start();
 
             return result;
         }

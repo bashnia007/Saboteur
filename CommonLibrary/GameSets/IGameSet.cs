@@ -9,5 +9,6 @@ namespace CommonLibrary.GameSets
         List<CardSet> GoldCards { get; }
         List<StartCard> StartCards { get; }
         List<Coordinates> GoldCardCoordinates { get; }
+        List<RoleCard> Roles { get; }
     }
 }

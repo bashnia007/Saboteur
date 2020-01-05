@@ -53,5 +53,10 @@ namespace CommonLibrary
 
             return true;
         }
+
+        public void Start()
+        {
+            Launcher.StartRound(Players);
+        }
     }
 }

@@ -17,6 +17,7 @@
             PrepareGoldCard();
             PrepareStartCards();
             PrepareGoldCardCoordinates();
+            PrepareRoleCards();
         }
 
         protected abstract void PrepareRouteCards();
@@ -24,6 +25,7 @@
         protected abstract void PrepareGoldCard();
         protected abstract void PrepareStartCards();
         protected abstract void PrepareGoldCardCoordinates();
+        protected abstract void PrepareRoleCards();
 
     }
 }

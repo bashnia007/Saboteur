@@ -13,5 +13,10 @@ namespace CommonLibrary.Launchers
         public StandardLauncher(IGameSet gameSet) : base(gameSet)
         {
         }
+
+        protected override void ProvideCardsToPlayers(List<Player> players)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -13,5 +13,10 @@ namespace CommonLibrary.Launchers
         public ExtendedLauncher(IGameSet gameSet) : base(gameSet)
         {
         }
+
+        protected override void ProvideCardsToPlayers(List<Player> players)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

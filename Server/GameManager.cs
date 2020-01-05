@@ -20,6 +20,13 @@ namespace Server
             return _games;
         }
 
+        public static Game RecieveGame(Guid gameId)
+        {
+            var result = _games.FirstOrDefault(g => g.GameId == gameId);
+            if (result == null) Logger.Write($"Can't find game with id = {gameId}");
+            return result;
+        }
+
         public static Game CreateGame(Game game)
         {
             Logger.Write($"Game with id={game.GameId} was created");

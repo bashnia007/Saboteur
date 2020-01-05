@@ -14,12 +14,15 @@ namespace CommonLibrary.GameSets
 
         public List<Coordinates> GoldCardCoordinates { get; }
 
+        public List<RoleCard> Roles { get; }
+
         public DuelGameSet()
         {
             HandCards = new List<CardSet>();
             GoldCards = new List<CardSet>();
             StartCards = new List<StartCard>();
             GoldCardCoordinates = new List<Coordinates>();
+            Roles = new List<RoleCard>();
         }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="GameSets\DuelGameSet.cs" />
     <Compile Include="GameSets\DuelGameSetFactory.cs" />
     <Compile Include="GameSets\IGameSet.cs" />
+    <Compile Include="GameTable.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="ImagePaths.cs" />
     <Compile Include="Launchers\AbstractLauncher.cs" />
@@ -90,12 +91,14 @@
     <Compile Include="Message\InitializeTableMessage.cs" />
     <Compile Include="Message\JoinGameMessage.cs" />
     <Compile Include="Message\KeyMessage.cs" />
+    <Compile Include="Message\LobbyMessage.cs" />
     <Compile Include="Message\RetrieveAllGamesMessage.cs" />
     <Compile Include="Message\RotateGoldCardMessage.cs" />
     <Compile Include="Message\SetTurnMessage.cs" />
     <Compile Include="Message\GameMessage.cs" />
     <Compile Include="Message\InitializeMessage.cs" />
     <Compile Include="Message\Message.cs" />
+    <Compile Include="Message\StartGameMessage.cs" />
     <Compile Include="Message\TextMessage.cs" />
     <Compile Include="Message\UpdateTableMessage.cs" />
     <Compile Include="Message\UpdateTokensMessage.cs" />

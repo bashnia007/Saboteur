@@ -47,6 +47,7 @@
     <Compile Include="ClientObject.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Launcher.cs" />
+    <Compile Include="LobbyManager.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

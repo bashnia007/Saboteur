@@ -13,5 +13,21 @@ namespace CommonLibrary.Launchers
         public DuelLauncher(IGameSet gameSet) : base(gameSet)
         {
         }
+        
+        protected override void ProvideCardsToPlayers(List<Player> players)
+        {
+            const int cardsOnHand = 6;
+            for (int i = 0; i < players.Count(); i++)
+            {
+                var player = players[i];
+
+                //player.Role = GameSet.Roles.Dequeue();
+
+                for (int j = 0; j < cardsOnHand; j++)
+                {
+                    //player.Hand.Add(GameSet.HandCards.Dequeue());
+                }
+            }
+        }
     }
 }
