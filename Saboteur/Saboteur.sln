@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "..\CommonL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientLibrary", "..\ClientLibrary\ClientLibrary.csproj", "{DC7BDE3F-C5D1-4613-AB80-F892B4C78B82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidClient", "..\AndroidClient\AndroidClient.csproj", "{17EA0C9E-EC9D-4DC1-AFC0-08DE0FDF72C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{DC7BDE3F-C5D1-4613-AB80-F892B4C78B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC7BDE3F-C5D1-4613-AB80-F892B4C78B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC7BDE3F-C5D1-4613-AB80-F892B4C78B82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17EA0C9E-EC9D-4DC1-AFC0-08DE0FDF72C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17EA0C9E-EC9D-4DC1-AFC0-08DE0FDF72C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17EA0C9E-EC9D-4DC1-AFC0-08DE0FDF72C5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{17EA0C9E-EC9D-4DC1-AFC0-08DE0FDF72C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17EA0C9E-EC9D-4DC1-AFC0-08DE0FDF72C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17EA0C9E-EC9D-4DC1-AFC0-08DE0FDF72C5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

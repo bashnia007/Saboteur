@@ -81,6 +81,7 @@
     <Compile Include="ViewModel\LobbyViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel2.cs" />
     <Compile Include="ViewModel\PlayerActionsViewModel.cs" />
     <Compile Include="ViewModel\PlayerHandViewModel.cs" />
     <Page Include="LobbyWindow.xaml">
