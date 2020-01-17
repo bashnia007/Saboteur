@@ -19,6 +19,7 @@ namespace XamarinApp.ViewModels
 
         #region Private fields
 
+        private string _login;
         private ContentPage _loginPage;
 
         #endregion
@@ -41,8 +42,9 @@ namespace XamarinApp.ViewModels
 
         private void ExecuteJoinCommand(object obj)
         {
+            var vm = new LobbyViewModel(Login);
 
-            _loginPage.Navigation.PushAsync(new LobbyPage(Login));
+            _loginPage.Navigation.PushAsync(vm.TabbedPage);
         }
 
         private bool CanExecuteJoinCommand(object obj)

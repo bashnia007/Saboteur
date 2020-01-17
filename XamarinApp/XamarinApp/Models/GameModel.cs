@@ -1,5 +1,5 @@
-﻿using CommonLibrary;
-using CommonLibrary.Helpers;
+﻿using CommonLibraryStandard.Game;
+using CommonLibraryStandard.Helpers;
 using System;
 using XamarinApp.MVVM;
 

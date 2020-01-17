@@ -8,6 +8,10 @@
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Picker ItemsSource="{Binding GameTypes}"
+                    SelectedItem="{Binding SelectedGameType}"></Picker>
+            <Button Text="Create game"
+                    Command="{Binding CreateGameCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

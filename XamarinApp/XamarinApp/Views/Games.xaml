@@ -5,10 +5,19 @@
              Title="Games">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <ListView ItemsSource="{Binding Games}"></ListView>
+            <ListView ItemsSource="{Binding Games}" 
+                      SelectedItem="{Binding SelectedGame}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Creator}" />
+                                <Label Text="{Binding GameType}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

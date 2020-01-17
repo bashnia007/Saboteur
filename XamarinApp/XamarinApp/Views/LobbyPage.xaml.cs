@@ -16,10 +16,5 @@ namespace XamarinApp.Views
         {
             InitializeComponent();
         }
-
-        public LobbyPage (string login)
-		{
-			InitializeComponent ();
-		}
 	}
 }
