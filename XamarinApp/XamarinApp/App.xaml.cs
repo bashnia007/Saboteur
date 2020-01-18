@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinApp.ViewModels;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace XamarinApp
@@ -11,7 +12,16 @@ namespace XamarinApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Views.LoginPage());
+            if (!App.Current.Properties.Keys.Contains("Login"))
+            {
+                MainPage = new NavigationPage(new Views.LoginPage());
+            }
+            else
+            {
+                string login = App.Current.Properties["Login"].ToString();
+                var vm = new LobbyViewModel(login);
+                MainPage = new NavigationPage(vm.TabbedPage);
+            }
             //MainPage = new Views.LoginPage();
         }
 
