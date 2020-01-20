@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Forms;
 using XamarinApp.MVVM;
 
 namespace XamarinApp.ViewModels
@@ -18,11 +19,18 @@ namespace XamarinApp.ViewModels
 
         #endregion
 
+        #region Private fields
+
+        private TabbedPage _tabbedPage;
+
+        #endregion
+
         #region Constructors
 
-        public CreateGameViewModel()
+        public CreateGameViewModel(TabbedPage tabbedPage)
         {
             GameTypes = ((GameType[])Enum.GetValues(typeof(GameType))).ToList();
+            _tabbedPage = tabbedPage;
         }
 
         #endregion
@@ -37,7 +45,8 @@ namespace XamarinApp.ViewModels
 
         private void ExecuteCreateGameCommand(object obj)
         {
-            throw new NotImplementedException();
+            var gameVm = new GameViewModel();
+            _tabbedPage.Navigation.PushAsync(gameVm.GamePage);
         }
 
         private bool CanExecuteCreateGameCommand(object arg)

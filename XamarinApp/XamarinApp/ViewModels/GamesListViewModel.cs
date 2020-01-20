@@ -9,12 +9,12 @@ using XamarinApp.MVVM;
 
 namespace XamarinApp.ViewModels
 {
-    public class GamesViewModel : ViewModelBase
+    public class GamesListViewModel : ViewModelBase
     {
         public List<GameModel> Games { get; set; }
         public GameModel SelectedGame { get; set; }
 
-        public GamesViewModel()
+        public GamesListViewModel()
         {
             Games = new List<GameModel>();
             var superPlayer = new Player("ololo");

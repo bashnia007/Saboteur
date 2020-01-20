@@ -21,11 +21,11 @@ namespace XamarinApp.ViewModels
             });
             TabbedPage.Children.Add(new Games
             {
-                BindingContext = new GamesViewModel()
+                BindingContext = new GamesListViewModel()
             });
             TabbedPage.Children.Add(new Creategame
             {
-                BindingContext = new CreateGameViewModel()
+                BindingContext = new CreateGameViewModel(TabbedPage)
             });
         }
     }

@@ -12,6 +12,13 @@ namespace XamarinApp
         {
             InitializeComponent();
 
+            //MainPage = new NavigationPage(new Views.GamePage());
+            Init();
+            //MainPage = new Views.LoginPage();
+        }
+
+        private void Init()
+        {
             if (!App.Current.Properties.Keys.Contains("Login"))
             {
                 MainPage = new NavigationPage(new Views.LoginPage());
@@ -22,9 +29,8 @@ namespace XamarinApp
                 var vm = new LobbyViewModel(login);
                 MainPage = new NavigationPage(vm.TabbedPage);
             }
-            //MainPage = new Views.LoginPage();
         }
-
+        
         protected override void OnStart()
         {
             // Handle when your app starts
