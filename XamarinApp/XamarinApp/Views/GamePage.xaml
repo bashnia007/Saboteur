@@ -17,7 +17,8 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="{local:ImageResource XamarinApp.Images.Routes.Cross.png}">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectImage}" />
+                        <TapGestureRecognizer Command="{Binding SelectImage}"
+                                              CommandParameter="Image1"/>
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>
