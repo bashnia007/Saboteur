@@ -11,6 +11,21 @@
 
   <ItemGroup>
     <None Remove="Images\Routes\Cross.png" />
+    <None Remove="Images\Routes\lamp_fix.png" />
+    <None Remove="Images\Routes\pick_fix.png" />
+    <None Remove="Images\Routes\trolley_fix.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\Routes\lamp_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Routes\pick_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Routes\trolley_fix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

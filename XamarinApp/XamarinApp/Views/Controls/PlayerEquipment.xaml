@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinApp.Views.Controls.PlayerEquipment">
-  <ContentView.Content>
-      <StackLayout Orientation="Horizontal">
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
-</ContentView>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Image x:Name="LampImage" Grid.Column="0"></Image>
+    <Image x:Name="PickImage" Grid.Column="1"></Image>
+    <Image x:Name="TrolleyImage" Grid.Column="2"></Image>
+</Grid>

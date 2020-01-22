@@ -6,7 +6,11 @@
              x:Class="XamarinApp.Views.GamePage"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
             <!--<Grid x:Name="CardsTable">
                 <Image Source="{local:ImageResource XamarinApp.Images.Routes.Cross.png}">
                     <Image.GestureRecognizers>
@@ -18,9 +22,14 @@
                               HorizontalOptions="FillAndExpand"
                               VerticalOptions="FillAndExpand"></controls:Map>
             </Grid>-->
-            <controls:Map Images="{Binding Images}" 
-                              HorizontalOptions="FillAndExpand"
-                              VerticalOptions="FillAndExpand"></controls:Map>
-        </StackLayout>
+            <controls:Map Grid.Column="0"
+                          Images="{Binding Images}" 
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"></controls:Map>
+            <controls:PlayerEquipment Grid.Column="1"
+                                      Lamp="lamp_fix.png"
+                                      Pick="pick_fix.png" 
+                                      Trolley="trolley_fix.png"></controls:PlayerEquipment>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
