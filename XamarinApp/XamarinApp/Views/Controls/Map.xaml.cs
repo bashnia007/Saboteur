@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using XamarinApp.Models;
 
 namespace XamarinApp.Views.Controls
 {
 	public partial class Map : ScrollView
     {
-		public Map ()
+        public Map ()
 		{
 			InitializeComponent ();
         }
@@ -53,12 +47,23 @@ namespace XamarinApp.Views.Controls
                 MapGrid.RowDefinitions = rowDefinitions;
                 MapGrid.ColumnDefinitions = columnDefinitions;
 
+
                 for (int x = 0; x < Images.Count; x++)
                 {
                     var row = Images[0];
                     for (int y = 0; y < row.Count; y++)
                     {
-                        MapGrid.Children.Add(new Image { Source = row[y].Image, Aspect=Aspect.AspectFill }, y, x);
+                        var tapGestureRecognizer = new TapGestureRecognizer();
+                        tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandProperty, "SelectImage");
+                        tapGestureRecognizer.CommandParameter = row[y].Image;
+                        var image = new Image
+                        {
+                            Source = row[y].Image,
+                            Aspect = Aspect.AspectFill,
+                        };
+                        image.GestureRecognizers.Add(tapGestureRecognizer);
+                        
+                        MapGrid.Children.Add(image, y, x);
                     }
                 }
             }

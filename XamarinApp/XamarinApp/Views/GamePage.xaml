@@ -15,17 +15,6 @@
                 <RowDefinition />
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <!--<Grid x:Name="CardsTable">
-                <Image Source="{local:ImageResource XamarinApp.Images.Routes.Cross.png}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectImage}"
-                                              CommandParameter="Image1"/>
-                    </Image.GestureRecognizers>
-                </Image> 
-                <controls:Map Images="{Binding Images}" 
-                              HorizontalOptions="FillAndExpand"
-                              VerticalOptions="FillAndExpand"></controls:Map>
-            </Grid>-->
             <controls:Map Grid.Column="0"
                           Images="{Binding Images}" 
                           HorizontalOptions="FillAndExpand"
