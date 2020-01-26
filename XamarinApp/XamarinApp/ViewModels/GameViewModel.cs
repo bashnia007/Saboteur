@@ -16,6 +16,8 @@ namespace XamarinApp.ViewModels
         public ContentPage GamePage { get; private set; }
 
         public List<List<ImageWithCoordinates>> Images { get; set; }
+
+        public HandModel HandModel { get; set; }
         
         #endregion
 
@@ -37,6 +39,17 @@ namespace XamarinApp.ViewModels
                 Images.Add(list);
             }
             OnPropertyChanged(nameof(Images));
+
+            HandModel = new HandModel();
+            HandModel.Cards = new List<string>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                HandModel.Cards.Add("Cross.png");
+            }
+            HandModel.RoleImage = "blue_dwarf.png";
+
+            OnPropertyChanged(nameof(HandModel));
         }
         
         #endregion

@@ -10,7 +10,7 @@ using XamarinApp.Models;
 
 namespace XamarinApp.Views.Controls
 {
-	public partial class Map : Grid
+	public partial class Map : ScrollView
     {
 		public Map ()
 		{
@@ -41,13 +41,13 @@ namespace XamarinApp.Views.Controls
                 var rowDefinitions = new RowDefinitionCollection();
                 for (int i = 0; i < Images.Count; i++)
                 {
-                    rowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    rowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) });
                 }
 
                 var columnDefinitions = new ColumnDefinitionCollection();
                 for (int i = 0; i < Images[0].Count; i++)
                 {
-                    columnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    columnDefinitions.Add(new ColumnDefinition { Width = new GridLength(35, GridUnitType.Absolute) });
                 }
 
                 MapGrid.RowDefinitions = rowDefinitions;
@@ -58,7 +58,7 @@ namespace XamarinApp.Views.Controls
                     var row = Images[0];
                     for (int y = 0; y < row.Count; y++)
                     {
-                        MapGrid.Children.Add(new Image { Source = row[y].Image, }, y, x);
+                        MapGrid.Children.Add(new Image { Source = row[y].Image, Aspect=Aspect.AspectFill }, y, x);
                     }
                 }
             }

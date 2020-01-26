@@ -8,9 +8,13 @@
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
             <!--<Grid x:Name="CardsTable">
                 <Image Source="{local:ImageResource XamarinApp.Images.Routes.Cross.png}">
                     <Image.GestureRecognizers>
@@ -30,6 +34,9 @@
                                       Lamp="lamp_fix.png"
                                       Pick="pick_fix.png" 
                                       Trolley="trolley_fix.png"></controls:PlayerEquipment>
+            <controls:HandControl Grid.Column="0"
+                                  Grid.Row="1"
+                                  HandCards="{Binding HandModel}"></controls:HandControl>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
