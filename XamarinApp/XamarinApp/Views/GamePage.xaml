@@ -20,9 +20,7 @@
                           HorizontalOptions="FillAndExpand"
                           VerticalOptions="FillAndExpand"></controls:Map>
             <controls:PlayerEquipment Grid.Column="1"
-                                      Lamp="lamp_fix.png"
-                                      Pick="pick_fix.png" 
-                                      Trolley="trolley_fix.png"></controls:PlayerEquipment>
+                                      EquipmentList="{Binding EquipmentList}"></controls:PlayerEquipment>
             <controls:HandControl Grid.Column="0"
                                   Grid.Row="1"
                                   HandCards="{Binding HandModel}"></controls:HandControl>

@@ -18,6 +18,8 @@ namespace XamarinApp.ViewModels
         public List<List<ImageWithCoordinates>> Images { get; set; }
 
         public HandModel HandModel { get; set; }
+
+        public List<EquipmentModel> EquipmentList { get; set; }
         
         #endregion
 
@@ -50,6 +52,24 @@ namespace XamarinApp.ViewModels
             HandModel.RoleImage = "blue_dwarf.png";
 
             OnPropertyChanged(nameof(HandModel));
+
+
+            EquipmentList = new List<EquipmentModel>
+            {
+                new EquipmentModel
+                {
+                    Image = "lamp_fix.png"
+                },
+                new EquipmentModel
+                {
+                    Image = "pick_fix.png"
+                },
+                new EquipmentModel
+                {
+                    Image = "trolley_fix.png"
+                },
+            };
+            OnPropertyChanged(nameof(EquipmentList));
         }
         
         #endregion
@@ -67,6 +87,23 @@ namespace XamarinApp.ViewModels
         }
 
         private bool CanExecuteSelectImage(object arg)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region SelectEquipment
+
+        private RelayCommand _selectEquipment;
+
+        public ICommand SelectEquipment => _selectEquipment ?? (_selectEquipment = new RelayCommand(ExecuteSelectEquipment, CanExecuteSelectEquipment));
+
+        private void ExecuteSelectEquipment(object obj)
+        {
+        }
+
+        private bool CanExecuteSelectEquipment(object arg)
         {
             return true;
         }

@@ -46,8 +46,7 @@ namespace XamarinApp.Views.Controls
 
                 MapGrid.RowDefinitions = rowDefinitions;
                 MapGrid.ColumnDefinitions = columnDefinitions;
-
-
+                
                 for (int x = 0; x < Images.Count; x++)
                 {
                     var row = Images[0];
