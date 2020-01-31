@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinApp.MVVM;
+using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels
 {
@@ -49,7 +50,18 @@ namespace XamarinApp.ViewModels
 
         private void ExecuteCreateGameCommand(object obj)
         {
-            var gameVm = new GameViewModel();
+            GameViewModel gameVm;
+            switch (SelectedGameMode)
+            {
+                case GameMode.Single:
+                    gameVm = new GameViewModel(new SingleGame());
+                    break;
+                case GameMode.Multiplayer:
+                    gameVm = new GameViewModel(new MultiPlayerGame());
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
             _tabbedPage.Navigation.PushAsync(gameVm.GamePage);
         }
 

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinApp.Models;
 using XamarinApp.MVVM;
+using XamarinApp.Services;
 using XamarinApp.Views;
 
 namespace XamarinApp.ViewModels
@@ -20,12 +21,24 @@ namespace XamarinApp.ViewModels
         public HandModel HandModel { get; set; }
 
         public List<EquipmentModel> EquipmentList { get; set; }
+
+        #endregion
+
+        #region private fields
+
+        private IGame _game;
         
         #endregion
 
         #region Constructors
-        
-        public GameViewModel()
+
+        public GameViewModel(IGame game)
+        {
+            FakeInit();
+            _game = game;
+        }
+
+        private void FakeInit()
         {
             GamePage = new GamePage();
             GamePage.BindingContext = this;
