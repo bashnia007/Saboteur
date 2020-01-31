@@ -16,5 +16,9 @@ namespace XamarinApp.Views
 		{
 			InitializeComponent ();
 		}
-	}
+        void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            slider.Value = Math.Round(e.NewValue);
+        }
+    }
 }

@@ -15,6 +15,16 @@
                     SelectedItem="{Binding SelectedGameType}"></Picker>
             <Button Text="Create game"
                     Command="{Binding CreateGameCommand}"></Button>
+            <Label Text="Select number of players:"
+                   HorizontalOptions="Center" />
+            <Label Text="{Binding PlayersCount, Mode=TwoWay}"
+                   HorizontalOptions="Center" />
+            <Slider x:Name="slider"
+                    Maximum="{Binding MaxPlayers}"
+                    Minimum="0"
+                    ValueChanged="Slider_ValueChanged"
+                    Value="{Binding PlayersCount}"
+                    Margin="10, 0"></Slider>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

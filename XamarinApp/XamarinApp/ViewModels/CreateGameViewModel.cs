@@ -1,10 +1,13 @@
-﻿using CommonLibraryStandard.Enums;
+﻿using CommonLibraryStandard;
+using CommonLibraryStandard.Enums;
+using CommonLibraryStandard.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinApp.Models;
 using XamarinApp.MVVM;
 using XamarinApp.Services;
 
@@ -17,10 +20,60 @@ namespace XamarinApp.ViewModels
         public List<GameType> GameTypes { get; set; }
         public List<GameMode> GameModes { get; set; }
 
-        public GameType SelectedGameType { get; set; }
+        private GameType _selectedGameType;
+        public GameType SelectedGameType
+        {
+            get
+            {
+                return _selectedGameType;
+            }
+            set
+            {
+                if (_selectedGameType != value)
+                {
+                    _selectedGameType = value;
+                    switch(_selectedGameType)
+                    {
+                        case GameType.Duel:
+                            MaxPlayers = 2;
+                            break;
+                        case GameType.Classic:
+                            MaxPlayers = 10;
+                            break;
+                        case GameType.Extended:
+                            MaxPlayers = 12;
+                            break;
+                        default: MaxPlayers = 2;
+                            break;
+                    }
+                    OnPropertyChanged(nameof(SelectedGameType));
+                    PlayersCount = 0;
+                    OnPropertyChanged(nameof(MaxPlayers));
+                }
+            }
+        }
 
         public GameMode SelectedGameMode { get; set; }
 
+        public int MaxPlayers { get; set; }
+
+        public int _playersCount;
+        public int PlayersCount
+        {
+            get
+            {
+                return _playersCount;
+            }
+            set
+            {
+                if (value != _playersCount)
+                {
+                    _playersCount = value;
+                    OnPropertyChanged(nameof(PlayersCount));
+                }
+            }
+        }
+        
         #endregion
 
         #region Private fields
@@ -33,6 +86,7 @@ namespace XamarinApp.ViewModels
 
         public CreateGameViewModel(TabbedPage tabbedPage)
         {
+            MaxPlayers = 2;
             GameTypes = ((GameType[])Enum.GetValues(typeof(GameType))).ToList();
             GameModes = ((GameMode[])Enum.GetValues(typeof(GameMode))).ToList();
             _tabbedPage = tabbedPage;
