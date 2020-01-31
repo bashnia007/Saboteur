@@ -5,9 +5,12 @@
              Title="Create game">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Select mode:"
+                   HorizontalOptions="Center" />
+            <Picker ItemsSource="{Binding GameModes}"
+                    SelectedItem="{Binding SelectedGameMode}"></Picker>
+            <Label Text="Select type of game:"
+                   HorizontalOptions="Center" />
             <Picker ItemsSource="{Binding GameTypes}"
                     SelectedItem="{Binding SelectedGameType}"></Picker>
             <Button Text="Create game"

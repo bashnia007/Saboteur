@@ -14,8 +14,11 @@ namespace XamarinApp.ViewModels
         #region Properties
 
         public List<GameType> GameTypes { get; set; }
+        public List<GameMode> GameModes { get; set; }
 
         public GameType SelectedGameType { get; set; }
+
+        public GameMode SelectedGameMode { get; set; }
 
         #endregion
 
@@ -30,6 +33,7 @@ namespace XamarinApp.ViewModels
         public CreateGameViewModel(TabbedPage tabbedPage)
         {
             GameTypes = ((GameType[])Enum.GetValues(typeof(GameType))).ToList();
+            GameModes = ((GameMode[])Enum.GetValues(typeof(GameMode))).ToList();
             _tabbedPage = tabbedPage;
         }
 
