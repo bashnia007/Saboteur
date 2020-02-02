@@ -23,13 +23,13 @@ namespace Server
         public static Game RecieveGame(Guid gameId)
         {
             var result = _games.FirstOrDefault(g => g.GameId == gameId);
-            if (result == null) Logger.Write($"Can't find game with id = {gameId}");
+            if (result == null) Logger.Log.Error($"Can't find game with id = {gameId}");
             return result;
         }
 
         public static Game CreateGame(Game game)
         {
-            Logger.Write($"Game with id={game.GameId} was created");
+            Logger.Log.Info($"Game with id={game.GameId} was created");
             _games.Add(game);
             return game;
         }
@@ -37,7 +37,7 @@ namespace Server
         public static Game CreateGame(GameType gameType, Player creator)
         {
             Game newGame = new Game(gameType, creator);
-            Logger.Write($"Game with id={newGame.GameId} was created");
+            Logger.Log.Info($"Game with id={newGame.GameId} was created");
             _games.Add(newGame);
             return newGame;
         }
@@ -48,7 +48,7 @@ namespace Server
 
             if (game == null)
             {
-                Logger.Write($"Game with id={gameId} wasn't found", LogLevel.Error);
+                Logger.Log.Error($"Game with id={gameId} wasn't found");
                 return false;
             }
 
@@ -57,7 +57,7 @@ namespace Server
 
         public static void CloseGame(Guid gameId)
         {
-            Logger.Write($"Game with id={gameId} was closed");
+            Logger.Log.Info($"Game with id={gameId} was closed");
             _games.RemoveAll(g => g.GameId == gameId);
         }
     }

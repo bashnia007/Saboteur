@@ -21,6 +21,7 @@ namespace Server
         {
             _clients.Add(clientObject);
         }
+
         protected internal void RemoveConnection(string id)
         {
             // получаем по id закрытое подключение

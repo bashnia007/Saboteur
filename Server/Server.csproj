@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\Saboteur\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,20 +47,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardManager.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="ClientObject.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="LobbyManager.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="ServerObject.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonLibraryStandard\CommonLibraryStandard.csproj">
+      <Project>{e0478da6-10e0-4410-b075-d6af72572fd0}</Project>
+      <Name>CommonLibraryStandard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{03aa8623-e629-47ea-a0d2-458b5627016a}</Project>
       <Name>CommonLibrary</Name>

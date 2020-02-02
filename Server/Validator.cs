@@ -27,7 +27,7 @@ namespace Server
 			bool validateRightJoining = rightCardFromTable == null || (routeCard.JoiningRight == rightCardFromTable.JoiningLeft);
 			bool validateLeftJoining = leftCardFromTable == null || (routeCard.JoiningLeft == leftCardFromTable.JoiningRight);
 
-		    Logger.Write($"Validating route: top={validateTopJoining}, bottom={validateBottomJoining}, left={validateLeftJoining}, right={validateRightJoining}");
+		    //Logger.Write($"Validating route: top={validateTopJoining}, bottom={validateBottomJoining}, left={validateLeftJoining}, right={validateRightJoining}");
 
             //Вызываем метод, проверяющий возможность прохождения тунеля на данный момент
             bool canPassTunnel = IsConnectionOpen(routeCard, roleType);// ValidateCanPassTunnel(routeCard, tableRouteCards, new RouteCard(0, 2));
@@ -71,8 +71,8 @@ namespace Server
             bool validateLeftJoining = routeCard.NeighbourLeft != null &&
                                        (((int)roleType & (int)routeCard.NeighbourLeft.ConnectionRight) != 0);
 
-	        Logger.Write($"Validating connection is open: " +
-	                     $"top={validateTopJoining}, bottom={validateBottomJoining}, left={validateLeftJoining}, right={validateRightJoining}");
+	        //Logger.Write($"Validating connection is open: " +
+	        //             $"top={validateTopJoining}, bottom={validateBottomJoining}, left={validateLeftJoining}, right={validateRightJoining}");
 
             return validateTopJoining || validateBottomJoining || validateRightJoining || validateLeftJoining;
 	    }

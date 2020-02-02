@@ -23,7 +23,7 @@ namespace Server
         public static List<Message> HandleMessage(Message message, ClientObject client)
         {
             var type = message.MessageType;
-            Logger.Write($"Received {type.ToString()} message from client {client.Id}");
+            //Logger.Write($"Received {type.ToString()} message from client {client.Id}");
 
             switch (type)
             {
@@ -130,7 +130,7 @@ namespace Server
 
             if (player == null)
             {
-                Logger.Write($"Cannot find player with id {userId} in connected players", LogLevel.Error);
+                //Logger.Write($"Cannot find player with id {userId} in connected players", LogLevel.Error);
             }
             else
             {
@@ -151,7 +151,7 @@ namespace Server
             Player player = (Player)AbstractPlayers.FirstOrDefault(p => p.Id == userId);
             if (player == null)
             {
-                Logger.Write($"Cannot find player with id {userId} in connected players", LogLevel.Error);
+                //Logger.Write($"Cannot find player with id {userId} in connected players", LogLevel.Error);
             }
             else
             {
@@ -190,14 +190,14 @@ namespace Server
                 IsBroadcast = false
             });
 
-            Logger.Write($"Initialize message was sent for client {client.Id}");
+            //Logger.Write($"Initialize message was sent for client {client.Id}");
 
             return result;
         }
 
         private static List<Message> HandleTextMessage(Message message, ClientObject client)
         {
-            Logger.Write($"Text message was received from client {client.Id}");
+            //Logger.Write($"Text message was received from client {client.Id}");
             var result = new List<Message>();
             result.Add(new TextMessage
             {
@@ -205,13 +205,13 @@ namespace Server
                 SenderId = client.Id
             });
 
-            Logger.Write($"Text message was sent from client {client.Id}");
+            //Logger.Write($"Text message was sent from client {client.Id}");
             return result;
         }
 
         private static List<Message> HandleReadyToPlayMessage(Message message, ClientObject client)
         {
-            Logger.Write($"Ready to play message was received from client {client.Id}");
+            //Logger.Write($"Ready to play message was received from client {client.Id}");
             var result = new List<Message>();
             client.IsReady = true;
             client.Server.LaunchGame();
@@ -221,13 +221,13 @@ namespace Server
                 SenderId = client.Id
             });
 
-            Logger.Write($"Ready to play message was sent from client {client.Id}");
+            //Logger.Write($"Ready to play message was sent from client {client.Id}");
             return result;
         }
 
         private static List<Message> HandleBuildMessage(Message message, ClientObject client)
         {
-            Logger.Write($"Build message was received from client {client.Id}");
+            //Logger.Write($"Build message was received from client {client.Id}");
 
             var result = new List<Message>();
 
@@ -292,14 +292,14 @@ namespace Server
                 result.Add(PrepareGoldMessage());
                 result.Add(new UpdateTokensMessage(Table.Tokens));
 
-                Logger.Write($"Build message was sent from client {client.Id}");
+                //Logger.Write($"Build message was sent from client {client.Id}");
             }
             else
             {
                 buildMessage.IsSuccessfulBuild = false;
                 buildMessage.IsBroadcast = false;
 
-                Logger.Write($"Can't build message was sent for client {client.Id}");
+                //Logger.Write($"Can't build message was sent for client {client.Id}");
             }
 
 

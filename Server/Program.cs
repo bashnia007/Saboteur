@@ -11,22 +11,24 @@ namespace Server
 {
     class Program
     {
-        static ServerObject server; // сервер
+        static Server server; // сервер
         static Thread listenThread; // потока для прослушивания
 
         static void Main(string[] args)
         {
-            Logger.Write("Server started");
+            Logger.InitLogger();
+            Logger.Log.Info("Server started");
             try
             {
-                server = new ServerObject();
+                server = new Server();
                 listenThread = new Thread(server.Listen);
                 listenThread.Start(); //старт потока
             }
             catch (Exception ex)
             {
-                Logger.Write("Server stopped due to exception: " + ex.Message, LogLevel.Error);
-                server.Disconnect();
+                Logger.Log.Error("Server stopped due to exception: " + ex.Message);
+                server.DisconnectAllClients();
+                listenThread.Interrupt();
                 Console.WriteLine(ex.Message);
             }
         }
