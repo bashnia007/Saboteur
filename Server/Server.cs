@@ -30,13 +30,11 @@ namespace Server
                     Client client = new Client(tcpClient, this);
                     Thread clientThread = new Thread(client.Process);
                     clientThread.Start();
-                    Console.WriteLine("Client connected");
                 }
             }
             catch (Exception ex)
             {
                 Logger.Log.Error("Server stopped due to exception: " + ex.Message);
-                Console.WriteLine(ex.Message);
                 DisconnectAllClients();
             }
         }
@@ -45,6 +43,19 @@ namespace Server
         {
             Logger.Log.Info($"Client {client.Id} connected");
             _clients.Add(client);
+        }
+
+        public void RemoveConnection(string id)
+        {
+            // получаем по id закрытое подключение
+            Client client = _clients.FirstOrDefault(c => c.Id == id);
+            // и удаляем его из списка подключений
+            if (client != null)
+            {
+                Logger.Log.Info($"Client {client.Id} disconnected");
+                _clients.Remove(client);
+                MessageManager.AbstractPlayers.RemoveAll(p => p.Id == id);
+            }
         }
 
         public void DisconnectAllClients()

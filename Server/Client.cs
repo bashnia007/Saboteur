@@ -35,7 +35,7 @@ namespace Server
             }
             catch (Exception ex)
             {
-                Logger.Log.Error("Client process stopped due exception: " + ex.Message);
+                Logger.Log.Error($"Client {Id} process stopped due exception: " + ex.Message);
             }
             finally
             {
@@ -47,6 +47,7 @@ namespace Server
         // закрытие подключения
         protected internal void Close()
         {
+            Logger.Log.Info("Close connection for client " + Id);
             _stream?.Close();
             _client?.Close();
         }
